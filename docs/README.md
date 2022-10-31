@@ -3,20 +3,22 @@ layout: home
 permalink: index.html
 
 # Please update this with your repository name and project title
-repository-name: eYY-3yp-project-template
-title: Project Template
+repository-name: e18-3yp-automated-poultry-farming
+title: Automated poultry farming
 ---
 
 [comment]: # "This is the standard layout for the project, but you can clean this and use your own template"
 
-# Project Title
+# Automated Poultry Farming
 
 ---
 
 ## Team
--  eNumber, Name, [email](mailto:name@email.com)
--  eNumber, Name, [email](mailto:name@email.com)
--  eNumber, Name, [email](mailto:name@email.com)
+-  E/18/017, Aarah J.F., [jfaarah12@gmail.com](mailto:jfaarah12@gmail.com)
+-  E/18/177, Khan A.K.M.S., [shamilkhan414@gmail.com](mailto:shamilkhan414@gmail.com)
+-  E/18/304, Rishad N.M., [nmrishad6747@gmail.com](mailto:nmrishad6747@gmail.com)
+
+---
 
 <!-- Image (photo/drawing of the final hardware) should be here -->
 
