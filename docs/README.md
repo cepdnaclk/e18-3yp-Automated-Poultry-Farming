@@ -41,7 +41,7 @@ Poultry industry is the fastest growing livestock industry in Sri Lanka. For the
 
 
 ## Solution Architecture
-<img src="images/Solution Architechture.png" width="600" >
+<img src="images/Solution Architechture.png" width="800" >
 
 High level diagram + description
 
