@@ -39,7 +39,7 @@ title: Automated poultry farming
 
 Poultry industry is the fastest growing livestock industry in Sri Lanka. For the year 2020 poultry contribute to 0.61 of nominal GDP which is 64 % of the total GDP contribution of Sri Lankan livestock. In this scenario one of the most important challenges for this industry is to enhance the productivity while remaining economically and environmentally sustainable.
 
-https://user-images.githubusercontent.com/98948845/204136549-62e7a184-6266-467d-848a-4b5cd0d0433d.mp4
+<a href="https://www.youtube.com/watch?v=NX5H5fn3JVs">
 
 
 ## Solution Architecture
