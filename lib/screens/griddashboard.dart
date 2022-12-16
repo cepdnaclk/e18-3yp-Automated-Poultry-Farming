@@ -13,6 +13,7 @@ class GridDashboard extends StatefulWidget {
   static const routeFeed = '/feed';
   static const routeView = '/view';
   static const routeFCR = '/FCR';
+  static const routeAddData = '/adddata';
   const GridDashboard(this.flockID, {Key? key}) : super(key: key);
 
   @override
@@ -65,6 +66,12 @@ class _GridDashboardState extends State<GridDashboard> {
     routeName: '/eggs',
   );
 
+  Items item8 = Items(
+    title: "Add Data",
+    img: "assets/images/data_icon.png",
+    routeName: '/adddata',
+  );
+
   @override
   Widget build(BuildContext context) {
     String strain;
@@ -85,10 +92,10 @@ class _GridDashboardState extends State<GridDashboard> {
             // print(strain);
             if (strain == "Dekalb White - Layer" ||
                 strain == "Shaver Brown - Layer") {
-              mylist = [item1, item2, item3, item4, item5, item7, item6];
+              mylist = [item1, item2, item3, item4, item5, item7, item6, item8];
               print("Layer Detected");
             } else {
-              mylist = [item1, item2, item3, item4, item5, item6];
+              mylist = [item1, item2, item3, item4, item5, item6, item8];
               print("Not a layer".tr);
             }
           }

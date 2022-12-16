@@ -7,6 +7,7 @@ import 'package:home_login/localeString.dart';
 import 'package:flutter/services.dart';
 
 import 'package:home_login/screens/RegScreens/farmReg_screen.dart';
+import 'package:home_login/screens/addData.dart';
 import 'package:home_login/screens/egg_screen.dart';
 import 'package:home_login/screens/farm_view.dart';
 import 'package:home_login/screens/fcr_screen.dart';
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
             GridDashboard.routeMortal: (context) => const MortalityScreen(),
             GridDashboard.routeWeight: (context) => const BodyWeight(),
             GridDashboard.routeView: (context) => ViewScreen(),
+            GridDashboard.routeAddData: (context) => const AddData(),
             //'/view': (context) => const ViewScreen(),
             '/eggs': (context) => const EggScreen(),
           },
