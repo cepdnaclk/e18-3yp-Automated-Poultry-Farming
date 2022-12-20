@@ -1,11 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:home_login/localeString.dart';
-
 import 'package:flutter/services.dart';
-
+import 'package:home_login/screens/QR.dart';
 import 'package:home_login/screens/RegScreens/farmReg_screen.dart';
 import 'package:home_login/screens/addData.dart';
 import 'package:home_login/screens/egg_screen.dart';
@@ -52,7 +50,7 @@ class MyApp extends StatelessWidget {
             '/eggs': (context) => const EggScreen(),
           },
           // ignore: prefer_const_constructors
-          home: SplashScreen(),
+          home: SignInScreen(),
         );
       },
     );
