@@ -17,6 +17,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
 
+import 'AutomatedData/data_display.dart';
+
 class AutomatedData extends StatefulWidget {
   final String id_flock;
   final String startDateNavi;
@@ -43,8 +45,8 @@ class _AutomatedDataState extends State<AutomatedData> {
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
   String ? userToken="";
-  String ? titleForFeed ="Feed level Alert!!!";
-  String ? titleForwater ="Water level Alert!!!";
+  String  titleForFeed ="Feed level Alert!!!";
+  String  titleForwater ="Water level Alert!!!";
   String ? bodyForFeed ="";
   String ? bodyForwater ="";
 
@@ -70,14 +72,175 @@ class _AutomatedDataState extends State<AutomatedData> {
     super.initState();
 
     //function which request permission from device
-    //requestPermission();
+    requestPermission();
 
     //function retrieving device token
-    //getToken();
+    getToken();
 
     //function initializing plugins
-    //initInfo();
+    initInfo();
   }
+
+  Future onSelectNotification(String? payload) async {
+    print(payload);
+  }
+
+
+  initInfo(){
+    var androidInitialize = AndroidInitializationSettings('@mipmap/ic_launcher');
+    var iOSInitialize = IOSInitializationSettings();
+    var initializationsSettings = InitializationSettings(android: androidInitialize, iOS: iOSInitialize);
+    flutterLocalNotificationsPlugin.initialize(initializationsSettings, onSelectNotification: (String? payload) async{
+
+      try{
+        if(payload != null && payload.isNotEmpty){
+          //once the notification is clicked the person will be redirected to this page
+          Navigator.push(context,MaterialPageRoute(builder: (BuildContext context){
+            return DataDisplayPage(info: payload.toString());
+          }
+
+          ));
+
+        }
+
+      }catch(e){
+        return;
+      }
+
+
+    }
+
+
+
+    );
+
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async{
+      print(".................onMessage.................");
+      print("onMessage: ${message.notification?.title}/${message.notification?.body}");
+
+      BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
+        message.notification!.body.toString(),htmlFormatBigText: true,
+        contentTitle: message.notification!.title.toString(),
+        htmlFormatContentTitle: true,
+      );
+
+      AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
+        '3YP_Poultry','3YP_Poultry',importance: Importance.high,
+        styleInformation: bigTextStyleInformation, priority: Priority.high, playSound: true,
+
+      );
+
+      NotificationDetails platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics,
+          iOS: IOSNotificationDetails()
+
+      );
+      await flutterLocalNotificationsPlugin.show(0, message.notification?.title,
+          message.notification?.body, platformChannelSpecifics,
+          payload: message.data['body']
+      );
+
+    });
+
+  }
+
+
+  //device tokewn
+  void getToken() async {
+    await FirebaseMessaging.instance.getToken().then(
+            (token){
+          setState(() {
+            mtoken = token;
+            print("My token is $mtoken");
+          });
+          //saveToken(token!);
+
+        }
+    );
+  }
+
+  //Save the token to identify the user
+/*
+  void saveToken(String token) async {
+    await FirebaseFirestore.instance.collection("UserTokens").doc("User2").set({
+      'token': token,
+    });
+  }
+
+ */
+
+  void requestPermission() async {
+    FirebaseMessaging messaging =FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+
+    );
+
+    if(settings.authorizationStatus == AuthorizationStatus.authorized){
+      print('User granted permission');
+    } else if(settings.authorizationStatus == AuthorizationStatus.provisional){
+      print('User granted provisional permission');
+    }else{
+      print('User declined or has not accepted permission');
+    }
+  }
+
+  void sendPushMessage(String token, String body, String title) async {
+    try{
+      await http.post(
+          Uri.parse('https://fcm.googleapis.com/fcm/send'),
+          headers: <String, String>{
+            'Content-Type': 'application/json',
+            'Authorization': 'key=AAAA2NM6B2o:APA91bFQ-fVUfnC4xRx2pO7cANA7oNpchFgkOKrxX8Wy9kvukzF5StLE-fOU6wt6FofB62vEGvEoGLr9eCrYF9UDLIyH1IVEdka5qsu3qplBqM6cxh6DqgEMY97enHOleGV8gs561fWQ',
+          },
+          //This has two parts in json the FLUTTER NOTIFIcation CLICK part is to send
+          //the user to a different page
+          //second part "notification is to print the notification"
+          body: jsonEncode(
+              <String, dynamic>{
+
+                'priority': 'high',
+                'data': <String, dynamic>{
+                  'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+                  'status': 'done',
+                  'body': body,
+                  'title': title,
+                },
+
+                "notification": <String, dynamic>{
+                  "title": title,
+                  "body": body,
+                  "android_channel_id": "3YP_Poultry",
+                  "priority": "10",
+
+                },
+
+                "to": token,
+              }
+          )
+
+      );
+    }
+    catch(e){
+      if(kDebugMode){
+        print("error push notification");
+
+      }
+
+    }
+
+  }
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -348,6 +511,7 @@ class _AutomatedDataState extends State<AutomatedData> {
                     // print(args.flockID);
                     // print(_numcontroller.text);
                     //print(time.toString());
+                    sendPushMessage(mtoken!,"Feed level is less than ${_numcontroller.text}g" ,titleForFeed!);
                     await addData(
                         widget.id_flock,
                         date.toString().substring(0, 10),
@@ -366,11 +530,10 @@ class _AutomatedDataState extends State<AutomatedData> {
                         textColor: mPrimaryColor);
                   },
                   style: ElevatedButton.styleFrom(
-                    fixedSize: const Size(200, 50),
+                    fixedSize: const Size(200, 50), backgroundColor: mPrimaryColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
-                    primary: mPrimaryColor,
                     elevation: 20,
                     shadowColor: mSecondColor,
                     textStyle: TextStyle(
