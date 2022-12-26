@@ -174,8 +174,7 @@ class _AutomatedDataState extends State<AutomatedData> {
                                   ),
                                   textButtonTheme: TextButtonThemeData(
                                     style: TextButton.styleFrom(
-                                      primary:
-                                          mPrimaryColor, // button text color
+                                      foregroundColor: mPrimaryColor, // button text color
                                     ),
                                   ),
                                 ),
@@ -188,14 +187,13 @@ class _AutomatedDataState extends State<AutomatedData> {
                           setState(() => date = ndate);
                         },
                         style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(180, 50),
+                          fixedSize: const Size(180, 50), backgroundColor: mBackgroundColor,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
                               side: BorderSide(
                                 width: 2.0,
                                 color: mPrimaryColor,
                               )),
-                          primary: mBackgroundColor,
                           elevation: 20,
                           shadowColor: Colors.transparent,
                           textStyle: TextStyle(
@@ -288,7 +286,7 @@ class _AutomatedDataState extends State<AutomatedData> {
               //     weightDataStrain[index].valueOf(days).toString()),
 
               //reuseTextField("Mortality"),
-              /*
+
               SizedBox(
                 height: 20.0,
               ),
@@ -300,7 +298,7 @@ class _AutomatedDataState extends State<AutomatedData> {
                 child: reusableTextField2("avgWeightofChick".tr, Icons.numbers,
                     false, _numcontroller, null, "g"),
               ),
-              */
+
 
               SizedBox(
                 height: 40,
