@@ -10,6 +10,13 @@ import 'package:home_login/screens/view_screen.dart';
 import 'package:home_login/screens/strain.dart' as strainList;
 import 'package:sizer/sizer.dart';
 
+import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:http/http.dart' as http;
+
 class AutomatedData extends StatefulWidget {
   final String id_flock;
   final String startDateNavi;
@@ -27,9 +34,19 @@ class AutomatedData extends StatefulWidget {
 }
 
 class _AutomatedDataState extends State<AutomatedData> {
-  //List weightDataCobb500 = [];
+
   List<strainList.PoultryData> weightDataStrain = [];
   List<strainList.PoultryData> feedtDataStrain = [];
+
+  //To get the device token
+  String ? mtoken="";
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+  String ? userToken="";
+  String ? titleForFeed ="Feed level Alert!!!";
+  String ? titleForwater ="Water level Alert!!!";
+  String ? bodyForFeed ="";
+  String ? bodyForwater ="";
 
   late DateTime startDate;
   int days = 0;
@@ -51,6 +68,15 @@ class _AutomatedDataState extends State<AutomatedData> {
   void initState() {
     startDate = DateTime.parse(widget.startDateNavi);
     super.initState();
+
+    //function which request permission from device
+    //requestPermission();
+
+    //function retrieving device token
+    //getToken();
+
+    //function initializing plugins
+    //initInfo();
   }
 
   @override
