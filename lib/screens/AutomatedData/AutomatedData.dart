@@ -17,7 +17,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
 
-import 'AutomatedData/data_display.dart';
+import 'data_display.dart';
 
 class AutomatedData extends StatefulWidget {
   final String id_flock;
@@ -64,6 +64,9 @@ class _AutomatedDataState extends State<AutomatedData> {
 
   final TextEditingController _datecontroller = TextEditingController();
   final TextEditingController _numcontroller = TextEditingController();
+  final TextEditingController _numcontrollerMorning = TextEditingController();
+  final TextEditingController _numcontrollerEvening = TextEditingController();
+  final TextEditingController _numcontrollerNight = TextEditingController();
 
   //List<strainList.PoultryData> _list = strainList.PoultryData.feedDataCobb500;
   @override
@@ -290,7 +293,7 @@ class _AutomatedDataState extends State<AutomatedData> {
                       .doc(FirebaseAuth.instance.currentUser!.uid)
                       .collection('flock')
                       .doc(widget.id_flock)
-                      .collection('BodyWeight')
+                      .collection('FeedIntake')
                       .where(FieldPath.documentId,
                           isEqualTo: date.toString().substring(0, 10))
                       .snapshots(),
@@ -298,7 +301,7 @@ class _AutomatedDataState extends State<AutomatedData> {
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     num amount = -1;
                     try {
-                      amount = snapshot.data?.docs[0]['Average_Weight'];
+                      amount = snapshot.data?.docs[0]['Number_of_bags'];
                     } catch (e) {
                       amount = -1;
                     }
@@ -424,7 +427,7 @@ class _AutomatedDataState extends State<AutomatedData> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "ideal".tr + widget.strainNavi + "avgWeight".tr,
+                    "ideal".tr + widget.strainNavi + "feed".tr,
                     style: TextStyle(fontSize: 15, color: mPrimaryColor),
                   ),
                   Container(
@@ -438,7 +441,7 @@ class _AutomatedDataState extends State<AutomatedData> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: Text(
-                      weightDataStrain[days].valueOf(days).toString() + " g",
+                      feedtDataStrain[days].valueOf(days).toString() + " g",
                       style: TextStyle(fontSize: 17, color: mNewColor),
                     ),
                   ),
@@ -473,25 +476,87 @@ class _AutomatedDataState extends State<AutomatedData> {
               ),
               // Text("Expected feed intake: " +
               //     weightDataStrain[index].valueOf(days).toString()),
-
-              //reuseTextField("Mortality"),
-
               SizedBox(
                 height: 20.0,
               ),
+              //reuseTextField("Mortality"),
+
+              //Morning Feed
+              Padding(
+                padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                child: Text(
+                  "Morning Feed",
+                  style: TextStyle(fontSize: 20, color: mPrimaryColor),
+                ),
+              ),
+
+
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
                 //child: reuseTextField1("Number of chicks"),
 
-                child: reusableTextField2("avgWeightofChick".tr, Icons.numbers,
-                    false, _numcontroller, null, "g"),
+                child: reusableTextField2("Morning Feed/chick", Icons.numbers,
+                    false, _numcontrollerMorning, null, "g"),
+              ),
+
+
+
+
+              SizedBox(
+                height: 5,
+              ),
+
+              Padding(
+                padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                child: Text(
+                  "Evening Feed",
+                  style: TextStyle(fontSize: 20, color: mPrimaryColor),
+                ),
+              ),
+
+              //Evening Feed
+              Padding(
+                padding:
+                const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
+                //child: reuseTextField1("Number of chicks"),
+
+                child: reusableTextField2("Evening Feed/chick", Icons.numbers,
+                    false, _numcontrollerEvening, null, "g"),
+              ),
+
+
+              SizedBox(
+                height: 5,
+              ),
+
+              Padding(
+                padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                child: Text(
+                  "Night Feed",
+                  style: TextStyle(fontSize: 20, color: mPrimaryColor),
+                ),
+              ),
+
+              //Night Feed
+              Padding(
+                padding:
+                const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
+                //child: reuseTextField1("Number of chicks"),
+
+                child: reusableTextField2("Night Feed/chick", Icons.numbers,
+                    false, _numcontrollerNight, null, "g"),
               ),
 
 
               SizedBox(
                 height: 40,
               ),
+
+
+
+
+
               Center(
                 child: Image.asset(
                   "assets/images/weight.png",
