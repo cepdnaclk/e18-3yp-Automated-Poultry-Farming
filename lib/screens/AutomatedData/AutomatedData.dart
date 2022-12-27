@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:home_login/screens/view_screen.dart';
 import 'package:home_login/screens/strain.dart' as strainList;
 import 'package:sizer/sizer.dart';
-
+import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -70,12 +70,19 @@ class _AutomatedDataState extends State<AutomatedData> {
   final TextEditingController _numcontrollerMorning = TextEditingController();
   final TextEditingController _numcontrollerEvening = TextEditingController();
   final TextEditingController _numcontrollerNight = TextEditingController();
+  final TextEditingController timeinMor = TextEditingController();
+  final TextEditingController timeinEve = TextEditingController();
+  final TextEditingController timeinNit = TextEditingController();
 
   //List<strainList.PoultryData> _list = strainList.PoultryData.feedDataCobb500;
   @override
   void initState() {
-    startDate = DateTime.parse(widget.startDateNavi);
     super.initState();
+    startDate = DateTime.parse(widget.startDateNavi);
+    timeinMor.text = ""; //set the initial value of text field
+    timeinEve.text = ""; //set the initial value of text field
+    timeinNit.text = ""; //set the initial value of text field
+
 
     //function which request permission from device
     requestPermission();
@@ -276,6 +283,7 @@ class _AutomatedDataState extends State<AutomatedData> {
     // print(chick);
     //final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     return GestureDetector(
+
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         appBar: AppBar(
@@ -436,7 +444,10 @@ class _AutomatedDataState extends State<AutomatedData> {
                     ),
                     child: Text(
                       feedtDataStrain[days].valueOf(days).toString() + " g",
-                      style: TextStyle(fontSize: 17, color: mNewColor),
+                      style: TextStyle(
+                          color: mNewColor,
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
@@ -463,7 +474,10 @@ class _AutomatedDataState extends State<AutomatedData> {
                     ),
                     child: Text(
                       widget.startDateNavi,
-                      style: TextStyle(fontSize: 17, color: mNewColor),
+                      style: TextStyle(
+                          color: mNewColor,
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
@@ -515,7 +529,7 @@ class _AutomatedDataState extends State<AutomatedData> {
                                   mortal.toString(),
                                   style: TextStyle(
                                       color: mNewColor,
-                                      fontSize: 20,
+                                      fontSize: 17,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -546,7 +560,7 @@ class _AutomatedDataState extends State<AutomatedData> {
                                   (startCount - mortal).toString(),
                                   style: TextStyle(
                                       color: mNewColor,
-                                      fontSize: 20,
+                                      fontSize: 17,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -585,11 +599,94 @@ class _AutomatedDataState extends State<AutomatedData> {
                     false, _numcontrollerMorning, null, "g"),
               ),
 
+              Padding(
+                padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                child:TextFormField(
+                  controller: timeinMor,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          width: 10,
+                          style: BorderStyle.none,
+                          color: mPrimaryColor,
+                        ),
+
+
+                      ),
+                      icon: Icon(Icons.timer,color: mPrimaryColor,), //icon of text field
+                      labelText: "Enter Morning Feed Time",
+                    labelStyle: TextStyle(
+                        color: Colors.grey
+                    ),//label text of field
+                    filled: true,
+                    floatingLabelBehavior: FloatingLabelBehavior.auto,
+                    fillColor: Colors.grey[50],
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                        borderSide: BorderSide(
+                          width: 2,
+                          color: mPrimaryColor,
+                        )),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide(
+                        color: mPrimaryColor,
+                        width: 2.0,
+                      ),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide(
+                        color: mPrimaryColor,
+                        width: 2.0,
+                      ),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide(
+                        color: mPrimaryColor,
+                        width: 2.0,
+                      ),
+                    ),
+                  ),
+                  readOnly: true,
+                  onTap: () async{
+                    TimeOfDay? pickedTime =  await showTimePicker(
+                      context: context,
+                      initialTime: TimeOfDay.now(),
+                      builder: (context,child){
+                        return Theme(data: _buildShrineTheme(), child: child!);
+                      },
+                    );
+
+                    if(pickedTime != null ){
+                      print(pickedTime.format(context));   //output 10:51 PM
+                      DateTime parsedTime = DateFormat.jm().parse(pickedTime.format(context).toString());
+                      //converting to DateTime so that we can further format on different pattern.
+                      print(parsedTime); //output 1970-01-01 22:53:00.000
+                      String formattedTime = DateFormat('HH:mm:ss').format(parsedTime);
+                      print(formattedTime); //output 14:59:00
+                      //DateFormat() is from intl package, you can format the time on any pattern you need.
+
+                      setState(() {
+                        timeinMor.text = formattedTime; //set the value of text field.
+                      });
+                    }else{
+                      print("Time is not selected");
+                    }
+
+                  },
+
+                ),
+              ),
+
+
 
 
 
               SizedBox(
-                height: 5,
+                height: 20,
               ),
 
               Padding(
@@ -610,9 +707,95 @@ class _AutomatedDataState extends State<AutomatedData> {
                     false, _numcontrollerEvening, null, "g"),
               ),
 
+              Padding(
+                padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                child:TextFormField(
+                  controller: timeinEve,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(
+                        width: 10,
+                        style: BorderStyle.none,
+                        color: mPrimaryColor,
+                      ),
+
+
+                    ),
+                    icon: Icon(Icons.timer,color: mPrimaryColor,), //icon of text field
+                    labelText: "Enter Evening Feed Time",
+                    labelStyle: TextStyle(
+                        color: Colors.grey
+                    ),//label text of field
+                    filled: true,
+                    floatingLabelBehavior: FloatingLabelBehavior.auto,
+                    fillColor: Colors.grey[50],
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                        borderSide: BorderSide(
+                          width: 2,
+                          color: mPrimaryColor,
+                        )),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide(
+                        color: mPrimaryColor,
+                        width: 2.0,
+                      ),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide(
+                        color: mPrimaryColor,
+                        width: 2.0,
+                      ),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide(
+                        color: mPrimaryColor,
+                        width: 2.0,
+                      ),
+                    ),
+                  ),
+                  readOnly: true,
+                  onTap: () async{
+                    TimeOfDay? pickedTime =  await showTimePicker(
+                      context: context,
+                      initialTime: TimeOfDay.now(),
+                      builder: (context,child){
+                        return Theme(data: _buildShrineTheme(), child: child!);
+                      },
+                    );
+
+                    if(pickedTime != null ){
+                      print(pickedTime.format(context));   //output 10:51 PM
+                      DateTime parsedTime = DateFormat.jm().parse(pickedTime.format(context).toString());
+                      //converting to DateTime so that we can further format on different pattern.
+                      print(parsedTime); //output 1970-01-01 22:53:00.000
+                      String formattedTime = DateFormat('HH:mm:ss').format(parsedTime);
+                      print(formattedTime); //output 14:59:00
+                      //DateFormat() is from intl package, you can format the time on any pattern you need.
+
+                      setState(() {
+                        timeinEve.text = formattedTime; //set the value of text field.
+                      });
+                    }else{
+                      print("Time is not selected");
+                    }
+
+
+
+
+                  },
+
+                ),
+              ),
+
+
 
               SizedBox(
-                height: 5,
+                height: 20,
               ),
 
               Padding(
@@ -632,6 +815,89 @@ class _AutomatedDataState extends State<AutomatedData> {
                 child: reusableTextField2("Night Feed/chick", Icons.numbers,
                     false, _numcontrollerNight, null, "g"),
               ),
+
+              Padding(
+                padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                child:TextFormField(
+                  controller: timeinNit,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(
+                        width: 10,
+                        style: BorderStyle.none,
+                        color: mPrimaryColor,
+                      ),
+
+
+                    ),
+                    icon: Icon(Icons.timer,color: mPrimaryColor,), //icon of text field
+                    labelText: "Enter Night Feed Time",
+                    labelStyle: TextStyle(
+                        color: Colors.grey
+                    ),//label text of field
+                    filled: true,
+                    floatingLabelBehavior: FloatingLabelBehavior.auto,
+                    fillColor: Colors.grey[50],
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                        borderSide: BorderSide(
+                          width: 2,
+                          color: mPrimaryColor,
+                        )),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide(
+                        color: mPrimaryColor,
+                        width: 2.0,
+                      ),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide(
+                        color: mPrimaryColor,
+                        width: 2.0,
+                      ),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide(
+                        color: mPrimaryColor,
+                        width: 2.0,
+                      ),
+                    ),
+                  ),
+                  readOnly: true,
+                  onTap: () async{
+                    TimeOfDay? pickedTime =  await showTimePicker(
+                      context: context,
+                      initialTime: TimeOfDay.now(),
+                      builder: (context,child){
+                        return Theme(data: _buildShrineTheme(), child: child!);
+                      },
+                    );
+
+                    if(pickedTime != null ){
+                      print(pickedTime.format(context));   //output 10:51 PM
+                      DateTime parsedTime = DateFormat.jm().parse(pickedTime.format(context).toString());
+                      //converting to DateTime so that we can further format on different pattern.
+                      print(parsedTime); //output 1970-01-01 22:53:00.000
+                      String formattedTime = DateFormat('HH:mm:ss').format(parsedTime);
+                      print(formattedTime); //output 14:59:00
+                      //DateFormat() is from intl package, you can format the time on any pattern you need.
+
+                      setState(() {
+                        timeinNit.text = formattedTime; //set the value of text field.
+                      });
+                    }else{
+                      print("Time is not selected");
+                    }
+
+                  },
+
+                ),
+              ),
+
 
 
               SizedBox(
@@ -785,6 +1051,8 @@ class _AutomatedDataState extends State<AutomatedData> {
   }
 }
 
+
+
 TextFormField reusableTextField3(
     String text,
     IconData icon,
@@ -847,3 +1115,78 @@ TextFormField reusableTextField3(
         : TextInputType.emailAddress,
   );
 }
+
+
+ThemeData _buildShrineTheme() {
+  final ThemeData base = ThemeData.light();
+  return base.copyWith(
+    toggleableActiveColor: shrinePink400,
+    primaryColor: shrinePink100,
+    scaffoldBackgroundColor: shrineBackgroundWhite,
+    cardColor: shrineBackgroundWhite,
+    textSelectionTheme: TextSelectionThemeData(selectionColor: shrinePink100),
+    errorColor: shrineErrorRed,
+    buttonTheme: const ButtonThemeData(
+      colorScheme: _shrineColorScheme,
+      textTheme: ButtonTextTheme.normal,
+    ),
+    primaryIconTheme: _customIconTheme(base.iconTheme),
+    textTheme: _buildShrineTextTheme(base.textTheme),
+    primaryTextTheme: _buildShrineTextTheme(base.primaryTextTheme),
+    iconTheme: _customIconTheme(base.iconTheme), colorScheme: _shrineColorScheme.copyWith(secondary: shrineBrown900),
+  );
+}
+
+IconThemeData _customIconTheme(IconThemeData original) {
+  return original.copyWith(color: shrineBrown900);
+}
+
+TextTheme _buildShrineTextTheme(TextTheme base) {
+  return base
+      .copyWith(
+    caption: base.caption?.copyWith(
+      fontWeight: FontWeight.w400,
+      fontSize: 14,
+      letterSpacing: defaultLetterSpacing,
+    ),
+    button: base.button?.copyWith(
+      fontWeight: FontWeight.w500,
+      fontSize: 14,
+      letterSpacing: defaultLetterSpacing,
+    ),
+  )
+      .apply(
+    fontFamily: 'Rubik',
+    displayColor: shrineBrown900,
+    bodyColor: shrineBrown900,
+  );
+}
+
+const ColorScheme _shrineColorScheme = ColorScheme(
+  primary: shrinePink400,
+  secondary: shrinePink50,
+  surface: shrineSurfaceWhite,
+  background: shrineBackgroundWhite,
+  error: shrineErrorRed,
+  onPrimary: shrineBrown900,
+  onSecondary: shrineBrown900,
+  onSurface: shrineBrown900,
+  onBackground: shrineBrown900,
+  onError: shrineSurfaceWhite,
+  brightness: Brightness.light,
+);
+
+const Color shrinePink50 = Color(0xFFC28E79);
+const Color shrinePink100 = Color(0xFFC28E79);
+const Color shrinePink300 = Color(0xFFB98068);
+const Color shrinePink400 = Color(0xFFB98068);
+
+const Color shrineBrown900 = Color(0xFF442B2D);
+const Color shrineBrown600 = Color(0xFF7D4F52);
+
+const Color shrineErrorRed = Color(0xFFC5032B);
+
+const Color shrineSurfaceWhite = Color(0xFFFFFBFA);
+const Color shrineBackgroundWhite = Colors.white;
+
+const defaultLetterSpacing = 0.03;
