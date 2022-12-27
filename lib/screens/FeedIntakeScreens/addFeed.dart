@@ -335,10 +335,10 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(200, 50),
+                    backgroundColor: mPrimaryColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
-                    primary: mPrimaryColor,
                     elevation: 20,
                     shadowColor: mSecondColor,
                     textStyle: TextStyle(

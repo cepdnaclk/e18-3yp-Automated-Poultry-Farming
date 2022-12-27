@@ -44,6 +44,9 @@ class _AutomatedDataState extends State<AutomatedData> {
   String ? mtoken="";
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
+  int mortal = 0, startCount = 0;
+  String totalChick = '', flockID = '', strain = '';
+
   String ? userToken="";
   String  titleForFeed ="Feed level Alert!!!";
   String  titleForwater ="Water level Alert!!!";
@@ -267,6 +270,9 @@ class _AutomatedDataState extends State<AutomatedData> {
 
     // strainList.PoultryData chick = weightDataCobb500[20];
 
+    //final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+
+
     // print(chick);
     //final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     return GestureDetector(
@@ -284,8 +290,9 @@ class _AutomatedDataState extends State<AutomatedData> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
               SizedBox(
-                height: 20.0,
+                height: 5.0,
               ),
               StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
@@ -301,30 +308,19 @@ class _AutomatedDataState extends State<AutomatedData> {
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     num amount = -1;
                     try {
-                      amount = snapshot.data?.docs[0]['Number_of_bags'];
+                     // amount = snapshot.data?.docs[0]['Number_of_bags'];
                     } catch (e) {
                       amount = -1;
                     }
                     if (amount == -1 || amount == 0) {
                       return SizedBox(
                         height: 30.0,
-                        // child: Text(
-                        //   "You haven't recorded average weight for " +
-                        //       date.toString().substring(0, 10),
-                        //   textAlign: TextAlign.center,
-                        //   style: TextStyle(
-                        //       fontSize: 20, color: mPrimaryTextColor),
-                        // ),
+
                       );
                     } else {
                       return SizedBox(
                         height: 30.0,
-                        // child: Text(
-                        //   "You have already recorded ${snapshot.data?.docs[0]['Average_Weight']} average weight for ${date.toString().substring(0, 10)}",
-                        //   textAlign: TextAlign.center,
-                        //   style: TextStyle(
-                        //       fontSize: 20, color: mPrimaryTextColor),
-                        // ),
+
                       );
                     }
                   }),
@@ -361,8 +357,8 @@ class _AutomatedDataState extends State<AutomatedData> {
                                 data: Theme.of(context).copyWith(
                                   colorScheme: ColorScheme.light(
                                     primary: mNewColor,
-                                    onPrimary: Colors.white, // <-- SEE HERE
-                                    onSurface: mSecondColor, // <-- SEE HERE
+                                    onPrimary: Colors.white,
+                                    onSurface: mSecondColor,
                                   ),
                                   textButtonTheme: TextButtonThemeData(
                                     style: TextButton.styleFrom(
@@ -474,6 +470,103 @@ class _AutomatedDataState extends State<AutomatedData> {
                   ),
                 ],
               ),
+
+              StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('Farmers')
+                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                      .collection('flock')
+                      .where(FieldPath.documentId, isEqualTo: widget.id_flock)
+                      .snapshots(), // your stream url,
+                  builder:
+                      (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      //return CircularProgressIndicator();
+                    } else {
+                      //print(snapshot.toString());
+                      mortal = snapshot.data?.docs[0]['Mortal'];
+                      totalChick = snapshot.data?.docs[0]['count'];
+                      startCount = int.parse(totalChick);
+
+                    }
+
+                    return Container(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'totalMoartal'.tr,
+                                style: TextStyle(
+                                    color: mPrimaryColor,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                height: 25,
+                                width: 30.w,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: mPrimaryColor,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: Text(
+                                  mortal.toString(),
+                                  style: TextStyle(
+                                      color: mNewColor,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'totallive'.tr,
+                                style: TextStyle(
+                                    color: mPrimaryColor,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                height: 25,
+                                width: 30.w,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: mPrimaryColor,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: Text(
+                                  (startCount - mortal).toString(),
+                                  style: TextStyle(
+                                      color: mNewColor,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ],
+                          ),
+
+                        ],
+                      ),
+                    ); // Your grid code.
+                  }),
+
+
               // Text("Expected feed intake: " +
               //     weightDataStrain[index].valueOf(days).toString()),
               SizedBox(

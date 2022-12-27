@@ -69,6 +69,7 @@ class _FCRAutoScreenState extends State<FCRAutoScreen> {
                 print(mortal);
                 print(totalChick);
                 print(strain);
+                print("autoFCR page");
               }
 
               return Container(); // Your grid code.
