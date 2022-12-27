@@ -156,13 +156,12 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
                                 data: Theme.of(context).copyWith(
                                   colorScheme: ColorScheme.light(
                                     primary: mNewColor,
-                                    onPrimary: Colors.white, // <-- SEE HERE
-                                    onSurface: mSecondColor, // <-- SEE HERE
+                                    onPrimary: Colors.white,
+                                    onSurface: mSecondColor,
                                   ),
                                   textButtonTheme: TextButtonThemeData(
                                     style: TextButton.styleFrom(
-                                      primary:
-                                          mPrimaryColor, // button text color
+                                      foregroundColor: mPrimaryColor, // button text color
                                     ),
                                   ),
                                 ),
@@ -175,14 +174,13 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
                           setState(() => date = ndate);
                         },
                         style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(180, 50),
+                          fixedSize: const Size(180, 50), backgroundColor: mBackgroundColor,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
                               side: BorderSide(
                                 width: 2.0,
                                 color: mPrimaryColor,
                               )),
-                          primary: mBackgroundColor,
                           elevation: 20,
                           shadowColor: Colors.transparent,
                           textStyle: TextStyle(
