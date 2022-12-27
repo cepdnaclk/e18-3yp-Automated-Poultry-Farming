@@ -927,12 +927,28 @@ class _AutomatedDataState extends State<AutomatedData> {
                     // print(args.flockID);
                     // print(_numcontroller.text);
                     //print(time.toString());
-                    sendPushMessage(mtoken!,"Feed level is less than ${_numcontroller.text}g" ,titleForFeed!);
-                    await addData(
-                        widget.id_flock,
-                        date.toString().substring(0, 10),
-                        date.toString().substring(12, 16));
-                    _numcontroller.clear();
+
+                    sendPushMessage(mtoken!,"Morning Feed per Chick is  ${_numcontrollerMorning.text}g at ${timeinMor.text}\nEvening Feed per Chick is  ${_numcontrollerEvening.text}g at ${timeinEve.text}\nNight   Feed per Chick is  ${_numcontrollerNight.text}g   at ${timeinNit.text}\n" ,titleForFeed!);
+
+                    addData(
+                        widget.id_flock,date.toString().substring(0, 10),
+                        timeinMor.text,
+                        timeinEve.text,
+                        timeinNit.text,
+                        _numcontrollerMorning.text,
+                        _numcontrollerEvening.text,
+                        _numcontrollerNight.text);
+
+                    timeinMor.clear();
+                    timeinEve.clear();
+                    timeinNit.clear();
+                    _numcontrollerMorning.clear();
+                    _numcontrollerEvening.clear();
+                    _numcontrollerNight.clear();
+
+
+
+
                     setState(() {});
                     //Navigator.of(context).pop();
 
@@ -967,7 +983,7 @@ class _AutomatedDataState extends State<AutomatedData> {
     );
   }
 
-  Future<void> addData(String id, String date, String time) async {
+  Future<void> addData(String id, String date ,String MorTime,String EveTime,String NitTime,String MorFeedAmnt,String EveFeedAmnt,String NitFeedAmnt ) async {
     //num current = 0;
     //num value = double.parse(amount);
     try {
@@ -988,7 +1004,7 @@ class _AutomatedDataState extends State<AutomatedData> {
         if (!snapshot.exists) {
           //print("done 1 befre");
 
-          documentReference.set({time: 10, 'Evening': 12, 'Night': 15});
+          documentReference.set( {'Morning': "${MorTime}-${MorFeedAmnt}", 'Evening': "${EveTime}-${EveFeedAmnt}", 'Night': "${NitTime}-${NitFeedAmnt}"});
           //print("done 1");
 
           //return true;
@@ -997,7 +1013,7 @@ class _AutomatedDataState extends State<AutomatedData> {
             //num newAmount = snapshot.data()!['Amount'] + value;
             //current = snapshot.data()!['Average_Weight'];
             transaction.update(
-                documentReference, {time: 10, 'Evening': 12, 'Night': 15});
+                documentReference, {'Morning': "${MorTime}-${MorFeedAmnt}", 'Evening': "${EveTime}-${EveFeedAmnt}", 'Night': "${NitTime}-${NitFeedAmnt}"});
             //print("done 1.2");
             //print(current);
             //return true;
