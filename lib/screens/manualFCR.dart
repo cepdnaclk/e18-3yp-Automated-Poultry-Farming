@@ -46,7 +46,9 @@ class _FCRManualScreenState extends State<FCRManualScreen> {
         key: formKey,
         child: Scaffold(
           appBar: AppBar(
-            title: Text("FCRCalculation".tr),
+            title: Text("FCRCalculation".tr,
+                style: TextStyle(fontSize: 18)
+            ),
             backgroundColor: mPrimaryColor,
           ),
           body: SingleChildScrollView(
