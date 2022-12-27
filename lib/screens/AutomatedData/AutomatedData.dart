@@ -291,9 +291,7 @@ class _AutomatedDataState extends State<AutomatedData> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
-              SizedBox(
-                height: 5.0,
-              ),
+
               StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection("Farmers")
@@ -314,12 +312,12 @@ class _AutomatedDataState extends State<AutomatedData> {
                     }
                     if (amount == -1 || amount == 0) {
                       return SizedBox(
-                        height: 30.0,
+                        height: 5.0,
 
                       );
                     } else {
                       return SizedBox(
-                        height: 30.0,
+                        height: 5.0,
 
                       );
                     }
@@ -501,10 +499,7 @@ class _AutomatedDataState extends State<AutomatedData> {
                             children: [
                               Text(
                                 'totalMoartal'.tr,
-                                style: TextStyle(
-                                    color: mPrimaryColor,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontSize: 15, color: mPrimaryColor),
                               ),
                               Container(
                                 alignment: Alignment.center,
@@ -535,10 +530,7 @@ class _AutomatedDataState extends State<AutomatedData> {
                             children: [
                               Text(
                                 'totallive'.tr,
-                                style: TextStyle(
-                                    color: mPrimaryColor,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
+                                style: TextStyle(fontSize: 15, color: mPrimaryColor),
                               ),
                               Container(
                                 alignment: Alignment.center,
