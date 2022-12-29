@@ -62,18 +62,9 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight> {
               double amount = -1;
               String date;
               try {
-                // amount =
-                //     snapshot.data?.docs[i]['Average_Weight'];
+
                 date = snapshot.data!.docs[i].id;
-                //print(date);
 
-                //print(snapshot.data!.docs[i].id);
-
-                //print(amount);
-                //print("----------------------");
-                //print('');
-                //weightDataCurrent.add(PoultryData(i, amount));
-                //dateItems.add(date);
                 dateItems.add(
                   DropdownMenuItem(
                     child: Text(
@@ -81,16 +72,11 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight> {
                       style: TextStyle(color: mPrimaryColor),
                     ),
 
-                    //value: "${snap.id}",
+
                     value: "$date",
                   ),
                 );
 
-                // print(date);
-
-                //print(dateItems);
-                //amount = 0.0;
-                //print(dateItems);
               } catch (e) {
                 //amount = -1;
               }
