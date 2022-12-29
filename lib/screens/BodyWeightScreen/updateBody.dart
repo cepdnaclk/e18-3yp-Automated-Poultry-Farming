@@ -443,44 +443,6 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight> {
   }
 }
 
-// TextField reuseTextField1(String text) {
-//   return TextField(
-//     decoration: InputDecoration(
-//       labelText: text,
-//       labelStyle: TextStyle(color: Colors.black38),
-//       filled: true,
-//       floatingLabelBehavior: FloatingLabelBehavior.auto,
-//       fillColor: Colors.white,
-//       focusedBorder: OutlineInputBorder(
-//           borderRadius: BorderRadius.circular(30.0),
-//           borderSide: BorderSide(
-//             width: 2.0,
-//             color: mPrimaryColor,
-//           )),
-//       enabledBorder: OutlineInputBorder(
-//         borderRadius: BorderRadius.circular(30.0),
-//         borderSide: BorderSide(
-//           color: mPrimaryColor,
-//           width: 2.0,
-//         ),
-//       ),
-//       errorBorder: OutlineInputBorder(
-//         borderRadius: BorderRadius.circular(30.0),
-//         borderSide: BorderSide(
-//           color: mPrimaryColor,
-//           width: 2.0,
-//         ),
-//       ),
-//       focusedErrorBorder: OutlineInputBorder(
-//         borderRadius: BorderRadius.circular(30.0),
-//         borderSide: BorderSide(
-//           color: mPrimaryColor,
-//           width: 2.0,
-//         ),
-//       ),
-//     ),
-//   );
-// }
 
 TextFormField reusableTextField3(
     String text,
