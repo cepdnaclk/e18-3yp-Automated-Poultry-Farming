@@ -133,345 +133,417 @@ class _DataDisplayPageState extends State<DataDisplayPage> {
                         child: CircularProgressIndicator(),
                       );
                     } else {
-                      return Container(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 50,
-                            ),
-                            Center(
-                              child: Container(
-                                alignment: Alignment.center,
-                                height: 25,
-                                width: 40.w,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: mPrimaryColor,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                child: DropdownButton(
-                                    alignment: Alignment.center,
-                                    hint: new Text(
-                                      'selectDate'.tr,
-                                      style: TextStyle(
-                                        color: mPrimaryColor,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                    items: dateItems.toSet().toList(),
-                                    onChanged: (newValue) {
-                                      setState(() {
-                                        selectedDate = newValue
-                                            .toString()
-                                            .substring(0, 10);
-                                        print(selectedDate);
-                                      });
-                                    }),
+                      return Padding(
+                        padding:  EdgeInsets.fromLTRB(0, 0, 20, 0),
+                        child: Container(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 20,
                               ),
-                            ),
-                            SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "     " + "selectedDate".tr,
-                                  style: TextStyle(
-                                      fontSize: 16, color: mPrimaryColor),
-                                ),
-                                Container(
+                              Center(
+                                child: Container(
                                   alignment: Alignment.center,
                                   height: 25,
-                                  width: 30.w,
+                                  width: 40.w,
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                       color: mPrimaryColor,
                                     ),
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
-                                  child: Text(
-                                    "${selectedDate}",
+                                  child: DropdownButton(
+                                      alignment: Alignment.center,
+                                      hint: new Text(
+                                        'selectDate'.tr,
+                                        style: TextStyle(
+                                          color: mPrimaryColor,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      items: dateItems.toSet().toList(),
+                                      onChanged: (newValue) {
+                                        setState(() {
+                                          selectedDate = newValue
+                                              .toString()
+                                              .substring(0, 10);
+                                          print(selectedDate);
+                                        });
+                                      }),
+                                ),
+                              ),
+                              SizedBox(height: 20),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "     " + "selectedDate".tr,
                                     style: TextStyle(
                                         fontSize: 16, color: mPrimaryColor),
                                   ),
-                                ),
-                              ],
-                            ),
-                            StreamBuilder<QuerySnapshot>(
-                                stream: FirebaseFirestore.instance
-                                    .collection("Farmers")
-                                    .doc(FirebaseAuth.instance.currentUser!.uid)
-                                    .collection('flock')
-                                    .doc(widget.id_flock)
-                                    .collection('Data')
-                                    .where(FieldPath.documentId,
-                                    isEqualTo: selectedDate
-                                        .toString()
-                                        .substring(0, 10))
-                                    .snapshots(),
-                                builder: (BuildContext context,
-                                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                                  num amount = -1;
+                                  Container(
+                                    alignment: Alignment.center,
+                                    height: 25,
+                                    width: 30.w,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: mPrimaryColor,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    child: Text(
+                                      "${selectedDate}",
+                                      style: TextStyle(
+                                          fontSize: 16, color: mPrimaryColor),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              StreamBuilder<QuerySnapshot>(
+                                  stream: FirebaseFirestore.instance
+                                      .collection("Farmers")
+                                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                                      .collection('flock')
+                                      .doc(widget.id_flock)
+                                      .collection('Data')
+                                      .where(FieldPath.documentId,
+                                      isEqualTo: selectedDate
+                                          .toString()
+                                          .substring(0, 10))
+                                      .snapshots(),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                                    num amount = -1;
 
-                                  try {
-                                    rcdMor=snapshot.data?.docs[0]['Morning'];
-                                    rcdEve=snapshot.data?.docs[0]['Evening'];
-                                    rcdNit=snapshot.data?.docs[0]['Night'];
-                                    rcdFeedMor =rcdMor.substring(rcdMor.indexOf('-')+1, );
-                                    rcdFeedEve =rcdEve.substring(rcdEve.indexOf('-')+1, );
-                                    rcdFeedNit =rcdNit.substring(rcdNit.indexOf('-')+1, );
-                                    rcdTimeMor =rcdMor.substring(0, rcdMor.indexOf('-'));
-                                    rcdTimeEve =rcdEve.substring(0, rcdMor.indexOf('-'));
-                                    rcdTimeNit =rcdNit.substring(0, rcdMor.indexOf('-'));
+                                    try {
+                                      rcdMor=snapshot.data?.docs[0]['Morning'];
+                                      rcdEve=snapshot.data?.docs[0]['Evening'];
+                                      rcdNit=snapshot.data?.docs[0]['Night'];
+                                      rcdFeedMor =rcdMor.substring(rcdMor.indexOf('-')+1, );
+                                      rcdFeedEve =rcdEve.substring(rcdEve.indexOf('-')+1, );
+                                      rcdFeedNit =rcdNit.substring(rcdNit.indexOf('-')+1, );
+                                      rcdTimeMor =rcdMor.substring(0, rcdMor.indexOf('-'));
+                                      rcdTimeEve =rcdEve.substring(0, rcdMor.indexOf('-'));
+                                      rcdTimeNit =rcdNit.substring(0, rcdMor.indexOf('-'));
 
 
 
 
-                                  } catch (e) {
-                                    amount = -1;
-                                  }
-                                  if (amount == -1 || amount == 0) {
-                                    return Center();
-                                  } else {
-                                    return Container();
-                                  }
-                                }),
+                                    } catch (e) {
+                                      amount = -1;
+                                    }
+                                    if (amount == -1 || amount == 0) {
+                                      return Center();
+                                    } else {
+                                      return Container();
+                                    }
+                                  }),
 
 
-                          ],
+                            ],
+                          ),
                         ),
                       );
                       print(dateItems);
                     }
                   }),
 
-            Container(
-              child: Column(
-                children: [
-                  SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "     " + "Morning Feed/chick",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: mPrimaryColor),
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        height: 25,
-                        width: 30.w,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: mPrimaryColor,
-                          ),
-                          borderRadius:
-                          BorderRadius.circular(
-                              10.0),
-                        ),
-                        child: Text(
-                          rcdFeedMor + " g",
+            Padding(
+              padding:  EdgeInsets.fromLTRB(0, 0, 20, 0),
+              child: Container(
+                child: Column(
+                  children: [
+                    SizedBox(height: 5),
+                    Row(
+                      mainAxisAlignment:
+                      MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "     " + "Morning Feed/chick",
                           style: TextStyle(
                               fontSize: 16,
                               color: mPrimaryColor),
                         ),
-                      ),
-
-                    ],
-                  ),
-                  SizedBox(height: 10),
-
-                  Row(
-                    mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "     " + "Morning Feeding Time",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: mPrimaryColor),
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        height: 25,
-                        width: 30.w,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: mPrimaryColor,
+                        Container(
+                          alignment: Alignment.center,
+                          height: 25,
+                          width: 30.w,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: mPrimaryColor,
+                            ),
+                            borderRadius:
+                            BorderRadius.circular(
+                                10.0),
                           ),
-                          borderRadius:
-                          BorderRadius.circular(
-                              10.0),
+                          child: Text(
+                            rcdFeedMor + " g",
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: mPrimaryColor),
+                          ),
                         ),
-                        child: Text(
-                          rcdTimeMor,
+
+                      ],
+                    ),
+                    SizedBox(height: 5),
+
+                    Row(
+                      mainAxisAlignment:
+                      MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "     " + "Morning Feeding Time",
                           style: TextStyle(
                               fontSize: 16,
                               color: mPrimaryColor),
                         ),
-                      ),
-
-                    ],
-                  ),
-                  SizedBox(height: 10),
-
-                  Row(
-                    mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "     " + "Evening Feed/chick",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: mPrimaryColor),
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        height: 25,
-                        width: 30.w,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: mPrimaryColor,
+                        Container(
+                          alignment: Alignment.center,
+                          height: 25,
+                          width: 30.w,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: mPrimaryColor,
+                            ),
+                            borderRadius:
+                            BorderRadius.circular(
+                                10.0),
                           ),
-                          borderRadius:
-                          BorderRadius.circular(
-                              10.0),
+                          child: Text(
+                            rcdTimeMor,
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: mPrimaryColor),
+                          ),
                         ),
-                        child: Text(
-                          rcdFeedEve + " g",
+
+                      ],
+                    ),
+                    SizedBox(height: 5),
+
+                    Row(
+                      mainAxisAlignment:
+                      MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "     " + "Evening Feed/chick",
                           style: TextStyle(
                               fontSize: 16,
                               color: mPrimaryColor),
                         ),
-                      ),
-
-                    ],
-                  ),
-                  SizedBox(height: 10),
-
-                  Row(
-                    mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "     " + "Evening Feeding Time",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: mPrimaryColor),
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        height: 25,
-                        width: 30.w,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: mPrimaryColor,
+                        Container(
+                          alignment: Alignment.center,
+                          height: 25,
+                          width: 30.w,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: mPrimaryColor,
+                            ),
+                            borderRadius:
+                            BorderRadius.circular(
+                                10.0),
                           ),
-                          borderRadius:
-                          BorderRadius.circular(
-                              10.0),
+                          child: Text(
+                            rcdFeedEve + " g",
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: mPrimaryColor),
+                          ),
                         ),
-                        child: Text(
-                          rcdTimeEve,
+
+                      ],
+                    ),
+                    SizedBox(height: 5),
+
+                    Row(
+                      mainAxisAlignment:
+                      MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "     " + "Evening Feeding Time",
                           style: TextStyle(
                               fontSize: 16,
                               color: mPrimaryColor),
                         ),
-                      ),
-
-                    ],
-                  ),
-                  SizedBox(height: 10),
-
-                  Row(
-                    mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "     " + "Night Feed/chick",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: mPrimaryColor),
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        height: 25,
-                        width: 30.w,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: mPrimaryColor,
+                        Container(
+                          alignment: Alignment.center,
+                          height: 25,
+                          width: 30.w,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: mPrimaryColor,
+                            ),
+                            borderRadius:
+                            BorderRadius.circular(
+                                10.0),
                           ),
-                          borderRadius:
-                          BorderRadius.circular(
-                              10.0),
+                          child: Text(
+                            rcdTimeEve,
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: mPrimaryColor),
+                          ),
                         ),
-                        child: Text(
-                          rcdFeedNit + " g",
+
+                      ],
+                    ),
+                    SizedBox(height: 5),
+
+                    Row(
+                      mainAxisAlignment:
+                      MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "     " + "Night Feed/chick",
                           style: TextStyle(
                               fontSize: 16,
                               color: mPrimaryColor),
                         ),
-                      ),
-
-                    ],
-                  ),
-                  SizedBox(height: 10),
-
-                  Row(
-                    mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "     " + "Night Feeding Time",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: mPrimaryColor),
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        height: 25,
-                        width: 30.w,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: mPrimaryColor,
+                        Container(
+                          alignment: Alignment.center,
+                          height: 25,
+                          width: 30.w,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: mPrimaryColor,
+                            ),
+                            borderRadius:
+                            BorderRadius.circular(
+                                10.0),
                           ),
-                          borderRadius:
-                          BorderRadius.circular(
-                              10.0),
+                          child: Text(
+                            rcdFeedNit + " g",
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: mPrimaryColor),
+                          ),
                         ),
-                        child: Text(
-                          rcdTimeNit,
+
+                      ],
+                    ),
+                    SizedBox(height: 5),
+
+                    Row(
+                      mainAxisAlignment:
+                      MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "     " + "Night Feeding Time",
                           style: TextStyle(
                               fontSize: 16,
                               color: mPrimaryColor),
                         ),
-                      ),
+                        Container(
+                          alignment: Alignment.center,
+                          height: 25,
+                          width: 30.w,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: mPrimaryColor,
+                            ),
+                            borderRadius:
+                            BorderRadius.circular(
+                                10.0),
+                          ),
+                          child: Text(
+                            rcdTimeNit,
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: mPrimaryColor),
+                          ),
+                        ),
 
-                    ],
-                  ),
+                      ],
+                    ),
+
+                    SizedBox(height: 5),
+
+                    Row(
+                      mainAxisAlignment:
+                      MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "     " + "Feed Tank Capacity",
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: mPrimaryColor),
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          height: 25,
+                          width: 30.w,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: mPrimaryColor,
+                            ),
+                            borderRadius:
+                            BorderRadius.circular(
+                                10.0),
+                          ),
+                          child: Text(
+                            "1000 kg",
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: mPrimaryColor),
+                          ),
+                        ),
+
+                      ],
+                    ),
+
+                    SizedBox(height: 5),
+
+                    Row(
+                      mainAxisAlignment:
+                      MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "     " + "Water Tank Capacity",
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: mPrimaryColor),
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          height: 25,
+                          width: 30.w,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: mPrimaryColor,
+                            ),
+                            borderRadius:
+                            BorderRadius.circular(
+                                10.0),
+                          ),
+                          child: Text(
+                            "300 l",
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: mPrimaryColor),
+                          ),
+                        ),
+
+                      ],
+                    ),
 
 
 
-                ],
+                  ],
+                ),
+
+
               ),
-
-
             ),
 
 
 
-              Center(
-                child: Image.asset(
-                  "assets/images/weight-new.png",
-                  fit: BoxFit.fitWidth,
-                  width: context.width * 0.7,
-                  // height: 420,
-                  //color: Colors.purple,
-                ),
-              ),
+             SizedBox(
+               height: 20,
+             ),
 
+
+              /*
               Center(
                 child: ElevatedButton(
                   onPressed: () async {
@@ -509,6 +581,7 @@ class _DataDisplayPageState extends State<DataDisplayPage> {
                   child: Text("update".tr),
                 ),
               ),
+              */
             ],
           ),
         ),
