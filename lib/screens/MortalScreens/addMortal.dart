@@ -10,7 +10,7 @@ import 'package:home_login/screens/view_screen.dart';
 
 class AddMortal extends StatefulWidget {
   final String id_flock;
-  // const AddMortal({Key? key}) : super(key: key);
+
   AddMortal({
     Key? key,
     required this.id_flock,
@@ -34,18 +34,11 @@ class _AddMortalState extends State<AddMortal> with TickerProviderStateMixin {
   double scale = 1;
   bool toggle = false;
   late AnimationController _animationController;
-  // @override
-  // void initState() {
-  //   _animationController = AnimationController(
-  //     vsync: this,
-  //     duration: Duration(milliseconds: 500),
-  //   );
-  //   super.initState();
-  // }
+
 
   @override
   Widget build(BuildContext context) {
-    //final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
@@ -250,7 +243,7 @@ class _AddMortalState extends State<AddMortal> with TickerProviderStateMixin {
     num current = 0;
     num value = int.parse(amount);
     try {
-      print("try 1");
+
       DocumentReference<Map<String, dynamic>> documentReference =
           FirebaseFirestore.instance
               .collection('Farmers')
@@ -265,35 +258,28 @@ class _AddMortalState extends State<AddMortal> with TickerProviderStateMixin {
             await transaction.get(documentReference);
 
         if (!snapshot.exists) {
-          print("done 1 before");
           documentReference.set({'Amount': value});
-          print("done 1");
 
-          //return true;
+
         } else {
           try {
-            //num newAmount = snapshot.data()!['Amount'] + value;
-            //current = snapshot.data()!['Amount'];
-            // transaction.update(documentReference, {'Amount': value});
 
             num n = snapshot.data()!['Amount'];
             num newAmount = n + value;
             transaction.update(documentReference, {'Amount': newAmount});
 
-            print("done 1.2");
-            print(current);
-            //return true;
+
           } catch (e) {
-            //rethrow;
+
           }
         }
       });
-      //return true;
+
     } catch (e) {
       // return false;
     }
     try {
-      print("try 2");
+
       DocumentReference<Map<String, dynamic>> documentReference2 =
           FirebaseFirestore.instance
               .collection('Farmers')
@@ -306,22 +292,20 @@ class _AddMortalState extends State<AddMortal> with TickerProviderStateMixin {
             await transaction2.get(documentReference2);
         print(documentReference2);
         if (!snapshot2.exists) {
-          print("snap 2 noy exist");
+
           documentReference2.update({'Mortal': value});
-          print("done 2");
-          print(value);
-          //return true;
+
+
         } else {
           try {
-            print("done 2.2 before");
+
             num n = snapshot2.data()!['Mortal'];
             num newAmount = n + value;
-            print("done 2.2 before 2");
+
             transaction2.update(documentReference2, {'Mortal': newAmount});
-            print("done 2.2");
-            //return true;
+
           } catch (e) {
-            //rethrow;
+
           }
         }
       });
@@ -329,106 +313,4 @@ class _AddMortalState extends State<AddMortal> with TickerProviderStateMixin {
       //
     }
   }
-}
-
-// TextField reuseTextField1(String text) {
-//   return TextField(
-//     decoration: InputDecoration(
-//       labelText: text,
-//       labelStyle: TextStyle(color: Colors.black38),
-//       filled: true,
-//       floatingLabelBehavior: FloatingLabelBehavior.auto,
-//       fillColor: Colors.white,
-//       focusedBorder: OutlineInputBorder(
-//           borderRadius: BorderRadius.circular(30.0),
-//           borderSide: BorderSide(
-//             width: 2.0,
-//             color: mPrimaryColor,
-//           )),
-//       enabledBorder: OutlineInputBorder(
-//         borderRadius: BorderRadius.circular(30.0),
-//         borderSide: BorderSide(
-//           color: mPrimaryColor,
-//           width: 2.0,
-//         ),
-//       ),
-//       errorBorder: OutlineInputBorder(
-//         borderRadius: BorderRadius.circular(30.0),
-//         borderSide: BorderSide(
-//           color: mPrimaryColor,
-//           width: 2.0,
-//         ),
-//       ),
-//       focusedErrorBorder: OutlineInputBorder(
-//         borderRadius: BorderRadius.circular(30.0),
-//         borderSide: BorderSide(
-//           color: mPrimaryColor,
-//           width: 2.0,
-//         ),
-//       ),
-//     ),
-//   );
-// }
-
-TextFormField reusableTextField3(
-    String text,
-    IconData icon,
-    bool isPasswordType,
-    TextEditingController controller,
-    validator,
-    bool val) {
-  return TextFormField(
-    onTap: () {
-      print("shamod");
-    },
-    enabled: val,
-    controller: controller,
-    validator: validator,
-    obscureText: isPasswordType,
-    enableSuggestions: !isPasswordType,
-    autocorrect: !isPasswordType,
-    cursorColor: Colors.brown,
-    style: TextStyle(color: Colors.black38),
-    decoration: InputDecoration(
-      prefixIcon: Icon(
-        icon,
-        color: mPrimaryColor,
-      ),
-      labelText: text,
-      labelStyle: TextStyle(color: Colors.black38),
-      filled: true,
-      floatingLabelBehavior: FloatingLabelBehavior.auto,
-      fillColor: Colors.grey[50],
-      focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30.0),
-          borderSide: BorderSide(
-            width: 2,
-            color: mPrimaryColor,
-          )),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(30.0),
-        borderSide: BorderSide(
-          color: mPrimaryColor,
-          width: 2.0,
-        ),
-      ),
-      errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(30.0),
-        borderSide: BorderSide(
-          color: mPrimaryColor,
-          width: 2.0,
-        ),
-      ),
-      focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(30.0),
-        borderSide: BorderSide(
-          color: mPrimaryColor,
-          width: 2.0,
-        ),
-      ),
-    ),
-    keyboardType: isPasswordType
-        ? TextInputType.visiblePassword
-        : TextInputType.emailAddress,
-  );
 }
