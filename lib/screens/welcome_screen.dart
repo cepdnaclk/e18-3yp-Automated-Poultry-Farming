@@ -76,10 +76,10 @@ class _SplashScreenState extends State<SplashScreen> {
     // print("Shamod : " + token.toString());
     if (token != null) {
       // print("Shamod : login checking...");
-      currentPage = SelectionScreen();
+      currentPage = const SelectionScreen();
       // setState(() {});
     } else {
-      currentPage = SignInScreen();
+      currentPage = const SignInScreen();
       //setState(() {});
     }
   }
