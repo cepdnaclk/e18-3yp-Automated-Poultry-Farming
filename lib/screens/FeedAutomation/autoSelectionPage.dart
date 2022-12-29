@@ -5,10 +5,11 @@ import 'package:home_login/constants.dart';
 import 'package:home_login/screens/griddashboard.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'addAutomatedData.dart';
+import 'addAlertData.dart';
+import 'addFeedData.dart';
 import '../drawerMenu.dart';
 import 'dataDisplay.dart';
-import 'overHeadTank_page.dart';
+import 'alertDataDisplay.dart';
 
 class AutomationSelection extends StatefulWidget {
   const AutomationSelection({Key? key}) : super(key: key);
@@ -23,7 +24,13 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
   String strainType = '';
 
   DateTime date =
-      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+  DateTime(DateTime
+      .now()
+      .year, DateTime
+      .now()
+      .month, DateTime
+      .now()
+      .day);
 
 
   double translateX = 0.0;
@@ -31,6 +38,7 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
   double scale = 1;
   bool toggle = false;
   late AnimationController _animationController;
+
   @override
   void initState() {
     _animationController = AnimationController(
@@ -42,7 +50,10 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    final args = ModalRoute
+        .of(context)!
+        .settings
+        .arguments as ScreenArguments;
     return Stack(
       children: [
         DrawerMenu(args.flockID),
@@ -93,7 +104,7 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
                                 .doc(FirebaseAuth.instance.currentUser!.uid)
                                 .collection('flock')
                                 .where(FieldPath.documentId,
-                                    isEqualTo: args.flockID)
+                                isEqualTo: args.flockID)
                                 .snapshots(), // your stream url,
                             builder: (BuildContext context,
                                 AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -103,11 +114,6 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
                                 //print(snapshot.toString());
                                 startDate = snapshot.data?.docs[0]['startdays'];
                                 strainType = snapshot.data?.docs[0]['strain'];
-                                //print(startDate);
-                                addBodyWeight(
-                                    args.flockID, 40.toString(), startDate);
-
-
                               }
 
                               return Container(); // Your grid code.
@@ -124,13 +130,17 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => DataDisplayPage(info : "No data",
-                                      id_flock : args.flockID , startDateNavi : startDate, strainNavi : strainType),
+                                  builder: (context) =>
+                                      DataDisplayPage(info: "No data",
+                                          id_flock: args.flockID,
+                                          startDateNavi: startDate,
+                                          strainNavi: strainType),
                                 ),
                               );
                             },
                             style: ElevatedButton.styleFrom(
-                              fixedSize: const Size(250, 50), backgroundColor: mPrimaryColor,
+                              fixedSize: const Size(250, 50),
+                              backgroundColor: mPrimaryColor,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                               ),
@@ -141,9 +151,10 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            child: Text("AUTOMATION DATA".tr),
+                            child: Text("AUTOMATION DATA"),
                           ),
                         ),
+
                         SizedBox(
                           height: 20,
                         ),
@@ -155,16 +166,18 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => AutomatedData(
-                                    id_flock: args.flockID,
-                                    startDateNavi: startDate,
-                                    strainNavi: strainType,
-                                  ),
+                                  builder: (context) =>
+                                      AddAutomatedFeed(
+                                        id_flock: args.flockID,
+                                        startDateNavi: startDate,
+                                        strainNavi: strainType,
+                                      ),
                                 ),
                               );
                             },
                             style: ElevatedButton.styleFrom(
-                              fixedSize: const Size(250, 50), backgroundColor: mBackgroundColor,
+                              fixedSize: const Size(250, 50),
+                              backgroundColor: mBackgroundColor,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                               ),
@@ -177,7 +190,7 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
                               ),
                             ),
                             child: Text(
-                              "ADD FEED DATA".tr,
+                              "ADD FEED DATA",
                               style: TextStyle(
                                 color: mPrimaryColor,
                                 fontSize: 17,
@@ -185,6 +198,7 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
                             ),
                           ),
                         ),
+
                         SizedBox(
                           height: 20,
                         ),
@@ -195,12 +209,13 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => TankAlertPage(),
+                                  builder: (context) => TankAlertPage()
                                 ),
                               );
                             },
                             style: ElevatedButton.styleFrom(
-                              fixedSize: const Size(250, 50), backgroundColor: mPrimaryColor,
+                              fixedSize: const Size(250, 50),
+                              backgroundColor: mPrimaryColor,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                               ),
@@ -211,7 +226,7 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            child: Text("ALERT DATA".tr),
+                            child: Text("ALERT DATA"),
                           ),
                         ),
 
@@ -226,16 +241,18 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => AutomatedData(
-                                    id_flock: args.flockID,
-                                    startDateNavi: startDate,
-                                    strainNavi: strainType,
-                                  ),
+                                  builder: (context) =>
+                                      AddAlertData(
+                                        id_flock: args.flockID,
+                                        startDateNavi: startDate,
+                                        strainNavi: strainType,
+                                      ),
                                 ),
                               );
                             },
                             style: ElevatedButton.styleFrom(
-                              fixedSize: const Size(250, 50), backgroundColor: mBackgroundColor,
+                              fixedSize: const Size(250, 50),
+                              backgroundColor: mBackgroundColor,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                               ),
@@ -272,146 +289,66 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
     );
   }
 
-  Future<void> addBodyWeight(String id, String amount, String date) async {
-    //num current = 0;
-    num value = double.parse(amount);
-    try {
-      //print("try 1");
-      DocumentReference<Map<String, dynamic>> documentReference =
-          FirebaseFirestore.instance
-              .collection('Farmers')
-              .doc(FirebaseAuth.instance.currentUser!.uid)
-              .collection('flock')
-              .doc(id)
-              .collection('BodyWeight')
-              .doc(date);
 
-      FirebaseFirestore.instance.runTransaction((transaction) async {
-        DocumentSnapshot<Map<String, dynamic>> snapshot =
-            await transaction.get(documentReference);
+  TextFormField reusableTextField3(String text,
+      IconData icon,
+      bool isPasswordType,
+      TextEditingController controller,
+      validator,
+      bool val) {
+    return TextFormField(
+      onTap: () {
 
-        if (!snapshot.exists) {
-          //print("done 1 befre");
-          documentReference.set({'Average_Weight': value});
-          //print("done 1");
-
-          //return true;
-        } else {
-          try {
-            //num newAmount = snapshot.data()!['Amount'] + value;
-            //current = snapshot.data()!['Average_Weight'];
-            transaction.update(documentReference, {'Average_Weight': value});
-            //print("done 1.2");
-            //print(current);
-            //return true;
-          } catch (e) {
-            //rethrow;
-          }
-        }
-      });
-      //return true;
-    } catch (e) {
-      // return false;
-    }
-    try {
-      //print("try 2");
-      DocumentReference<Map<String, dynamic>> documentReference2 =
-          FirebaseFirestore.instance
-              .collection('Farmers')
-              .doc(FirebaseAuth.instance.currentUser!.uid)
-              .collection('flock')
-              .doc(id);
-
-      FirebaseFirestore.instance.runTransaction((transaction2) async {
-        DocumentSnapshot<Map<String, dynamic>> snapshot2 =
-            await transaction2.get(documentReference2);
-        print(documentReference2);
-        if (!snapshot2.exists) {
-          //print("snap 2 noy exist");
-          documentReference2.update({'Avg_BodyWeight': value});
-          print("done 2");
-          print(value);
-          //return true;
-        } else {
-          try {
-            print("done 2.2 before");
-            //num n = snapshot2.data()!['Avg_BodyWeight'];
-            num newAmount = value;
-            print("done 2.2 before 2");
-            transaction2
-                .update(documentReference2, {'Avg_BodyWeight': newAmount});
-            print("done 2.2");
-            //return true;
-          } catch (e) {
-            //rethrow;
-          }
-        }
-      });
-    } catch (e) {
-      //
-    }
-  }
-}
-
-TextFormField reusableTextField3(
-    String text,
-    IconData icon,
-    bool isPasswordType,
-    TextEditingController controller,
-    validator,
-    bool val) {
-  return TextFormField(
-    onTap: () {
-
-    },
-    enabled: val,
-    controller: controller,
-    validator: validator,
-    obscureText: isPasswordType,
-    enableSuggestions: !isPasswordType,
-    autocorrect: !isPasswordType,
-    cursorColor: Colors.brown,
-    style: TextStyle(color: Colors.black38),
-    decoration: InputDecoration(
-      prefixIcon: Icon(
-        icon,
-        color: mPrimaryColor,
-      ),
-      labelText: text,
-      labelStyle: TextStyle(color: Colors.black38),
-      filled: true,
-      floatingLabelBehavior: FloatingLabelBehavior.auto,
-      fillColor: Colors.grey[50],
-      focusedBorder: OutlineInputBorder(
+      },
+      enabled: val,
+      controller: controller,
+      validator: validator,
+      obscureText: isPasswordType,
+      enableSuggestions: !isPasswordType,
+      autocorrect: !isPasswordType,
+      cursorColor: Colors.brown,
+      style: TextStyle(color: Colors.black38),
+      decoration: InputDecoration(
+        prefixIcon: Icon(
+          icon,
+          color: mPrimaryColor,
+        ),
+        labelText: text,
+        labelStyle: TextStyle(color: Colors.black38),
+        filled: true,
+        floatingLabelBehavior: FloatingLabelBehavior.auto,
+        fillColor: Colors.grey[50],
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30.0),
+            borderSide: BorderSide(
+              width: 2,
+              color: mPrimaryColor,
+            )),
+        enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30.0),
           borderSide: BorderSide(
-            width: 2,
             color: mPrimaryColor,
-          )),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(30.0),
-        borderSide: BorderSide(
-          color: mPrimaryColor,
-          width: 2.0,
+            width: 2.0,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30.0),
+          borderSide: BorderSide(
+            color: mPrimaryColor,
+            width: 2.0,
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30.0),
+          borderSide: BorderSide(
+            color: mPrimaryColor,
+            width: 2.0,
+          ),
         ),
       ),
-      errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(30.0),
-        borderSide: BorderSide(
-          color: mPrimaryColor,
-          width: 2.0,
-        ),
-      ),
-      focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(30.0),
-        borderSide: BorderSide(
-          color: mPrimaryColor,
-          width: 2.0,
-        ),
-      ),
-    ),
-    keyboardType: isPasswordType
-        ? TextInputType.visiblePassword
-        : TextInputType.emailAddress,
-  );
+      keyboardType: isPasswordType
+          ? TextInputType.visiblePassword
+          : TextInputType.emailAddress,
+    );
+  }
 }
