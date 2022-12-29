@@ -153,7 +153,7 @@ class _FCRAutoScreenState extends State<FCRAutoScreen> {
                 return CircularProgressIndicator();
                 //return "Please update the Feed Page";
               } else {
-                //print(snapshot.toString());
+
                 numEggs = snapshot.data?.docs[0]['Amount'];
                 print(selectedDate.toString().substring(0, 10) +
                     avgWeight.toString());
@@ -174,7 +174,6 @@ class _FCRAutoScreenState extends State<FCRAutoScreen> {
                     height: 40.0,
                   ),
                   Row(
-                    //mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
@@ -206,13 +205,12 @@ class _FCRAutoScreenState extends State<FCRAutoScreen> {
                                     data: Theme.of(context).copyWith(
                                       colorScheme: ColorScheme.light(
                                         primary: mNewColor,
-                                        onPrimary: Colors.white, // <-- SEE HERE
-                                        onSurface: mSecondColor, // <-- SEE HERE
+                                        onPrimary: Colors.white,
+                                        onSurface: mSecondColor,
                                       ),
                                       textButtonTheme: TextButtonThemeData(
                                         style: TextButton.styleFrom(
-                                          primary:
-                                              mPrimaryColor, // button text color
+                                          foregroundColor: mPrimaryColor, // button text color
                                         ),
                                       ),
                                     ),
@@ -224,14 +222,13 @@ class _FCRAutoScreenState extends State<FCRAutoScreen> {
                               setState(() => selectedDate = ndate);
                             },
                             style: ElevatedButton.styleFrom(
-                              fixedSize: const Size(180, 50),
+                              fixedSize: const Size(180, 50), backgroundColor: mBackgroundColor,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30.0),
                                   side: BorderSide(
                                     width: 2.0,
                                     color: mPrimaryColor,
                                   )),
-                              primary: mBackgroundColor,
                               elevation: 20,
                               shadowColor: Colors.transparent,
                               textStyle: TextStyle(
@@ -262,20 +259,13 @@ class _FCRAutoScreenState extends State<FCRAutoScreen> {
                               s_count, mortal, avgWeight, feedbag, bagWeight);
                         }
 
-                        //popupDialog(s_count, mortal, flockID);
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => FCRAutoScreen(),
-                        //   ),
-                        // );
+
                       },
                       style: ElevatedButton.styleFrom(
-                        fixedSize: const Size(200, 50),
+                        fixedSize: const Size(200, 50), backgroundColor: mPrimaryColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0),
                         ),
-                        primary: mPrimaryColor,
                         elevation: 20,
                         shadowColor: mSecondColor,
                         textStyle: TextStyle(
