@@ -110,7 +110,7 @@ class _AutomatedDataState extends State<AutomatedData> {
         if(payload != null && payload.isNotEmpty){
           //once the notification is clicked the person will be redirected to this page
           Navigator.push(context,MaterialPageRoute(builder: (BuildContext context){
-            return TankAlertpage();
+            return TankAlertPage();
             //return DataDisplayPage(id_flock : widget.id_flock , startDateNavi : widget.startDateNavi, strainNavi : widget.strainNavi, info : payload.toString() );
             //id_flock: args.flockID,
             //startDateNavi: startDate,
@@ -947,12 +947,14 @@ class _AutomatedDataState extends State<AutomatedData> {
                 height: 10,
               ),
 
+              /*
+
               Center(
                 child: ElevatedButton(
                   onPressed: () async {
 
                     Navigator.push(context,MaterialPageRoute(builder: (BuildContext context){
-                      return TankAlertpage();
+                      return TankAlertPage();
                       //return DataDisplayPage(id_flock : widget.id_flock , startDateNavi : widget.startDateNavi, strainNavi : widget.strainNavi, info : payload.toString() );
                       //id_flock: args.flockID,
                       //startDateNavi: startDate,
@@ -978,6 +980,7 @@ class _AutomatedDataState extends State<AutomatedData> {
                   child: Text("Alert page".tr),
                 ),
               ),
+
 
               SizedBox(
                 height: 10.0,
@@ -1014,6 +1017,11 @@ class _AutomatedDataState extends State<AutomatedData> {
                   child: Text("Details View page".tr),
                 ),
               ),
+              */
+
+              SizedBox(
+                height: 20,
+              )
             ],
           ),
         ),
