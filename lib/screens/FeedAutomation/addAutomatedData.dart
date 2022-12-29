@@ -18,6 +18,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
 
 import 'dataDisplay.dart';
+import 'overHeadTank_page.dart';
 
 class AutomatedData extends StatefulWidget {
   final String id_flock;
@@ -109,8 +110,8 @@ class _AutomatedDataState extends State<AutomatedData> {
         if(payload != null && payload.isNotEmpty){
           //once the notification is clicked the person will be redirected to this page
           Navigator.push(context,MaterialPageRoute(builder: (BuildContext context){
-            //return DataDisplayPage(info: payload.toString());
-            return DataDisplayPage(info: payload.toString(),flockID: flockID);
+            return TankAlertpage();
+            //return DataDisplayPage(id_flock : widget.id_flock , startDateNavi : widget.startDateNavi, strainNavi : widget.strainNavi, info : payload.toString() );
             //id_flock: args.flockID,
             //startDateNavi: startDate,
             //strainNavi: strainType,
@@ -277,15 +278,7 @@ class _AutomatedDataState extends State<AutomatedData> {
       weightDataStrain = strainList.PoultryData.weightDataShaverBrown;
       feedtDataStrain = strainList.PoultryData.feedDataShavorBrown;
     }
-    //print(_list[days].valueOf(days));
 
-    // strainList.PoultryData chick = weightDataCobb500[20];
-
-    //final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-
-
-    // print(chick);
-    //final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     return GestureDetector(
 
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -303,37 +296,6 @@ class _AutomatedDataState extends State<AutomatedData> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
-
-              StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance
-                      .collection("Farmers")
-                      .doc(FirebaseAuth.instance.currentUser!.uid)
-                      .collection('flock')
-                      .doc(widget.id_flock)
-                      .collection('FeedIntake')
-                      .where(FieldPath.documentId,
-                          isEqualTo: date.toString().substring(0, 10))
-                      .snapshots(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                    num amount = -1;
-                    try {
-                     // amount = snapshot.data?.docs[0]['Number_of_bags'];
-                    } catch (e) {
-                      amount = -1;
-                    }
-                    if (amount == -1 || amount == 0) {
-                      return SizedBox(
-                        height: 5.0,
-
-                      );
-                    } else {
-                      return SizedBox(
-                        height: 5.0,
-
-                      );
-                    }
-                  }),
               Row(
                 //mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
