@@ -448,7 +448,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
               children: <Widget>[
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: mPrimaryColor,
+                    backgroundColor: mPrimaryColor,
                     shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(36.0),
                     ),
@@ -493,7 +493,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                   style: ElevatedButton.styleFrom(
                     //foregroundColor: mPrimaryColor,
                     //backgroundColor: ,
-                    primary: mBackgroundColor,
+                    backgroundColor: mBackgroundColor,
                     shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(36.0),
                     ),
