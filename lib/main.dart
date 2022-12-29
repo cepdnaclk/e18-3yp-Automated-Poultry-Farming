@@ -20,15 +20,10 @@ import 'package:sizer/sizer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
-
 //Handling background notifications
 Future<void> _firebaseMessagingBackgroundhandler(RemoteMessage message) async {
-
   print('Handling a background message ${message.messageId}');
-
 }
-
-
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,7 +59,7 @@ class MyApp extends StatelessWidget {
             '/eggs': (context) => const EggScreen(),
           },
           // ignore: prefer_const_constructors
-          home: SignInScreen(),
+          home: SplashScreen(),
         );
       },
     );
