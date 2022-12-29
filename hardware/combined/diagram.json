@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "author": "Uri Shaked",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-arduino-uno", "id": "uno", "top": 178.83, "left": 126.85, "attrs": {} },
+    {
+      "type": "wokwi-hc-sr04",
+      "id": "ultrasonic1",
+      "top": 64.62,
+      "left": 230.69,
+      "attrs": { "distance": "188" }
+    },
+    {
+      "type": "wokwi-hx711",
+      "id": "cell1",
+      "top": 329.44,
+      "left": 501.68,
+      "attrs": { "type": "5kg" }
+    },
+    { "type": "wokwi-servo", "id": "servo1", "top": 159.39, "left": 499.58, "attrs": {} }
+  ],
+  "connections": [
+    [ "ultrasonic1:TRIG", "uno:3", "green", [ "v0" ] ],
+    [ "ultrasonic1:ECHO", "uno:2", "green", [ "v0" ] ],
+    [ "ultrasonic1:GND", "uno:GND.3", "black", [ "v103.87", "h77.74", "v235.59", "h-124.36" ] ],
+    [ "ultrasonic1:VCC", "uno:5V", "red", [ "v114.38", "h-211.05", "v229.46", "h170.78" ] ],
+    [ "uno:5V", "cell1:VCC", "red", [ "v68.19", "h171.45", "v-146.08" ] ],
+    [ "uno:A0", "cell1:SCK", "green", [ "v62.25", "h118.36", "v-146.93" ] ],
+    [ "uno:A1", "cell1:DT", "green", [ "v54.6", "h102.06", "v-154.57" ] ],
+    [ "uno:GND.1", "cell1:GND", "black", [ "v-14.29", "h218.5", "v84.93" ] ],
+    [ "servo1:V+", "uno:5V", "red", [ "h-59.25", "v198.4", "h-152.93" ] ],
+    [ "servo1:GND", "uno:GND.1", "black", [ "h-30.21", "v-43.75", "h-238.1" ] ],
+    [ "servo1:PWM", "uno:9", "green", [ "h-34.36", "v-58.2", "h-175.98" ] ]
+  ],
+  "dependencies": {}
+}
