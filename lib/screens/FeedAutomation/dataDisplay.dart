@@ -19,7 +19,8 @@ class DataDisplayPage extends StatefulWidget {
     Key? key,
     required this.id_flock,
     required this.startDateNavi,
-    required this.strainNavi, required this.info,
+    required this.strainNavi,
+    required this.info,
   }) : super(key: key);
 
   @override
@@ -40,11 +41,6 @@ class _DataDisplayPageState extends State<DataDisplayPage> {
   String rcdEve="";
   String rcdNit="";
 
-  //DateTime date =
-  //DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
-
-  final TextEditingController _datecontroller = TextEditingController();
-  final TextEditingController _numcontroller = TextEditingController();
 
   late StreamBuilder _widget;
 
@@ -58,7 +54,7 @@ class _DataDisplayPageState extends State<DataDisplayPage> {
             .doc(FirebaseAuth.instance.currentUser!.uid)
             .collection('flock')
             .doc(widget.id_flock)
-            .collection('data')
+            .collection('Data')
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
@@ -237,215 +233,7 @@ class _DataDisplayPageState extends State<DataDisplayPage> {
                                   if (amount == -1 || amount == 0) {
                                     return Center();
                                   } else {
-                                    return Container(
-                                      child: Column(
-                                        children: [
-                                          SizedBox(height: 10),
-                                          Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "     " + "Morning Feed/chick",
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    color: mPrimaryColor),
-                                              ),
-                                              Container(
-                                                alignment: Alignment.center,
-                                                height: 25,
-                                                width: 30.w,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: mPrimaryColor,
-                                                  ),
-                                                  borderRadius:
-                                                  BorderRadius.circular(
-                                                      10.0),
-                                                ),
-                                                child: Text(
-                                                  rcdFeedMor + " g",
-                                                  style: TextStyle(
-                                                      fontSize: 16,
-                                                      color: mPrimaryColor),
-                                                ),
-                                              ),
-
-                                            ],
-                                          ),
-
-                                          Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "     " + "Morning Feeding Time",
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    color: mPrimaryColor),
-                                              ),
-                                              Container(
-                                                alignment: Alignment.center,
-                                                height: 25,
-                                                width: 30.w,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: mPrimaryColor,
-                                                  ),
-                                                  borderRadius:
-                                                  BorderRadius.circular(
-                                                      10.0),
-                                                ),
-                                                child: Text(
-                                                  rcdTimeMor,
-                                                  style: TextStyle(
-                                                      fontSize: 16,
-                                                      color: mPrimaryColor),
-                                                ),
-                                              ),
-
-                                            ],
-                                          ),
-
-                                          Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "     " + "Evening Feed/chick",
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    color: mPrimaryColor),
-                                              ),
-                                              Container(
-                                                alignment: Alignment.center,
-                                                height: 25,
-                                                width: 30.w,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: mPrimaryColor,
-                                                  ),
-                                                  borderRadius:
-                                                  BorderRadius.circular(
-                                                      10.0),
-                                                ),
-                                                child: Text(
-                                                  rcdFeedEve + " g",
-                                                  style: TextStyle(
-                                                      fontSize: 16,
-                                                      color: mPrimaryColor),
-                                                ),
-                                              ),
-
-                                            ],
-                                          ),
-
-                                          Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "     " + "Evening Feeding Time",
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    color: mPrimaryColor),
-                                              ),
-                                              Container(
-                                                alignment: Alignment.center,
-                                                height: 25,
-                                                width: 30.w,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: mPrimaryColor,
-                                                  ),
-                                                  borderRadius:
-                                                  BorderRadius.circular(
-                                                      10.0),
-                                                ),
-                                                child: Text(
-                                                  rcdTimeEve,
-                                                  style: TextStyle(
-                                                      fontSize: 16,
-                                                      color: mPrimaryColor),
-                                                ),
-                                              ),
-
-                                            ],
-                                          ),
-
-                                          Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "     " + "Night Feed/chick",
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    color: mPrimaryColor),
-                                              ),
-                                              Container(
-                                                alignment: Alignment.center,
-                                                height: 25,
-                                                width: 30.w,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: mPrimaryColor,
-                                                  ),
-                                                  borderRadius:
-                                                  BorderRadius.circular(
-                                                      10.0),
-                                                ),
-                                                child: Text(
-                                                  rcdFeedNit + " g",
-                                                  style: TextStyle(
-                                                      fontSize: 16,
-                                                      color: mPrimaryColor),
-                                                ),
-                                              ),
-
-                                            ],
-                                          ),
-
-                                          Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "     " + "Night Feeding Time",
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    color: mPrimaryColor),
-                                              ),
-                                              Container(
-                                                alignment: Alignment.center,
-                                                height: 25,
-                                                width: 30.w,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: mPrimaryColor,
-                                                  ),
-                                                  borderRadius:
-                                                  BorderRadius.circular(
-                                                      10.0),
-                                                ),
-                                                child: Text(
-                                                  rcdTimeNit,
-                                                  style: TextStyle(
-                                                      fontSize: 16,
-                                                      color: mPrimaryColor),
-                                                ),
-                                              ),
-
-                                            ],
-                                          ),
-
-
-
-                                        ],
-                                      ),
-
-
-                                    );
+                                    return Container();
                                   }
                                 }),
 
@@ -456,6 +244,221 @@ class _DataDisplayPageState extends State<DataDisplayPage> {
                       print(dateItems);
                     }
                   }),
+
+            Container(
+              child: Column(
+                children: [
+                  SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment:
+                    MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "     " + "Morning Feed/chick",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: mPrimaryColor),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        height: 25,
+                        width: 30.w,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: mPrimaryColor,
+                          ),
+                          borderRadius:
+                          BorderRadius.circular(
+                              10.0),
+                        ),
+                        child: Text(
+                          rcdFeedMor + " g",
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: mPrimaryColor),
+                        ),
+                      ),
+
+                    ],
+                  ),
+                  SizedBox(height: 10),
+
+                  Row(
+                    mainAxisAlignment:
+                    MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "     " + "Morning Feeding Time",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: mPrimaryColor),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        height: 25,
+                        width: 30.w,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: mPrimaryColor,
+                          ),
+                          borderRadius:
+                          BorderRadius.circular(
+                              10.0),
+                        ),
+                        child: Text(
+                          rcdTimeMor,
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: mPrimaryColor),
+                        ),
+                      ),
+
+                    ],
+                  ),
+                  SizedBox(height: 10),
+
+                  Row(
+                    mainAxisAlignment:
+                    MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "     " + "Evening Feed/chick",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: mPrimaryColor),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        height: 25,
+                        width: 30.w,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: mPrimaryColor,
+                          ),
+                          borderRadius:
+                          BorderRadius.circular(
+                              10.0),
+                        ),
+                        child: Text(
+                          rcdFeedEve + " g",
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: mPrimaryColor),
+                        ),
+                      ),
+
+                    ],
+                  ),
+                  SizedBox(height: 10),
+
+                  Row(
+                    mainAxisAlignment:
+                    MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "     " + "Evening Feeding Time",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: mPrimaryColor),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        height: 25,
+                        width: 30.w,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: mPrimaryColor,
+                          ),
+                          borderRadius:
+                          BorderRadius.circular(
+                              10.0),
+                        ),
+                        child: Text(
+                          rcdTimeEve,
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: mPrimaryColor),
+                        ),
+                      ),
+
+                    ],
+                  ),
+                  SizedBox(height: 10),
+
+                  Row(
+                    mainAxisAlignment:
+                    MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "     " + "Night Feed/chick",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: mPrimaryColor),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        height: 25,
+                        width: 30.w,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: mPrimaryColor,
+                          ),
+                          borderRadius:
+                          BorderRadius.circular(
+                              10.0),
+                        ),
+                        child: Text(
+                          rcdFeedNit + " g",
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: mPrimaryColor),
+                        ),
+                      ),
+
+                    ],
+                  ),
+                  SizedBox(height: 10),
+
+                  Row(
+                    mainAxisAlignment:
+                    MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "     " + "Night Feeding Time",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: mPrimaryColor),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        height: 25,
+                        width: 30.w,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: mPrimaryColor,
+                          ),
+                          borderRadius:
+                          BorderRadius.circular(
+                              10.0),
+                        ),
+                        child: Text(
+                          rcdTimeNit,
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: mPrimaryColor),
+                        ),
+                      ),
+
+                    ],
+                  ),
+
+
+
+                ],
+              ),
+
+
+            ),
 
 
 
