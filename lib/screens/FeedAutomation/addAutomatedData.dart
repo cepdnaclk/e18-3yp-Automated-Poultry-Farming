@@ -884,7 +884,7 @@ class _AutomatedDataState extends State<AutomatedData> {
                 ),
               ),
               SizedBox(
-                height: 50,
+                height: 30,
               ),
               Center(
                 child: ElevatedButton(
@@ -940,6 +940,78 @@ class _AutomatedDataState extends State<AutomatedData> {
                     ),
                   ),
                   child: Text("add".tr),
+                ),
+              ),
+
+              SizedBox(
+                height: 10,
+              ),
+
+              Center(
+                child: ElevatedButton(
+                  onPressed: () async {
+
+                    Navigator.push(context,MaterialPageRoute(builder: (BuildContext context){
+                      return TankAlertpage();
+                      //return DataDisplayPage(id_flock : widget.id_flock , startDateNavi : widget.startDateNavi, strainNavi : widget.strainNavi, info : payload.toString() );
+                      //id_flock: args.flockID,
+                      //startDateNavi: startDate,
+                      //strainNavi: strainType,
+                    }));
+
+
+
+
+                  },
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: const Size(200, 50), backgroundColor: mPrimaryColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    elevation: 20,
+                    shadowColor: mSecondColor,
+                    textStyle: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  child: Text("Alert page".tr),
+                ),
+              ),
+
+              SizedBox(
+                height: 10.0,
+              ),
+
+              Center(
+                child: ElevatedButton(
+                  onPressed: () async {
+
+                    Navigator.push(context,MaterialPageRoute(builder: (BuildContext context){
+                      //return TankAlertpage();
+                      return DataDisplayPage(info : "No data", id_flock : widget.id_flock , startDateNavi : widget.startDateNavi, strainNavi : widget.strainNavi);
+                      //id_flock: args.flockID,
+                      //startDateNavi: startDate,
+                      //strainNavi: strainType,
+                    }));
+
+
+
+
+                  },
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: const Size(200, 50), backgroundColor: mPrimaryColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    elevation: 20,
+                    shadowColor: mSecondColor,
+                    textStyle: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  child: Text("Details View page".tr),
                 ),
               ),
             ],
@@ -1044,7 +1116,7 @@ TextFormField reusableTextField3(
     bool val) {
   return TextFormField(
     onTap: () {
-      print("shamod");
+
     },
     enabled: val,
     controller: controller,
