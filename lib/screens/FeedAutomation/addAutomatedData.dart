@@ -110,7 +110,7 @@ class _AutomatedDataState extends State<AutomatedData> {
           //once the notification is clicked the person will be redirected to this page
           Navigator.push(context,MaterialPageRoute(builder: (BuildContext context){
             //return DataDisplayPage(info: payload.toString());
-            return DataDisplayPage(info: payload.toString(),flockid: flockID);
+            return DataDisplayPage(info: payload.toString(),flockID: flockID);
             //id_flock: args.flockID,
             //startDateNavi: startDate,
             //strainNavi: strainType,
