@@ -5,7 +5,7 @@ import 'package:home_login/localeString.dart';
 import 'package:flutter/services.dart';
 import 'package:home_login/screens/QR.dart';
 import 'package:home_login/screens/RegScreens/farmReg_screen.dart';
-import 'package:home_login/screens/FeedAutomation/addData.dart';
+import 'package:home_login/screens/FeedAutomation/autoSelectionPage.dart';
 import 'package:home_login/screens/egg_screen.dart';
 import 'package:home_login/screens/farm_view.dart';
 import 'package:home_login/screens/fcr_screen.dart';
@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
             GridDashboard.routeMortal: (context) => const MortalityScreen(),
             GridDashboard.routeWeight: (context) => const BodyWeight(),
             GridDashboard.routeView: (context) => ViewScreen(),
-            GridDashboard.routeAddData: (context) => const AddData(),
+            GridDashboard.routeAddData: (context) => const AutomationSelection(),
             //'/view': (context) => const ViewScreen(),
             '/eggs': (context) => const EggScreen(),
           },
