@@ -18,14 +18,14 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
 
 import 'dataDisplay.dart';
-import 'overHeadTank_page.dart';
+import 'alertDataDisplay.dart';
 
-class AutomatedData extends StatefulWidget {
+class AddAutomatedFeed extends StatefulWidget {
   final String id_flock;
   final String startDateNavi;
   final String strainNavi;
   // const AddBodyWeight({Key? key}) : super(key: key);
-  AutomatedData({
+  AddAutomatedFeed({
     Key? key,
     required this.id_flock,
     required this.startDateNavi,
@@ -33,10 +33,10 @@ class AutomatedData extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<AutomatedData> createState() => _AutomatedDataState();
+  State<AddAutomatedFeed> createState() => _AddAutomatedFeedState();
 }
 
-class _AutomatedDataState extends State<AutomatedData> {
+class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
 
   List<strainList.PoultryData> weightDataStrain = [];
   List<strainList.PoultryData> feedtDataStrain = [];
