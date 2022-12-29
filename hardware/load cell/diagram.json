@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "author": "ishotjr",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-arduino-uno", "id": "uno", "top": -60.71, "left": 11.04, "attrs": {} },
+    {
+      "type": "wokwi-hx711",
+      "id": "cell1",
+      "top": -56.28,
+      "left": 347.51,
+      "attrs": { "type": "5kg" }
+    }
+  ],
+  "connections": [
+    [ "uno:A1", "cell1:DT", "green", [ "v16.07", "h79.35", "v-327.96" ] ],
+    [ "uno:A0", "cell1:SCK", "green", [ "v25.57", "h103.52", "v-329.69" ] ],
+    [ "uno:5V", "cell1:VCC", "red", [ "v40.24", "h145.48" ] ],
+    [ "cell1:GND", "uno:GND.1", "black", [ "h-55.25", "v-50.34", "h-175.2", "v22.44" ] ]
+  ],
+  "serialMonitor": { "display": "terminal", "newline": "lf" },
+  "dependencies": {}
+}
