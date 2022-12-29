@@ -48,6 +48,7 @@ dependencies:
   flutter_local_notifications: ^9.2.0
   http: ^0.13.5
   intl: ^0.17.0
+  liquid_progress_indicator: ^0.4.0
 
 dev_dependencies:
   flutter_test:
