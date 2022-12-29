@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import '../../constants.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 
-class TankAlertpage extends StatefulWidget {
-  const TankAlertpage({Key? key}) : super(key: key);
+class TankAlertPage extends StatefulWidget {
+  const TankAlertPage({Key? key}) : super(key: key);
 
   @override
-  State<TankAlertpage> createState() => _TankAlertpageState();
+  State<TankAlertPage> createState() => _TankAlertPageState();
 }
 
-class _TankAlertpageState extends State<TankAlertpage> {
+class _TankAlertPageState extends State<TankAlertPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
