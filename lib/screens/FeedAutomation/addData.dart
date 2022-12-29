@@ -10,8 +10,8 @@ import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
 import 'package:home_login/screens/view_screen.dart';
 import 'package:sizer/sizer.dart';
-import 'FeedAutomation/addAutomatedData.dart';
-import 'drawerMenu.dart';
+import 'addAutomatedData.dart';
+import '../drawerMenu.dart';
 
 class AddData extends StatefulWidget {
   const AddData({Key? key}) : super(key: key);
