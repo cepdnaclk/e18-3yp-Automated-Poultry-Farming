@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "author": "Uri Shaked",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-arduino-uno", "id": "uno", "top": 178.83, "left": 126.85, "attrs": {} },
+    {
+      "type": "wokwi-hc-sr04",
+      "id": "ultrasonic1",
+      "top": 64.62,
+      "left": 230.69,
+      "attrs": { "distance": "186" }
+    }
+  ],
+  "connections": [
+    [ "ultrasonic1:TRIG", "uno:3", "green", [ "v0" ] ],
+    [ "ultrasonic1:ECHO", "uno:2", "green", [ "v0" ] ],
+    [ "ultrasonic1:GND", "uno:GND.3", "black", [ "v103.87", "h77.74", "v235.59", "h-124.36" ] ],
+    [ "ultrasonic1:VCC", "uno:5V", "red", [ "v114.38", "h-211.05", "v229.46", "h170.78" ] ]
+  ],
+  "dependencies": {}
+}
