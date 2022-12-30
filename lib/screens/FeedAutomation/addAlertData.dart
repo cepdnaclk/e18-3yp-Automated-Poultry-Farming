@@ -109,8 +109,8 @@ class _AddAlertDataState extends State<AddAlertData> {
         if(payload != null && payload.isNotEmpty){
           //once the notification is clicked the person will be redirected to this page
           Navigator.push(context,MaterialPageRoute(builder: (BuildContext context){
-            return TankAlertPage();
-            //return DataDisplayPage(id_flock : widget.id_flock , startDateNavi : widget.startDateNavi, strainNavi : widget.strainNavi, info : payload.toString() );
+            //return TankAlertPage();
+            return DataDisplayPage(id_flock : widget.id_flock , startDateNavi : widget.startDateNavi, strainNavi : widget.strainNavi, info : payload.toString() );
 
           }
 
