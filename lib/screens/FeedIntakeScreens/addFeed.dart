@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:home_login/constants.dart';
-import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
 import 'package:home_login/screens/strain.dart' as strainList;
@@ -13,7 +12,7 @@ class AddFeedScreen extends StatefulWidget {
   final String id_flock;
   final String startDateNavi;
   final String strainNavi;
-  // const AddBodyWeight({Key? key}) : super(key: key);
+
   AddFeedScreen({
     Key? key,
     required this.id_flock,
@@ -49,7 +48,7 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
   @override
   Widget build(BuildContext context) {
     days = date.difference(startDate).inDays;
-    //print(_list[13].valueOf(13));
+
     if (widget.strainNavi == 'Cobb 500 - Broiler') {
       weightDataStrain = strainList.PoultryData.weightDataCobb500;
       feedtDataStrain = strainList.PoultryData.feedDataCobb500;
@@ -63,7 +62,7 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
       weightDataStrain = strainList.PoultryData.weightDataShaverBrown;
       feedtDataStrain = strainList.PoultryData.feedDataShavorBrown;
     }
-    //final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
@@ -103,28 +102,17 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
                     if (amount == -1 || amount == 0) {
                       return SizedBox(
                         height: 30.0,
-                        // child: Text(
-                        //   "You haven't recorded feed intake for " +
-                        //       date.toString().substring(0, 10),
-                        //   textAlign: TextAlign.center,
-                        //   style: TextStyle(
-                        //       fontSize: 20, color: mPrimaryTextColor),
-                        // ),
+
                       );
                     } else {
                       return SizedBox(
                         height: 30.0,
-                        // child: Text(
-                        //   "You have already recorded ${snapshot.data?.docs[0]['Number_of_bags']} amount of feed for ${date.toString().substring(0, 10)}",
-                        //   textAlign: TextAlign.center,
-                        //   style: TextStyle(
-                        //       fontSize: 20, color: mPrimaryTextColor),
-                        // ),
+
                       );
                     }
                   }),
               Row(
-                //mainAxisAlignment: MainAxisAlignment.start,
+
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
@@ -310,9 +298,7 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
               Center(
                 child: ElevatedButton(
                   onPressed: () async {
-                    // print(args.flockID);
-                    // print(_numcontroller.text);
-                    // print(date);
+
                     await addFeedIntake(
                         widget.id_flock,
                         _numcontrollerBags.text,
@@ -378,23 +364,18 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
             await transaction.get(documentReference);
 
         if (!snapshot.exists) {
-          //print("done 1 befre");
+
           documentReference.set(
               {'Number_of_bags': valueBags, 'Weight_of_a_bag': valueBagWeight});
-          //print("done 1");
 
-          //return true;
         } else {
           try {
-            //num newAmount = snapshot.data()!['Amount'] + value;
-            //  current = snapshot.data()!['Amount'];
+
             transaction.update(documentReference, {
               'Number_of_bags': valueBags,
               'Weight_of_a_bag': valueBagWeight
             });
-            //print("done 1.2");
-            //print(current);
-            //return true;
+
           } catch (e) {
             //rethrow;
           }
@@ -405,83 +386,14 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
       // return false;
     }
     try {
-      //print("try 2");
-      /*  DocumentReference<Map<String, dynamic>> documentReference2 =
-          FirebaseFirestore.instance
-              .collection('Farmers')
-              .doc(FirebaseAuth.instance.currentUser!.uid)
-              .collection('flock')
-              .doc(id);
 
-      FirebaseFirestore.instance.runTransaction((transaction2) async {
-        DocumentSnapshot<Map<String, dynamic>> snapshot2 =
-            await transaction2.get(documentReference2);
-        print(documentReference2);
-        if (!snapshot2.exists) {
-          //print("snap 2 noy exist");
-          documentReference2.update({'Avg_BodyWeight': value});
-          print("done 2");
-          print(value);
-          //return true;
-        } else {
-          try {
-            print("done 2.2 before");
-            num n = snapshot2.data()!['Avg_BodyWeight'];
-            num newAmount = n - current + value;
-            print("done 2.2 before 2");
-            transaction2
-                .update(documentReference2, {'Avg_BodyWeight': newAmount});
-            print("done 2.2");
-            //return true;
-          } catch (e) {
-            //rethrow;
-          }
-        }
-      });*/
     } catch (e) {
       //
     }
   }
 }
 
-// TextField reuseTextField1(String text) {
-//   return TextField(
-//     decoration: InputDecoration(
-//       labelText: text,
-//       labelStyle: TextStyle(color: Colors.black38),
-//       filled: true,
-//       floatingLabelBehavior: FloatingLabelBehavior.auto,
-//       fillColor: Colors.white,
-//       focusedBorder: OutlineInputBorder(
-//           borderRadius: BorderRadius.circular(30.0),
-//           borderSide: BorderSide(
-//             width: 2.0,
-//             color: mPrimaryColor,
-//           )),
-//       enabledBorder: OutlineInputBorder(
-//         borderRadius: BorderRadius.circular(30.0),
-//         borderSide: BorderSide(
-//           color: mPrimaryColor,
-//           width: 2.0,
-//         ),
-//       ),
-//       errorBorder: OutlineInputBorder(
-//         borderRadius: BorderRadius.circular(30.0),
-//         borderSide: BorderSide(
-//           color: mPrimaryColor,
-//           width: 2.0,
-//         ),
-//       ),
-//       focusedErrorBorder: OutlineInputBorder(
-//         borderRadius: BorderRadius.circular(30.0),
-//         borderSide: BorderSide(
-//           color: mPrimaryColor,
-//           width: 2.0,
-//         ),
-//       ),
-//     ),
-//   );
-// }
+
 
 TextFormField reusableTextField3(
     String text,
