@@ -93,14 +93,14 @@ class _GridDashboardState extends State<GridDashboard> {
             if (strain == "Dekalb White - Layer" ||
                 strain == "Shaver Brown - Layer") {
               mylist = [item1, item2, item3, item4, item5, item7, item6, item8];
-              print("Layer Detected");
+
             } else {
               mylist = [item1, item2, item3, item4, item5, item6, item8];
-              print("Not a layer".tr);
+
             }
           }
 
-          //var color = 0xff453658;
+
           var color = 0xffd16fb2;
 
           return Flexible(
@@ -157,25 +157,7 @@ class _GridDashboardState extends State<GridDashboard> {
                             height: 8,
                           ),
 
-                          /* Text(data.subtitle,
-                  style: const TextStyle(
-                    color: Colors.white38,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w600
-          
-                    ),
-                  ),
-          
-                  const SizedBox(height: 14,),
-                   Text(data.event,
-                  style: const TextStyle(
-                    color: Colors.white70,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w600
-          
-                    ),
-                  ),
-           */
+                         
                         ],
                       ),
                     ),
