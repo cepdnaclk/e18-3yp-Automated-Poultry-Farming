@@ -22,6 +22,10 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
   List weightDataCobb500 = [];
   String startDate = '';
   String strainType = '';
+  String waterCap = '';
+  String waterAlert = '';
+  String feedCap = '';
+  String feedAlert = '';
 
   DateTime date =
   DateTime(DateTime
@@ -91,7 +95,7 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
                     },
                     //icon: Icon(Icons.menu),
                   ),
-                  title: Text("Add Data"),
+                  title: Text("Automation Selection"),
                   backgroundColor: mPrimaryColor,
                 ),
                 body: SingleChildScrollView(
@@ -114,127 +118,112 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
                                 //print(snapshot.toString());
                                 startDate = snapshot.data?.docs[0]['startdays'];
                                 strainType = snapshot.data?.docs[0]['strain'];
+                                waterCap = snapshot.data?.docs[0]['Water Tank Capacity'];
+                                waterAlert = snapshot.data?.docs[0]['Water Tank Alert'];
+                                feedAlert = snapshot.data?.docs[0]['Feed Tank Alert'];
+                                feedCap = snapshot.data?.docs[0]['Feed Tank Capacity'];
                               }
 
                               return Container(); // Your grid code.
                             }),
                         SizedBox(
-                          height: 18.h,
+                          height: 20.h,
                         ),
 
-                        SizedBox(height: 2.h),
 
-                        Center(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      DataDisplayPage(info: "No data",
-                                          id_flock: args.flockID,
-                                          startDateNavi: startDate,
-                                          strainNavi: strainType),
+
+                        Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          DataDisplayPage(info: "No data",
+                                              id_flock: args.flockID,
+                                              startDateNavi: startDate,
+                                              strainNavi: strainType),
+                                    ),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  fixedSize: const Size(150, 150),
+                                  backgroundColor: mPrimaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                  ),
+                                  elevation: 15,
+                                  shadowColor: mSecondColor,
+                                  textStyle: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              fixedSize: const Size(250, 50),
-                              backgroundColor: mPrimaryColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              elevation: 20,
-                              shadowColor: mSecondColor,
-                              textStyle: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold,
+                                child: Text("AUTOMATION DATA"),
                               ),
                             ),
-                            child: Text("AUTOMATION DATA"),
-                          ),
+
+
+
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(10, 10, 20, 10),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  print(args.flockID);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          AddAutomatedFeed(
+                                            id_flock: args.flockID,
+                                            startDateNavi: startDate,
+                                            strainNavi: strainType,
+                                          ),
+                                    ),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  fixedSize: const Size(150, 150),
+                                  backgroundColor: mBackgroundColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                  ),
+                                  side: BorderSide(color: mPrimaryColor),
+                                  elevation: 20,
+                                  shadowColor: mSecondColor,
+                                  textStyle: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                child: Text(
+                                  "ADD FEED DATA",
+                                  style: TextStyle(
+                                    color: mPrimaryColor,
+                                    fontSize: 17,
+                                  ),
+                                ),
+                              ),
+                            ),
+
+
+                          ],
+
                         ),
 
                         SizedBox(
                           height: 20,
                         ),
 
-                        Center(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              print(args.flockID);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      AddAutomatedFeed(
-                                        id_flock: args.flockID,
-                                        startDateNavi: startDate,
-                                        strainNavi: strainType,
-                                      ),
-                                ),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              fixedSize: const Size(250, 50),
-                              backgroundColor: mBackgroundColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              side: BorderSide(color: mPrimaryColor),
-                              elevation: 20,
-                              shadowColor: mSecondColor,
-                              textStyle: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            child: Text(
-                              "ADD FEED DATA",
-                              style: TextStyle(
-                                color: mPrimaryColor,
-                                fontSize: 17,
-                              ),
-                            ),
-                          ),
-                        ),
+                    Row(
+                      children: [
 
-                        SizedBox(
-                          height: 20,
-                        ),
 
-                        Center(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => TankAlertPage()
-                                ),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              fixedSize: const Size(250, 50),
-                              backgroundColor: mPrimaryColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              elevation: 20,
-                              shadowColor: mSecondColor,
-                              textStyle: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            child: Text("ALERT DATA"),
-                          ),
-                        ),
-
-                        SizedBox(
-                          height: 20,
-                        ),
-
-                        Center(
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
                           child: ElevatedButton(
                             onPressed: () {
                               print(args.flockID);
@@ -251,7 +240,7 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
                               );
                             },
                             style: ElevatedButton.styleFrom(
-                              fixedSize: const Size(250, 50),
+                              fixedSize: const Size(150, 150),
                               backgroundColor: mBackgroundColor,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30.0),
@@ -273,9 +262,42 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 20,
+
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(10, 10, 20, 10),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => TankAlertPage(feed_capacity : feedCap, feed_alert : feedAlert,water_capacity : waterCap, water_alert : waterAlert),
+                                ),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              fixedSize: const Size(150, 150),
+                              backgroundColor: mPrimaryColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              elevation: 20,
+                              shadowColor: mSecondColor,
+                              textStyle: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            child: Text("ALERT DATA"),
+                          ),
                         ),
+
+
+
+                      ],
+                    ),
+
+
+
 
                       ],
                     ),
