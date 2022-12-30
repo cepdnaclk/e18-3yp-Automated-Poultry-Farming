@@ -9,6 +9,7 @@ class TankAlertPage extends StatefulWidget {
   final int feed_alert;
   final int water_capacity;
   final int water_alert;
+
   const TankAlertPage({Key? key, required this.feed_capacity, required this.feed_alert, required this.water_capacity, required this.water_alert}) : super(key: key);
 
   @override
@@ -16,6 +17,9 @@ class TankAlertPage extends StatefulWidget {
 }
 
 class _TankAlertPageState extends State<TankAlertPage> {
+  double feed=1585;
+  int feedrate=3000;
+  int current_water=120;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,8 +48,9 @@ class _TankAlertPageState extends State<TankAlertPage> {
                     Row(
                       children: [
                         Container(
+
                           child: LiquidCustomProgressIndicator(
-                            value: 80/ 100,
+                            value: feed/widget.feed_capacity,
                             valueColor: AlwaysStoppedAnimation(mPrimaryTextColor),
                             backgroundColor: Colors.grey,
                             direction: Axis.vertical,
@@ -112,7 +117,7 @@ class _TankAlertPageState extends State<TankAlertPage> {
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               child: Text(
-                                "500 Kg",
+                                widget.feed_alert.toString()+" kg",
                                 style: TextStyle(
                                     color: mNewColor,
                                     fontSize: 18,
@@ -136,7 +141,7 @@ class _TankAlertPageState extends State<TankAlertPage> {
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               child: Text(
-                                "5000 kg",
+                                widget.feed_capacity.toString()+" kg",
                                 style: TextStyle(
                                     color: mNewColor,
                                     fontSize: 18,
@@ -194,7 +199,7 @@ class _TankAlertPageState extends State<TankAlertPage> {
                           children: [
                             Container(
                               child: LiquidCustomProgressIndicator(
-                                value: 80/ 100,
+                                value: current_water/widget.water_capacity,
                                 valueColor: AlwaysStoppedAnimation(Colors.cyan[100]!),
                                 backgroundColor: Colors.grey,
                                 direction: Axis.vertical,
@@ -261,7 +266,7 @@ class _TankAlertPageState extends State<TankAlertPage> {
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   child: Text(
-                                    "500 Kg",
+                                    widget.water_alert.toString()+" l",
                                     style: TextStyle(
                                         color: mNewColor,
                                         fontSize: 18,
@@ -285,7 +290,7 @@ class _TankAlertPageState extends State<TankAlertPage> {
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   child: Text(
-                                    "5000 kg",
+                                    widget.water_capacity.toString() +" l",
                                     style: TextStyle(
                                         color: mNewColor,
                                         fontSize: 18,
