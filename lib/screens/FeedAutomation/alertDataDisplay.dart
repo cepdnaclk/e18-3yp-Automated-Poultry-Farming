@@ -5,7 +5,11 @@ import '../../constants.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 
 class TankAlertPage extends StatefulWidget {
-  const TankAlertPage({Key? key}) : super(key: key);
+  final String feed_capacity;
+  final String feed_alert;
+  final String water_capacity;
+  final String water_alert;
+  const TankAlertPage({Key? key, required this.feed_capacity, required this.feed_alert, required this.water_capacity, required this.water_alert}) : super(key: key);
 
   @override
   State<TankAlertPage> createState() => _TankAlertPageState();
