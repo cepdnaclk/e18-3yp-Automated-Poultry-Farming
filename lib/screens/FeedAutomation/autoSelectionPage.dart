@@ -5,6 +5,7 @@ import 'package:home_login/constants.dart';
 import 'package:home_login/screens/griddashboard.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'AutoUpdateFeed.dart';
 import 'addAlertData.dart';
 import 'addFeedData.dart';
 import '../drawerMenu.dart';
@@ -126,9 +127,9 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
 
                               return Container(); // Your grid code.
                             }),
-                        SizedBox(
-                          height: 20.h,
-                        ),
+                      SizedBox(
+                        height: 20,
+                      ),
 
 
 
@@ -295,6 +296,54 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
 
                       ],
                     ),
+
+                        SizedBox(
+                          height: 20,
+                        ),
+
+                        Row(
+                          children: [
+
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => AutoUpadateFeed(
+                                        id_flock: args.flockID,
+                                        startDateNavi: startDate,
+                                        strainNavi: strainType,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  fixedSize: const Size(150, 150),
+                                  backgroundColor: mPrimaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                  ),
+                                  elevation: 20,
+                                  shadowColor: mSecondColor,
+                                  textStyle: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                child: Text(
+                                  "Auto Feed Add".tr),
+                              ),
+                            ),
+
+
+                          ],
+                        ),
+
+                        SizedBox(
+                          height: 20,
+                        )
 
 
 
