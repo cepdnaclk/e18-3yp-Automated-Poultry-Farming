@@ -1085,27 +1085,7 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
         DocumentSnapshot<Map<String, dynamic>> snapshot2 =
             await transaction2.get(documentReference2);
         print(documentReference2);
-        /*
-        if (!snapshot2.exists) {
-          //print("snap 2 noy exist");
-          documentReference2.update({'Avg_BodyWeight': value});
-          print("done 2");
-          print(value);
-          //return true;
-        } else {
-          try {
-            print("done 2.2 before");
-            //num n = snapshot2.data()!['Avg_BodyWeight'];
-            num newAmount = value;
-            print("done 2.2 before 2");
-            transaction2
-                .update(documentReference2, {'Avg_BodyWeight': newAmount});
-            print("done 2.2");
-            //return true;
-          } catch (e) {
-            //rethrow;
-          }
-        }*/
+
       });
     } catch (e) {
       //
