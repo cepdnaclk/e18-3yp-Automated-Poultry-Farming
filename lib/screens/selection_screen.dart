@@ -72,9 +72,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                         SizedBox(
                           width: 70,
                         ),
-                        //Icon(FontAwesomeIcons.coins,
-                        //size: 25.0, color: Color(0xff11b719)),
-                        //SizedBox(width: 10.0),
+
                         SizedBox(
                           width: 200,
                           child: DropdownButton<String>(
