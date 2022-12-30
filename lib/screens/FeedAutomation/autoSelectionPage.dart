@@ -22,10 +22,10 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
   List weightDataCobb500 = [];
   String startDate = '';
   String strainType = '';
-  String waterCap = '';
-  String waterAlert = '';
-  String feedCap = '';
-  String feedAlert = '';
+  int waterCap = 0;
+  int waterAlert = 0;
+  int feedCap = 0;
+  int feedAlert = 0;
 
   DateTime date =
   DateTime(DateTime
