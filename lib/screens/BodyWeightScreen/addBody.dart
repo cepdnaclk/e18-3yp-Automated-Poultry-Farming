@@ -65,12 +65,7 @@ class _AddBodyWeightState extends State<AddBodyWeight> {
       weightDataStrain = strainList.PoultryData.weightDataShaverBrown;
       feedtDataStrain = strainList.PoultryData.feedDataShavorBrown;
     }
-    //print(_list[days].valueOf(days));
 
-    // strainList.PoultryData chick = weightDataCobb500[20];
-
-    // print(chick);
-    //final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
