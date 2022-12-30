@@ -62,8 +62,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      //backgroundColor: const Color(0xff392850),
-      //backgroundColor: Colors.white,
+
       children: [
         DrawerMenu(widget.flockNavi),
         AnimatedContainer(
@@ -274,14 +273,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                   ],
                                 ),
 
-                                /*
-                    IconButton(
 
-                      icon: Image.asset("assets/notification.png",width: 24,),
-                      alignment: Alignment.topCenter,
-                      onPressed: (){},
-                    ),
-                    */
                               ],
                             ),
                           ),
