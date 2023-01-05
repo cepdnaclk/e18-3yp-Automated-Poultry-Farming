@@ -333,17 +333,17 @@ class _AutomationSelectionState extends State<AutomationSelection>
                               padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
                               child: ElevatedButton(
                                 onPressed: () {
-                                  print(args.flockID);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => AddAlertData(
-                                        id_flock: args.flockID,
-                                        startDateNavi: startDate,
-                                        strainNavi: strainType,
-                                      ),
-                                    ),
-                                  );
+                                  // print(args.flockID);
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) => AddAlertData(
+                                  //       id_flock: args.flockID,
+                                  //       startDateNavi: startDate,
+                                  //       strainNavi: strainType,
+                                  //     ),
+                                  //   ),
+                                  // );
                                 },
                                 style: ElevatedButton.styleFrom(
                                   fixedSize: const Size(150, 150),
@@ -382,17 +382,17 @@ class _AutomationSelectionState extends State<AutomationSelection>
                               padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
                               child: ElevatedButton(
                                 onPressed: () {
-                                  print(args.flockID);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => AddAlertData(
-                                        id_flock: args.flockID,
-                                        startDateNavi: startDate,
-                                        strainNavi: strainType,
-                                      ),
-                                    ),
-                                  );
+                                  // print(args.flockID);
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) => AddAlertData(
+                                  //       id_flock: args.flockID,
+                                  //       startDateNavi: startDate,
+                                  //       strainNavi: strainType,
+                                  //     ),
+                                  //   ),
+                                  // );
                                 },
                                 style: ElevatedButton.styleFrom(
                                   fixedSize: const Size(150, 150),
