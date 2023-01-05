@@ -123,9 +123,11 @@ class _AutomationSelectionState extends State<AutomationSelection>
                               return Container(); // Your grid code.
                             }),
                         SizedBox(
-                          height: 20,
+                          height: 4.h,
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Padding(
                               padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
@@ -155,7 +157,10 @@ class _AutomationSelectionState extends State<AutomationSelection>
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                child: Text("AUTOMATION DATA"),
+                                child: Text(
+                                  "AUTOMATION DATA",
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                             ),
                             Padding(
@@ -190,6 +195,7 @@ class _AutomationSelectionState extends State<AutomationSelection>
                                 ),
                                 child: Text(
                                   "ADD FEED DATA",
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: mPrimaryColor,
                                     fontSize: 17,
@@ -200,9 +206,11 @@ class _AutomationSelectionState extends State<AutomationSelection>
                           ],
                         ),
                         SizedBox(
-                          height: 20,
+                          height: 2.h,
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Padding(
                               padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
@@ -236,6 +244,7 @@ class _AutomationSelectionState extends State<AutomationSelection>
                                 ),
                                 child: Text(
                                   "ADD ALERT DATA".tr,
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: mPrimaryColor,
                                     fontSize: 17,
@@ -271,15 +280,20 @@ class _AutomationSelectionState extends State<AutomationSelection>
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                child: Text("ALERT DATA"),
+                                child: Text(
+                                  "ALERT DATA",
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                             ),
                           ],
                         ),
                         SizedBox(
-                          height: 20,
+                          height: 2.h,
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Padding(
                               padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
@@ -309,14 +323,106 @@ class _AutomationSelectionState extends State<AutomationSelection>
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                child: Text("Auto Feed Add".tr),
+                                child: Text(
+                                  "AUTO FEED ADD".tr,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  // print(args.flockID);
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) => AddAlertData(
+                                  //       id_flock: args.flockID,
+                                  //       startDateNavi: startDate,
+                                  //       strainNavi: strainType,
+                                  //     ),
+                                  //   ),
+                                  // );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  fixedSize: const Size(150, 150),
+                                  backgroundColor: mBackgroundColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                  ),
+                                  side: BorderSide(color: mPrimaryColor),
+                                  elevation: 20,
+                                  shadowColor: mSecondColor,
+                                  textStyle: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                child: Text(
+                                  "UPDATE ALERT DATA",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: mPrimaryColor,
+                                    fontSize: 17,
+                                  ),
+                                ),
                               ),
                             ),
                           ],
                         ),
                         SizedBox(
-                          height: 20,
-                        )
+                          height: 2.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  // print(args.flockID);
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) => AddAlertData(
+                                  //       id_flock: args.flockID,
+                                  //       startDateNavi: startDate,
+                                  //       strainNavi: strainType,
+                                  //     ),
+                                  //   ),
+                                  // );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  fixedSize: const Size(150, 150),
+                                  backgroundColor: mBackgroundColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                  ),
+                                  side: BorderSide(color: mPrimaryColor),
+                                  elevation: 20,
+                                  shadowColor: mSecondColor,
+                                  textStyle: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                child: Text(
+                                  "DELETE ALERT DATA",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: mPrimaryColor,
+                                    fontSize: 17,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 4.h,
+                        ),
                       ],
                     ),
                   ),

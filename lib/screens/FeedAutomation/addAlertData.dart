@@ -21,7 +21,6 @@ import 'dataDisplay.dart';
 import 'alertDataDisplay.dart';
 
 class AddAlertData extends StatefulWidget {
-
   final String id_flock;
   final String startDateNavi;
   final String strainNavi;
@@ -38,22 +37,22 @@ class AddAlertData extends StatefulWidget {
 }
 
 class _AddAlertDataState extends State<AddAlertData> {
-
   List<strainList.PoultryData> weightDataStrain = [];
   List<strainList.PoultryData> feedtDataStrain = [];
 
   //To get the device token
-  String ? mtoken="";
-  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  String? mtoken = "";
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
   int mortal = 0, startCount = 0;
   String totalChick = '', flockID = '', strain = '';
 
-  String ? userToken="";
-  String  titleForFeed ="Feed level Alert!!!";
-  String  titleForwater ="Water level Alert!!!";
-  String ? bodyForFeed ="";
-  String ? bodyForwater ="";
+  String? userToken = "";
+  String titleForFeed = "Feed level Alert!!!";
+  String titleForwater = "Water level Alert!!!";
+  String? bodyForFeed = "";
+  String? bodyForwater = "";
 
   late DateTime startDate;
   int days = 0;
@@ -71,7 +70,8 @@ class _AddAlertDataState extends State<AddAlertData> {
   final TextEditingController _controllerFeedCap = TextEditingController();
   final TextEditingController _controllerFeedAlertVol = TextEditingController();
   final TextEditingController _controllerWaterCap = TextEditingController();
-  final TextEditingController _controllerWaterAlertVol = TextEditingController();
+  final TextEditingController _controllerWaterAlertVol =
+      TextEditingController();
 
   //List<strainList.PoultryData> _list = strainList.PoultryData.feedDataCobb500;
   @override
@@ -82,7 +82,6 @@ class _AddAlertDataState extends State<AddAlertData> {
     _controllerFeedAlertVol.text = ""; //set the initial value of text field
     _controllerWaterCap.text = ""; //set the initial value of text field
     _controllerWaterAlertVol.text = "";
-
 
     //function which request permission from device
     requestPermission();
@@ -98,80 +97,72 @@ class _AddAlertDataState extends State<AddAlertData> {
     print(payload);
   }
 
-
-  initInfo(){
-    var androidInitialize = AndroidInitializationSettings('@mipmap/ic_launcher');
+  initInfo() {
+    var androidInitialize =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
     var iOSInitialize = IOSInitializationSettings();
-    var initializationsSettings = InitializationSettings(android: androidInitialize, iOS: iOSInitialize);
-    flutterLocalNotificationsPlugin.initialize(initializationsSettings, onSelectNotification: (String? payload) async{
-
-      try{
-        if(payload != null && payload.isNotEmpty){
+    var initializationsSettings =
+        InitializationSettings(android: androidInitialize, iOS: iOSInitialize);
+    flutterLocalNotificationsPlugin.initialize(initializationsSettings,
+        onSelectNotification: (String? payload) async {
+      try {
+        if (payload != null && payload.isNotEmpty) {
           //once the notification is clicked the person will be redirected to this page
-          Navigator.push(context,MaterialPageRoute(builder: (BuildContext context){
+          Navigator.push(context,
+              MaterialPageRoute(builder: (BuildContext context) {
             //return TankAlertPage();
-            return DataDisplayPage(id_flock : widget.id_flock , startDateNavi : widget.startDateNavi, strainNavi : widget.strainNavi, info : payload.toString() );
-
-          }
-
-          ));
-
+            return DataDisplayPage(
+                id_flock: widget.id_flock,
+                startDateNavi: widget.startDateNavi,
+                strainNavi: widget.strainNavi,
+                info: payload.toString());
+          }));
         }
-
-      }catch(e){
+      } catch (e) {
         return;
       }
+    });
 
-
-    }
-
-
-
-    );
-
-
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) async{
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       print(".................onMessage.................");
-      print("onMessage: ${message.notification?.title}/${message.notification?.body}");
+      print(
+          "onMessage: ${message.notification?.title}/${message.notification?.body}");
 
       BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
-        message.notification!.body.toString(),htmlFormatBigText: true,
+        message.notification!.body.toString(),
+        htmlFormatBigText: true,
         contentTitle: message.notification!.title.toString(),
         htmlFormatContentTitle: true,
       );
 
-      AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
-        '3YP_Poultry','3YP_Poultry',importance: Importance.high,
-        styleInformation: bigTextStyleInformation, priority: Priority.high, playSound: true,
-
+      AndroidNotificationDetails androidPlatformChannelSpecifics =
+          AndroidNotificationDetails(
+        '3YP_Poultry',
+        '3YP_Poultry',
+        importance: Importance.high,
+        styleInformation: bigTextStyleInformation,
+        priority: Priority.high,
+        playSound: true,
       );
 
-      NotificationDetails platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics,
-          iOS: IOSNotificationDetails()
-
-      );
+      NotificationDetails platformChannelSpecifics = NotificationDetails(
+          android: androidPlatformChannelSpecifics,
+          iOS: IOSNotificationDetails());
       await flutterLocalNotificationsPlugin.show(0, message.notification?.title,
           message.notification?.body, platformChannelSpecifics,
-          payload: message.data['body']
-      );
-
+          payload: message.data['body']);
     });
-
   }
-
 
   //device tokewn
   void getToken() async {
-    await FirebaseMessaging.instance.getToken().then(
-            (token){
-          setState(() {
-            mtoken = token;
-            print("My token is $mtoken");
-          });
-          //saveToken(token!);
-
-        }
-    );
+    await FirebaseMessaging.instance.getToken().then((token) {
+      setState(() {
+        mtoken = token;
+        print("My token is $mtoken");
+      });
+      //saveToken(token!);
+    });
   }
 
   //Save the token to identify the user
@@ -185,7 +176,7 @@ class _AddAlertDataState extends State<AddAlertData> {
  */
 
   void requestPermission() async {
-    FirebaseMessaging messaging =FirebaseMessaging.instance;
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
 
     NotificationSettings settings = await messaging.requestPermission(
       alert: true,
@@ -195,67 +186,51 @@ class _AddAlertDataState extends State<AddAlertData> {
       criticalAlert: false,
       provisional: false,
       sound: true,
-
     );
 
-    if(settings.authorizationStatus == AuthorizationStatus.authorized){
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
       print('User granted permission');
-    } else if(settings.authorizationStatus == AuthorizationStatus.provisional){
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
       print('User granted provisional permission');
-    }else{
+    } else {
       print('User declined or has not accepted permission');
     }
   }
 
   void sendPushMessage(String token, String body, String title) async {
-    try{
-      await http.post(
-          Uri.parse('https://fcm.googleapis.com/fcm/send'),
+    try {
+      await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
           headers: <String, String>{
             'Content-Type': 'application/json',
-            'Authorization': 'key=AAAA2NM6B2o:APA91bFQ-fVUfnC4xRx2pO7cANA7oNpchFgkOKrxX8Wy9kvukzF5StLE-fOU6wt6FofB62vEGvEoGLr9eCrYF9UDLIyH1IVEdka5qsu3qplBqM6cxh6DqgEMY97enHOleGV8gs561fWQ',
+            'Authorization':
+                'key=AAAA2NM6B2o:APA91bFQ-fVUfnC4xRx2pO7cANA7oNpchFgkOKrxX8Wy9kvukzF5StLE-fOU6wt6FofB62vEGvEoGLr9eCrYF9UDLIyH1IVEdka5qsu3qplBqM6cxh6DqgEMY97enHOleGV8gs561fWQ',
           },
           //This has two parts in json the FLUTTER NOTIFIcation CLICK part is to send
           //the user to a different page
           //second part "notification is to print the notification"
-          body: jsonEncode(
-              <String, dynamic>{
-
-                'priority': 'high',
-                'data': <String, dynamic>{
-                  'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-                  'status': 'done',
-                  'body': body,
-                  'title': title,
-                },
-
-                "notification": <String, dynamic>{
-                  "title": title,
-                  "body": body,
-                  "android_channel_id": "3YP_Poultry",
-                  "priority": "10",
-
-                },
-
-                "to": token,
-              }
-          )
-
-      );
-    }
-    catch(e){
-      if(kDebugMode){
+          body: jsonEncode(<String, dynamic>{
+            'priority': 'high',
+            'data': <String, dynamic>{
+              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+              'status': 'done',
+              'body': body,
+              'title': title,
+            },
+            "notification": <String, dynamic>{
+              "title": title,
+              "body": body,
+              "android_channel_id": "3YP_Poultry",
+              "priority": "10",
+            },
+            "to": token,
+          }));
+    } catch (e) {
+      if (kDebugMode) {
         print("error push notification");
-
       }
-
     }
-
   }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -277,7 +252,6 @@ class _AddAlertDataState extends State<AddAlertData> {
     }
 
     return GestureDetector(
-
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         appBar: AppBar(
@@ -292,7 +266,6 @@ class _AddAlertDataState extends State<AddAlertData> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               Row(
                 //mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -331,7 +304,8 @@ class _AddAlertDataState extends State<AddAlertData> {
                                   ),
                                   textButtonTheme: TextButtonThemeData(
                                     style: TextButton.styleFrom(
-                                      foregroundColor: mPrimaryColor, // button text color
+                                      foregroundColor:
+                                          mPrimaryColor, // button text color
                                     ),
                                   ),
                                 ),
@@ -344,7 +318,8 @@ class _AddAlertDataState extends State<AddAlertData> {
                           setState(() => date = ndate);
                         },
                         style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(180, 50), backgroundColor: mBackgroundColor,
+                          fixedSize: const Size(180, 50),
+                          backgroundColor: mBackgroundColor,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
                               side: BorderSide(
@@ -393,7 +368,7 @@ class _AddAlertDataState extends State<AddAlertData> {
                 children: [
                   Text(
                     "ideal".tr + widget.strainNavi + "feed".tr,
-                    style: TextStyle(fontSize: 15, color: mPrimaryColor),
+                    style: TextStyle(fontSize: 16, color: mPrimaryColor),
                   ),
                   Container(
                     alignment: Alignment.center,
@@ -409,7 +384,7 @@ class _AddAlertDataState extends State<AddAlertData> {
                       feedtDataStrain[days].valueOf(days).toString() + " g",
                       style: TextStyle(
                           color: mNewColor,
-                          fontSize: 17,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -423,7 +398,7 @@ class _AddAlertDataState extends State<AddAlertData> {
                 children: [
                   Text(
                     "   Start Date",
-                    style: TextStyle(fontSize: 15, color: mPrimaryColor),
+                    style: TextStyle(fontSize: 16, color: mPrimaryColor),
                   ),
                   Container(
                     alignment: Alignment.center,
@@ -439,7 +414,7 @@ class _AddAlertDataState extends State<AddAlertData> {
                       widget.startDateNavi,
                       style: TextStyle(
                           color: mNewColor,
-                          fontSize: 17,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -453,8 +428,8 @@ class _AddAlertDataState extends State<AddAlertData> {
                       .collection('flock')
                       .where(FieldPath.documentId, isEqualTo: widget.id_flock)
                       .snapshots(), // your stream url,
-                  builder:
-                      (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (!snapshot.hasData) {
                       //return CircularProgressIndicator();
                     } else {
@@ -462,7 +437,6 @@ class _AddAlertDataState extends State<AddAlertData> {
                       mortal = snapshot.data?.docs[0]['Mortal'];
                       totalChick = snapshot.data?.docs[0]['count'];
                       startCount = int.parse(totalChick);
-
                     }
 
                     return Container(
@@ -476,7 +450,8 @@ class _AddAlertDataState extends State<AddAlertData> {
                             children: [
                               Text(
                                 'totalMoartal'.tr,
-                                style: TextStyle(fontSize: 15, color: mPrimaryColor),
+                                style: TextStyle(
+                                    fontSize: 16, color: mPrimaryColor),
                               ),
                               Container(
                                 alignment: Alignment.center,
@@ -492,13 +467,12 @@ class _AddAlertDataState extends State<AddAlertData> {
                                   mortal.toString(),
                                   style: TextStyle(
                                       color: mNewColor,
-                                      fontSize: 17,
+                                      fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ],
                           ),
-
                           SizedBox(
                             height: 1.h,
                           ),
@@ -507,7 +481,8 @@ class _AddAlertDataState extends State<AddAlertData> {
                             children: [
                               Text(
                                 'totallive'.tr,
-                                style: TextStyle(fontSize: 15, color: mPrimaryColor),
+                                style: TextStyle(
+                                    fontSize: 16, color: mPrimaryColor),
                               ),
                               Container(
                                 alignment: Alignment.center,
@@ -523,24 +498,20 @@ class _AddAlertDataState extends State<AddAlertData> {
                                   (startCount - mortal).toString(),
                                   style: TextStyle(
                                       color: mNewColor,
-                                      fontSize: 17,
+                                      fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ],
                           ),
-
                         ],
                       ),
                     ); // Your grid code.
                   }),
 
-
-
               SizedBox(
-                height: 20.0,
+                height: 4.h,
               ),
-
 
               //Feed Tank
               Padding(
@@ -551,22 +522,18 @@ class _AddAlertDataState extends State<AddAlertData> {
                 ),
               ),
 
-
               Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
+                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
                 //child: reuseTextField1("Number of chicks"),
 
-                child: reusableTextField2("Feed Tank Capacity (kg)", Icons.numbers,
-                    false, _controllerFeedCap, null, "kg"),
+                child: reusableTextField2("Feed Tank Capacity (kg)",
+                    Icons.numbers, false, _controllerFeedCap, null, "kg"),
               ),
-
-
-
 
               Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
+                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
                 //child: reuseTextField1("Number of chicks"),
 
                 child: reusableTextField2("Alert Volume (kg)", Icons.numbers,
@@ -574,7 +541,7 @@ class _AddAlertDataState extends State<AddAlertData> {
               ),
 
               SizedBox(
-                height: 20,
+                height: 3.h,
               ),
 
               //Feed Tank
@@ -586,20 +553,18 @@ class _AddAlertDataState extends State<AddAlertData> {
                 ),
               ),
 
-
               Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
+                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
                 //child: reuseTextField1("Number of chicks"),
 
-                child: reusableTextField2("Water Tank Capacity (l)", Icons.numbers,
-                    false, _controllerWaterCap, null, "l"),
+                child: reusableTextField2("Water Tank Capacity (l)",
+                    Icons.numbers, false, _controllerWaterCap, null, "l"),
               ),
-
 
               Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
+                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
                 //child: reuseTextField1("Number of chicks"),
 
                 child: reusableTextField2("Alert Volume (l)", Icons.numbers,
@@ -607,22 +572,21 @@ class _AddAlertDataState extends State<AddAlertData> {
               ),
 
               SizedBox(
-                height: 20,
+                height: 2.h,
               ),
               Center(
                 child: ElevatedButton(
                   onPressed: () async {
-
-
                     //sendPushMessage(mtoken!,"Morning Feed per Chick is  ${_numcontrollerMorning.text}g at ${timeinMor.text}\nEvening Feed per Chick is  ${_numcontrollerEvening.text}g at ${timeinEve.text}\nNight   Feed per Chick is  ${_numcontrollerNight.text}g   at ${timeinNit.text}\n" ,titleForFeed!);
 
                     addVolumeData(
-                        widget.id_flock,date.toString().substring(0, 10),
-                        _controllerFeedCap.text,
-                        _controllerFeedAlertVol.text,
-                        _controllerWaterCap.text,
-                        _controllerWaterAlertVol.text,
-                        );
+                      widget.id_flock,
+                      date.toString().substring(0, 10),
+                      _controllerFeedCap.text,
+                      _controllerFeedAlertVol.text,
+                      _controllerWaterCap.text,
+                      _controllerWaterAlertVol.text,
+                    );
 
                     _datecontroller.clear();
                     _controllerFeedCap.clear();
@@ -630,13 +594,7 @@ class _AddAlertDataState extends State<AddAlertData> {
                     _controllerWaterCap.clear();
                     _controllerWaterAlertVol.clear();
 
-
-
-
-
-
                     setState(() {});
-
 
                     ///displayFCRdialog();
                     Fluttertoast.showToast(
@@ -648,7 +606,8 @@ class _AddAlertDataState extends State<AddAlertData> {
                         textColor: mPrimaryColor);
                   },
                   style: ElevatedButton.styleFrom(
-                    fixedSize: const Size(200, 50), backgroundColor: mPrimaryColor,
+                    fixedSize: const Size(200, 50),
+                    backgroundColor: mPrimaryColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
@@ -663,9 +622,8 @@ class _AddAlertDataState extends State<AddAlertData> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 4.h,
               ),
-
             ],
           ),
         ),
@@ -673,7 +631,8 @@ class _AddAlertDataState extends State<AddAlertData> {
     );
   }
 
-  Future<void> addVolumeData(String id, String date ,String feedCap,String feedAlert,String waterCap,String waterAlert) async {
+  Future<void> addVolumeData(String id, String date, String feedCap,
+      String feedAlert, String waterCap, String waterAlert) async {
     num current = 0;
     num valueFeedCap = int.parse(feedCap);
     num valueFeedAlert = int.parse(feedAlert);
@@ -681,52 +640,36 @@ class _AddAlertDataState extends State<AddAlertData> {
     num valueWaterAlert = int.parse(waterAlert);
 
     try {
-
       DocumentReference<Map<String, dynamic>> documentReference2 =
-      FirebaseFirestore.instance
-          .collection('Farmers')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .collection('flock')
-          .doc(id);
+          FirebaseFirestore.instance
+              .collection('Farmers')
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .collection('flock')
+              .doc(id);
 
       FirebaseFirestore.instance.runTransaction((transaction2) async {
         DocumentSnapshot<Map<String, dynamic>> snapshot2 =
-        await transaction2.get(documentReference2);
+            await transaction2.get(documentReference2);
         print(documentReference2);
         if (!snapshot2.exists) {
-
           documentReference2.update({'Feed Tank Capacity': valueFeedCap});
           documentReference2.update({'Feed Tank Alert': valueFeedAlert});
           documentReference2.update({'Water Tank Capacity': valueWaterCap});
           documentReference2.update({'Water Tank Alert': valueWaterAlert});
-
-
         } else {
           try {
-
             documentReference2.update({'Feed Tank Capacity': valueFeedCap});
             documentReference2.update({'Feed Tank Alert': valueFeedAlert});
             documentReference2.update({'Water Tank Capacity': valueWaterCap});
             documentReference2.update({'Water Tank Alert': valueWaterAlert});
-
-
-
-
-
-          } catch (e) {
-
-          }
+          } catch (e) {}
         }
       });
     } catch (e) {
       //
     }
   }
-
-
 }
-
-
 
 TextFormField reusableTextField3(
     String text,
@@ -736,9 +679,7 @@ TextFormField reusableTextField3(
     validator,
     bool val) {
   return TextFormField(
-    onTap: () {
-
-    },
+    onTap: () {},
     enabled: val,
     controller: controller,
     validator: validator,
@@ -790,4 +731,3 @@ TextFormField reusableTextField3(
         : TextInputType.emailAddress,
   );
 }
-

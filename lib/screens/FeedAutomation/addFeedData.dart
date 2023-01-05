@@ -37,22 +37,22 @@ class AddAutomatedFeed extends StatefulWidget {
 }
 
 class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
-
   List<strainList.PoultryData> weightDataStrain = [];
   List<strainList.PoultryData> feedtDataStrain = [];
 
   //To get the device token
-  String ? mtoken="";
-  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  String? mtoken = "";
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
   int mortal = 0, startCount = 0;
   String totalChick = '', flockID = '', strain = '';
 
-  String ? userToken="";
-  String  titleForFeed ="Feed level Alert!!!";
-  String  titleForwater ="Water level Alert!!!";
-  String ? bodyForFeed ="";
-  String ? bodyForwater ="";
+  String? userToken = "";
+  String titleForFeed = "Feed level Alert!!!";
+  String titleForwater = "Water level Alert!!!";
+  String? bodyForFeed = "";
+  String? bodyForwater = "";
 
   late DateTime startDate;
   int days = 0;
@@ -84,7 +84,6 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
     timeinEve.text = ""; //set the initial value of text field
     timeinNit.text = ""; //set the initial value of text field
 
-
     //function which request permission from device
     requestPermission();
 
@@ -99,82 +98,75 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
     print(payload);
   }
 
-
-  initInfo(){
-    var androidInitialize = AndroidInitializationSettings('@mipmap/ic_launcher');
+  initInfo() {
+    var androidInitialize =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
     var iOSInitialize = IOSInitializationSettings();
-    var initializationsSettings = InitializationSettings(android: androidInitialize, iOS: iOSInitialize);
-    flutterLocalNotificationsPlugin.initialize(initializationsSettings, onSelectNotification: (String? payload) async{
-
-      try{
-        if(payload != null && payload.isNotEmpty){
+    var initializationsSettings =
+        InitializationSettings(android: androidInitialize, iOS: iOSInitialize);
+    flutterLocalNotificationsPlugin.initialize(initializationsSettings,
+        onSelectNotification: (String? payload) async {
+      try {
+        if (payload != null && payload.isNotEmpty) {
           //once the notification is clicked the person will be redirected to this page
-          Navigator.push(context,MaterialPageRoute(builder: (BuildContext context){
+          Navigator.push(context,
+              MaterialPageRoute(builder: (BuildContext context) {
             //return TankAlertPage();
-            return DataDisplayPage(id_flock : widget.id_flock , startDateNavi : widget.startDateNavi, strainNavi : widget.strainNavi, info : payload.toString() );
+            return DataDisplayPage(
+                id_flock: widget.id_flock,
+                startDateNavi: widget.startDateNavi,
+                strainNavi: widget.strainNavi,
+                info: payload.toString());
             //id_flock: args.flockID,
             //startDateNavi: startDate,
             //strainNavi: strainType,
-          }
-
-         ));
-
+          }));
         }
-
-      }catch(e){
+      } catch (e) {
         return;
       }
+    });
 
-
-    }
-
-
-
-    );
-
-
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) async{
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       print(".................onMessage.................");
-      print("onMessage: ${message.notification?.title}/${message.notification?.body}");
+      print(
+          "onMessage: ${message.notification?.title}/${message.notification?.body}");
 
       BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
-        message.notification!.body.toString(),htmlFormatBigText: true,
+        message.notification!.body.toString(),
+        htmlFormatBigText: true,
         contentTitle: message.notification!.title.toString(),
         htmlFormatContentTitle: true,
       );
 
-      AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
-        '3YP_Poultry','3YP_Poultry',importance: Importance.high,
-        styleInformation: bigTextStyleInformation, priority: Priority.high, playSound: true,
-
+      AndroidNotificationDetails androidPlatformChannelSpecifics =
+          AndroidNotificationDetails(
+        '3YP_Poultry',
+        '3YP_Poultry',
+        importance: Importance.high,
+        styleInformation: bigTextStyleInformation,
+        priority: Priority.high,
+        playSound: true,
       );
 
-      NotificationDetails platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics,
-          iOS: IOSNotificationDetails()
-
-      );
+      NotificationDetails platformChannelSpecifics = NotificationDetails(
+          android: androidPlatformChannelSpecifics,
+          iOS: IOSNotificationDetails());
       await flutterLocalNotificationsPlugin.show(0, message.notification?.title,
           message.notification?.body, platformChannelSpecifics,
-          payload: message.data['body']
-      );
-
+          payload: message.data['body']);
     });
-
   }
-
 
   //device tokewn
   void getToken() async {
-    await FirebaseMessaging.instance.getToken().then(
-            (token){
-          setState(() {
-            mtoken = token;
-            print("My token is $mtoken");
-          });
-          //saveToken(token!);
-
-        }
-    );
+    await FirebaseMessaging.instance.getToken().then((token) {
+      setState(() {
+        mtoken = token;
+        print("My token is $mtoken");
+      });
+      //saveToken(token!);
+    });
   }
 
   //Save the token to identify the user
@@ -188,7 +180,7 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
  */
 
   void requestPermission() async {
-    FirebaseMessaging messaging =FirebaseMessaging.instance;
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
 
     NotificationSettings settings = await messaging.requestPermission(
       alert: true,
@@ -198,67 +190,51 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
       criticalAlert: false,
       provisional: false,
       sound: true,
-
     );
 
-    if(settings.authorizationStatus == AuthorizationStatus.authorized){
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
       print('User granted permission');
-    } else if(settings.authorizationStatus == AuthorizationStatus.provisional){
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
       print('User granted provisional permission');
-    }else{
+    } else {
       print('User declined or has not accepted permission');
     }
   }
 
   void sendPushMessage(String token, String body, String title) async {
-    try{
-      await http.post(
-          Uri.parse('https://fcm.googleapis.com/fcm/send'),
+    try {
+      await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
           headers: <String, String>{
             'Content-Type': 'application/json',
-            'Authorization': 'key=AAAA2NM6B2o:APA91bFQ-fVUfnC4xRx2pO7cANA7oNpchFgkOKrxX8Wy9kvukzF5StLE-fOU6wt6FofB62vEGvEoGLr9eCrYF9UDLIyH1IVEdka5qsu3qplBqM6cxh6DqgEMY97enHOleGV8gs561fWQ',
+            'Authorization':
+                'key=AAAA2NM6B2o:APA91bFQ-fVUfnC4xRx2pO7cANA7oNpchFgkOKrxX8Wy9kvukzF5StLE-fOU6wt6FofB62vEGvEoGLr9eCrYF9UDLIyH1IVEdka5qsu3qplBqM6cxh6DqgEMY97enHOleGV8gs561fWQ',
           },
           //This has two parts in json the FLUTTER NOTIFIcation CLICK part is to send
           //the user to a different page
           //second part "notification is to print the notification"
-          body: jsonEncode(
-              <String, dynamic>{
-
-                'priority': 'high',
-                'data': <String, dynamic>{
-                  'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-                  'status': 'done',
-                  'body': body,
-                  'title': title,
-                },
-
-                "notification": <String, dynamic>{
-                  "title": title,
-                  "body": body,
-                  "android_channel_id": "3YP_Poultry",
-                  "priority": "10",
-
-                },
-
-                "to": token,
-              }
-          )
-
-      );
-    }
-    catch(e){
-      if(kDebugMode){
+          body: jsonEncode(<String, dynamic>{
+            'priority': 'high',
+            'data': <String, dynamic>{
+              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+              'status': 'done',
+              'body': body,
+              'title': title,
+            },
+            "notification": <String, dynamic>{
+              "title": title,
+              "body": body,
+              "android_channel_id": "3YP_Poultry",
+              "priority": "10",
+            },
+            "to": token,
+          }));
+    } catch (e) {
+      if (kDebugMode) {
         print("error push notification");
-
       }
-
     }
-
   }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -280,13 +256,12 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
     }
 
     return GestureDetector(
-
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         appBar: AppBar(
           title: Text(
             "Automated Data",
-            style: TextStyle(fontSize: 16),
+            style: TextStyle(fontSize: 17),
           ),
           backgroundColor: mPrimaryColor,
         ),
@@ -295,7 +270,6 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               Row(
                 //mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -334,7 +308,8 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
                                   ),
                                   textButtonTheme: TextButtonThemeData(
                                     style: TextButton.styleFrom(
-                                      foregroundColor: mPrimaryColor, // button text color
+                                      foregroundColor:
+                                          mPrimaryColor, // button text color
                                     ),
                                   ),
                                 ),
@@ -347,7 +322,8 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
                           setState(() => date = ndate);
                         },
                         style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(180, 50), backgroundColor: mBackgroundColor,
+                          fixedSize: const Size(180, 50),
+                          backgroundColor: mBackgroundColor,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
                               side: BorderSide(
@@ -396,7 +372,7 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
                 children: [
                   Text(
                     "ideal".tr + widget.strainNavi + "feed".tr,
-                    style: TextStyle(fontSize: 15, color: mPrimaryColor),
+                    style: TextStyle(fontSize: 16, color: mPrimaryColor),
                   ),
                   Container(
                     alignment: Alignment.center,
@@ -412,7 +388,7 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
                       feedtDataStrain[days].valueOf(days).toString() + " g",
                       style: TextStyle(
                           color: mNewColor,
-                          fontSize: 17,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -426,7 +402,7 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
                 children: [
                   Text(
                     "   Start Date",
-                    style: TextStyle(fontSize: 15, color: mPrimaryColor),
+                    style: TextStyle(fontSize: 16, color: mPrimaryColor),
                   ),
                   Container(
                     alignment: Alignment.center,
@@ -442,7 +418,7 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
                       widget.startDateNavi,
                       style: TextStyle(
                           color: mNewColor,
-                          fontSize: 17,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -456,8 +432,8 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
                       .collection('flock')
                       .where(FieldPath.documentId, isEqualTo: widget.id_flock)
                       .snapshots(), // your stream url,
-                  builder:
-                      (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (!snapshot.hasData) {
                       //return CircularProgressIndicator();
                     } else {
@@ -465,7 +441,6 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
                       mortal = snapshot.data?.docs[0]['Mortal'];
                       totalChick = snapshot.data?.docs[0]['count'];
                       startCount = int.parse(totalChick);
-
                     }
 
                     return Container(
@@ -479,7 +454,8 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
                             children: [
                               Text(
                                 'totalMoartal'.tr,
-                                  style: TextStyle(fontSize: 15, color: mPrimaryColor),
+                                style: TextStyle(
+                                    fontSize: 16, color: mPrimaryColor),
                               ),
                               Container(
                                 alignment: Alignment.center,
@@ -495,13 +471,12 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
                                   mortal.toString(),
                                   style: TextStyle(
                                       color: mNewColor,
-                                      fontSize: 17,
+                                      fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ],
                           ),
-
                           SizedBox(
                             height: 1.h,
                           ),
@@ -510,7 +485,8 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
                             children: [
                               Text(
                                 'totallive'.tr,
-                                style: TextStyle(fontSize: 15, color: mPrimaryColor),
+                                style: TextStyle(
+                                    fontSize: 16, color: mPrimaryColor),
                               ),
                               Container(
                                 alignment: Alignment.center,
@@ -526,23 +502,21 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
                                   (startCount - mortal).toString(),
                                   style: TextStyle(
                                       color: mNewColor,
-                                      fontSize: 17,
+                                      fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ],
                           ),
-
                         ],
                       ),
                     ); // Your grid code.
                   }),
 
-
               // Text("Expected feed intake: " +
               //     weightDataStrain[index].valueOf(days).toString()),
               SizedBox(
-                height: 20.0,
+                height: 4.h,
               ),
               //reuseTextField("Mortality"),
 
@@ -555,7 +529,6 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
                 ),
               ),
 
-
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
@@ -567,24 +540,24 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
 
               Padding(
                 padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                child:TextFormField(
+                child: TextFormField(
                   controller: timeinMor,
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(
-                          width: 10,
-                          style: BorderStyle.none,
-                          color: mPrimaryColor,
-                        ),
-
-
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(
+                        width: 10,
+                        style: BorderStyle.none,
+                        color: mPrimaryColor,
                       ),
-                      icon: Icon(Icons.timer,color: mPrimaryColor,), //icon of text field
-                      labelText: "Enter Morning Feed Time",
-                    labelStyle: TextStyle(
-                        color: Colors.grey
-                    ),//label text of field
+                    ),
+                    icon: Icon(
+                      Icons.timer,
+                      color: mPrimaryColor,
+                    ), //icon of text field
+                    labelText: "Enter Morning Feed Time",
+                    labelStyle:
+                        TextStyle(color: Colors.grey), //label text of field
                     filled: true,
                     floatingLabelBehavior: FloatingLabelBehavior.auto,
                     fillColor: Colors.grey[50],
@@ -617,42 +590,39 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
                     ),
                   ),
                   readOnly: true,
-                  onTap: () async{
-                    TimeOfDay? pickedTime =  await showTimePicker(
+                  onTap: () async {
+                    TimeOfDay? pickedTime = await showTimePicker(
                       context: context,
                       initialTime: TimeOfDay.now(),
-                      builder: (context,child){
+                      builder: (context, child) {
                         return Theme(data: _buildShrineTheme(), child: child!);
                       },
                     );
 
-                    if(pickedTime != null ){
-                      print(pickedTime.format(context));   //output 10:51 PM
-                      DateTime parsedTime = DateFormat.jm().parse(pickedTime.format(context).toString());
+                    if (pickedTime != null) {
+                      print(pickedTime.format(context)); //output 10:51 PM
+                      DateTime parsedTime = DateFormat.jm()
+                          .parse(pickedTime.format(context).toString());
                       //converting to DateTime so that we can further format on different pattern.
                       print(parsedTime); //output 1970-01-01 22:53:00.000
-                      String formattedTime = DateFormat('HH:mm:ss').format(parsedTime);
+                      String formattedTime =
+                          DateFormat('HH:mm:ss').format(parsedTime);
                       print(formattedTime); //output 14:59:00
                       //DateFormat() is from intl package, you can format the time on any pattern you need.
 
                       setState(() {
-                        timeinMor.text = formattedTime; //set the value of text field.
+                        timeinMor.text =
+                            formattedTime; //set the value of text field.
                       });
-                    }else{
+                    } else {
                       print("Time is not selected");
                     }
-
                   },
-
                 ),
               ),
 
-
-
-
-
               SizedBox(
-                height: 20,
+                height: 3.h,
               ),
 
               Padding(
@@ -666,7 +636,7 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
               //Evening Feed
               Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
+                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
                 //child: reuseTextField1("Number of chicks"),
 
                 child: reusableTextField2("Evening Feed/chick", Icons.numbers,
@@ -675,7 +645,7 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
 
               Padding(
                 padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                child:TextFormField(
+                child: TextFormField(
                   controller: timeinEve,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -685,14 +655,14 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
                         style: BorderStyle.none,
                         color: mPrimaryColor,
                       ),
-
-
                     ),
-                    icon: Icon(Icons.timer,color: mPrimaryColor,), //icon of text field
+                    icon: Icon(
+                      Icons.timer,
+                      color: mPrimaryColor,
+                    ), //icon of text field
                     labelText: "Enter Evening Feed Time",
-                    labelStyle: TextStyle(
-                        color: Colors.grey
-                    ),//label text of field
+                    labelStyle:
+                        TextStyle(color: Colors.grey), //label text of field
                     filled: true,
                     floatingLabelBehavior: FloatingLabelBehavior.auto,
                     fillColor: Colors.grey[50],
@@ -725,43 +695,39 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
                     ),
                   ),
                   readOnly: true,
-                  onTap: () async{
-                    TimeOfDay? pickedTime =  await showTimePicker(
+                  onTap: () async {
+                    TimeOfDay? pickedTime = await showTimePicker(
                       context: context,
                       initialTime: TimeOfDay.now(),
-                      builder: (context,child){
+                      builder: (context, child) {
                         return Theme(data: _buildShrineTheme(), child: child!);
                       },
                     );
 
-                    if(pickedTime != null ){
-                      print(pickedTime.format(context));   //output 10:51 PM
-                      DateTime parsedTime = DateFormat.jm().parse(pickedTime.format(context).toString());
+                    if (pickedTime != null) {
+                      print(pickedTime.format(context)); //output 10:51 PM
+                      DateTime parsedTime = DateFormat.jm()
+                          .parse(pickedTime.format(context).toString());
                       //converting to DateTime so that we can further format on different pattern.
                       print(parsedTime); //output 1970-01-01 22:53:00.000
-                      String formattedTime = DateFormat('HH:mm:ss').format(parsedTime);
+                      String formattedTime =
+                          DateFormat('HH:mm:ss').format(parsedTime);
                       print(formattedTime); //output 14:59:00
                       //DateFormat() is from intl package, you can format the time on any pattern you need.
 
                       setState(() {
-                        timeinEve.text = formattedTime; //set the value of text field.
+                        timeinEve.text =
+                            formattedTime; //set the value of text field.
                       });
-                    }else{
+                    } else {
                       print("Time is not selected");
                     }
-
-
-
-
                   },
-
                 ),
               ),
 
-
-
               SizedBox(
-                height: 20,
+                height: 3.h,
               ),
 
               Padding(
@@ -775,7 +741,7 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
               //Night Feed
               Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
+                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
                 //child: reuseTextField1("Number of chicks"),
 
                 child: reusableTextField2("Night Feed/chick", Icons.numbers,
@@ -784,7 +750,7 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
 
               Padding(
                 padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                child:TextFormField(
+                child: TextFormField(
                   controller: timeinNit,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -794,14 +760,14 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
                         style: BorderStyle.none,
                         color: mPrimaryColor,
                       ),
-
-
                     ),
-                    icon: Icon(Icons.timer,color: mPrimaryColor,), //icon of text field
+                    icon: Icon(
+                      Icons.timer,
+                      color: mPrimaryColor,
+                    ), //icon of text field
                     labelText: "Enter Night Feed Time",
-                    labelStyle: TextStyle(
-                        color: Colors.grey
-                    ),//label text of field
+                    labelStyle:
+                        TextStyle(color: Colors.grey), //label text of field
                     filled: true,
                     floatingLabelBehavior: FloatingLabelBehavior.auto,
                     fillColor: Colors.grey[50],
@@ -834,45 +800,40 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
                     ),
                   ),
                   readOnly: true,
-                  onTap: () async{
-                    TimeOfDay? pickedTime =  await showTimePicker(
+                  onTap: () async {
+                    TimeOfDay? pickedTime = await showTimePicker(
                       context: context,
                       initialTime: TimeOfDay.now(),
-                      builder: (context,child){
+                      builder: (context, child) {
                         return Theme(data: _buildShrineTheme(), child: child!);
                       },
                     );
 
-                    if(pickedTime != null ){
-                      print(pickedTime.format(context));   //output 10:51 PM
-                      DateTime parsedTime = DateFormat.jm().parse(pickedTime.format(context).toString());
+                    if (pickedTime != null) {
+                      print(pickedTime.format(context)); //output 10:51 PM
+                      DateTime parsedTime = DateFormat.jm()
+                          .parse(pickedTime.format(context).toString());
                       //converting to DateTime so that we can further format on different pattern.
                       print(parsedTime); //output 1970-01-01 22:53:00.000
-                      String formattedTime = DateFormat('HH:mm:ss').format(parsedTime);
+                      String formattedTime =
+                          DateFormat('HH:mm:ss').format(parsedTime);
                       print(formattedTime); //output 14:59:00
                       //DateFormat() is from intl package, you can format the time on any pattern you need.
 
                       setState(() {
-                        timeinNit.text = formattedTime; //set the value of text field.
+                        timeinNit.text =
+                            formattedTime; //set the value of text field.
                       });
-                    }else{
+                    } else {
                       print("Time is not selected");
                     }
-
                   },
-
                 ),
               ),
 
-
-
               SizedBox(
-                height: 40,
+                height: 4.h,
               ),
-
-
-
-
 
               Center(
                 child: Image.asset(
@@ -884,7 +845,7 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
                 ),
               ),
               SizedBox(
-                height: 30,
+                height: 3.h,
               ),
               Center(
                 child: ElevatedButton(
@@ -894,10 +855,14 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
                     // print(_numcontroller.text);
                     //print(time.toString());
 
-                    sendPushMessage(mtoken!,"Morning Feed per Chick is  ${_numcontrollerMorning.text}g at ${timeinMor.text}\nEvening Feed per Chick is  ${_numcontrollerEvening.text}g at ${timeinEve.text}\nNight   Feed per Chick is  ${_numcontrollerNight.text}g   at ${timeinNit.text}\n" ,titleForFeed!);
+                    sendPushMessage(
+                        mtoken!,
+                        "Morning Feed per Chick is  ${_numcontrollerMorning.text}g at ${timeinMor.text}\nEvening Feed per Chick is  ${_numcontrollerEvening.text}g at ${timeinEve.text}\nNight   Feed per Chick is  ${_numcontrollerNight.text}g   at ${timeinNit.text}\n",
+                        titleForFeed);
 
                     addData(
-                        widget.id_flock,date.toString().substring(0, 10),
+                        widget.id_flock,
+                        date.toString().substring(0, 10),
                         timeinMor.text,
                         timeinEve.text,
                         timeinNit.text,
@@ -912,9 +877,6 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
                     _numcontrollerEvening.clear();
                     _numcontrollerNight.clear();
 
-
-
-
                     setState(() {});
                     //Navigator.of(context).pop();
 
@@ -928,7 +890,8 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
                         textColor: mPrimaryColor);
                   },
                   style: ElevatedButton.styleFrom(
-                    fixedSize: const Size(200, 50), backgroundColor: mPrimaryColor,
+                    fixedSize: const Size(200, 50),
+                    backgroundColor: mPrimaryColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
@@ -944,7 +907,7 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
               ),
 
               SizedBox(
-                height: 10,
+                height: 4.h,
               ),
 
               /*
@@ -1029,7 +992,15 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
     );
   }
 
-  Future<void> addData(String id, String date ,String MorTime,String EveTime,String NitTime,String MorFeedAmnt,String EveFeedAmnt,String NitFeedAmnt ) async {
+  Future<void> addData(
+      String id,
+      String date,
+      String MorTime,
+      String EveTime,
+      String NitTime,
+      String MorFeedAmnt,
+      String EveFeedAmnt,
+      String NitFeedAmnt) async {
     //num current = 0;
     //num value = double.parse(amount);
     try {
@@ -1050,7 +1021,11 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
         if (!snapshot.exists) {
           //print("done 1 befre");
 
-          documentReference.set( {'Morning': "${MorTime}-${MorFeedAmnt}", 'Evening': "${EveTime}-${EveFeedAmnt}", 'Night': "${NitTime}-${NitFeedAmnt}"});
+          documentReference.set({
+            'Morning': "${MorTime}-${MorFeedAmnt}",
+            'Evening': "${EveTime}-${EveFeedAmnt}",
+            'Night': "${NitTime}-${NitFeedAmnt}"
+          });
           //print("done 1");
 
           //return true;
@@ -1058,8 +1033,11 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
           try {
             //num newAmount = snapshot.data()!['Amount'] + value;
             //current = snapshot.data()!['Average_Weight'];
-            transaction.update(
-                documentReference, {'Morning': "${MorTime}-${MorFeedAmnt}", 'Evening': "${EveTime}-${EveFeedAmnt}", 'Night': "${NitTime}-${NitFeedAmnt}"});
+            transaction.update(documentReference, {
+              'Morning': "${MorTime}-${MorFeedAmnt}",
+              'Evening': "${EveTime}-${EveFeedAmnt}",
+              'Night': "${NitTime}-${NitFeedAmnt}"
+            });
             //print("done 1.2");
             //print(current);
             //return true;
@@ -1085,15 +1063,12 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
         DocumentSnapshot<Map<String, dynamic>> snapshot2 =
             await transaction2.get(documentReference2);
         print(documentReference2);
-
       });
     } catch (e) {
       //
     }
   }
 }
-
-
 
 TextFormField reusableTextField3(
     String text,
@@ -1103,9 +1078,7 @@ TextFormField reusableTextField3(
     validator,
     bool val) {
   return TextFormField(
-    onTap: () {
-
-    },
+    onTap: () {},
     enabled: val,
     controller: controller,
     validator: validator,
@@ -1158,7 +1131,6 @@ TextFormField reusableTextField3(
   );
 }
 
-
 ThemeData _buildShrineTheme() {
   final ThemeData base = ThemeData.light();
   return base.copyWith(
@@ -1175,7 +1147,8 @@ ThemeData _buildShrineTheme() {
     primaryIconTheme: _customIconTheme(base.iconTheme),
     textTheme: _buildShrineTextTheme(base.textTheme),
     primaryTextTheme: _buildShrineTextTheme(base.primaryTextTheme),
-    iconTheme: _customIconTheme(base.iconTheme), colorScheme: _shrineColorScheme.copyWith(secondary: shrineBrown900),
+    iconTheme: _customIconTheme(base.iconTheme),
+    colorScheme: _shrineColorScheme.copyWith(secondary: shrineBrown900),
   );
 }
 
@@ -1186,22 +1159,22 @@ IconThemeData _customIconTheme(IconThemeData original) {
 TextTheme _buildShrineTextTheme(TextTheme base) {
   return base
       .copyWith(
-    caption: base.caption?.copyWith(
-      fontWeight: FontWeight.w400,
-      fontSize: 14,
-      letterSpacing: defaultLetterSpacing,
-    ),
-    button: base.button?.copyWith(
-      fontWeight: FontWeight.w500,
-      fontSize: 14,
-      letterSpacing: defaultLetterSpacing,
-    ),
-  )
+        caption: base.caption?.copyWith(
+          fontWeight: FontWeight.w400,
+          fontSize: 14,
+          letterSpacing: defaultLetterSpacing,
+        ),
+        button: base.button?.copyWith(
+          fontWeight: FontWeight.w500,
+          fontSize: 14,
+          letterSpacing: defaultLetterSpacing,
+        ),
+      )
       .apply(
-    fontFamily: 'Rubik',
-    displayColor: shrineBrown900,
-    bodyColor: shrineBrown900,
-  );
+        fontFamily: 'Rubik',
+        displayColor: shrineBrown900,
+        bodyColor: shrineBrown900,
+      );
 }
 
 const ColorScheme _shrineColorScheme = ColorScheme(
