@@ -10,37 +10,47 @@ class TankAlertPage extends StatefulWidget {
   final int water_capacity;
   final int water_alert;
 
-  const TankAlertPage({Key? key, required this.feed_capacity, required this.feed_alert, required this.water_capacity, required this.water_alert}) : super(key: key);
+  const TankAlertPage(
+      {Key? key,
+      required this.feed_capacity,
+      required this.feed_alert,
+      required this.water_capacity,
+      required this.water_alert})
+      : super(key: key);
 
   @override
   State<TankAlertPage> createState() => _TankAlertPageState();
 }
 
 class _TankAlertPageState extends State<TankAlertPage> {
-  double feed=1585;
-  int feedrate=3000;
-  int current_water=120;
+  double feed = 1585;
+  int feedrate = 3000;
+  int current_water = 120;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.brown[90],
-      resizeToAvoidBottomInset : false,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title:Text(
+        title: Text(
           "Overhead Tank Monitor",
-          style: TextStyle(fontSize: 16),
+          style: TextStyle(fontSize: 17),
         ),
         backgroundColor: mPrimaryColor,
       ),
       body: SingleChildScrollView(
         child: Container(
             padding: EdgeInsets.all(20),
-            child:Row(
+            child: Row(
               children: [
                 Column(
                   children: <Widget>[
-                    Text("Current Feed level in the flock",
-                      style: TextStyle(fontSize: 20, color: mPrimaryColor,fontWeight: FontWeight.bold),
+                    Text(
+                      "Current Feed level in the flock",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: mPrimaryColor,
+                          fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       height: 20,
@@ -48,15 +58,14 @@ class _TankAlertPageState extends State<TankAlertPage> {
                     Row(
                       children: [
                         Container(
-
                           child: LiquidCustomProgressIndicator(
-                            value: feed/widget.feed_capacity,
-                            valueColor: AlwaysStoppedAnimation(mPrimaryTextColor),
+                            value: feed / widget.feed_capacity,
+                            valueColor:
+                                AlwaysStoppedAnimation(mPrimaryTextColor),
                             backgroundColor: Colors.grey,
                             direction: Axis.vertical,
-                            shapePath: _buildBoatPath(45,10,1),
+                            shapePath: _buildBoatPath(45, 10, 1),
                             //center: Text("50%"),
-
                           ),
                         ),
                         Column(
@@ -73,7 +82,6 @@ class _TankAlertPageState extends State<TankAlertPage> {
                             SizedBox(
                               height: 5,
                             ),
-
                             Text(
                               'Feed Tank Level',
                               style: TextStyle(
@@ -81,11 +89,9 @@ class _TankAlertPageState extends State<TankAlertPage> {
                                 fontSize: 18,
                               ),
                             ),
-
                             SizedBox(
                               height: 5,
                             ),
-
                             Text(
                               'Current Level',
                               style: TextStyle(
@@ -93,15 +99,11 @@ class _TankAlertPageState extends State<TankAlertPage> {
                                 fontSize: 18,
                               ),
                             ),
-
-
                           ],
                         ),
-
                         SizedBox(
                           width: 5,
                         ),
-
                         Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,20 +119,17 @@ class _TankAlertPageState extends State<TankAlertPage> {
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               child: Text(
-                                widget.feed_alert.toString()+" kg",
+                                widget.feed_alert.toString() + " kg",
                                 style: TextStyle(
                                     color: mNewColor,
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
-
                             SizedBox(
                               height: 5,
                             ),
-
                             Container(
-
                               alignment: Alignment.center,
                               height: 25,
                               width: 80,
@@ -141,20 +140,17 @@ class _TankAlertPageState extends State<TankAlertPage> {
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               child: Text(
-                                widget.feed_capacity.toString()+" kg",
+                                widget.feed_capacity.toString() + " kg",
                                 style: TextStyle(
                                     color: mNewColor,
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
-
                             SizedBox(
                               height: 5,
                             ),
-
                             Container(
-
                               alignment: Alignment.center,
                               height: 25,
                               width: 80,
@@ -172,25 +168,21 @@ class _TankAlertPageState extends State<TankAlertPage> {
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
-
-
                           ],
                         )
-
-
                       ],
-
                     ),
-
-
                     SizedBox(
                       height: 20,
                     ),
-
                     Column(
                       children: [
-                        Text("Current Water level in the flock",
-                          style: TextStyle(fontSize: 20, color: mPrimaryColor,fontWeight: FontWeight.bold),
+                        Text(
+                          "Current Water level in the flock",
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: mPrimaryColor,
+                              fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           height: 20,
@@ -199,13 +191,13 @@ class _TankAlertPageState extends State<TankAlertPage> {
                           children: [
                             Container(
                               child: LiquidCustomProgressIndicator(
-                                value: current_water/widget.water_capacity,
-                                valueColor: AlwaysStoppedAnimation(Colors.cyan[100]!),
+                                value: current_water / widget.water_capacity,
+                                valueColor:
+                                    AlwaysStoppedAnimation(Colors.cyan[100]!),
                                 backgroundColor: Colors.grey,
                                 direction: Axis.vertical,
-                                shapePath: _buildBoatPath(45,0,1),
+                                shapePath: _buildBoatPath(45, 0, 1),
                                 //center: Text("50%"),
-
                               ),
                             ),
                             Column(
@@ -222,7 +214,6 @@ class _TankAlertPageState extends State<TankAlertPage> {
                                 SizedBox(
                                   height: 5,
                                 ),
-
                                 Text(
                                   'Water Tank Level',
                                   style: TextStyle(
@@ -230,11 +221,9 @@ class _TankAlertPageState extends State<TankAlertPage> {
                                     fontSize: 18,
                                   ),
                                 ),
-
                                 SizedBox(
                                   height: 5,
                                 ),
-
                                 Text(
                                   'Current Level',
                                   style: TextStyle(
@@ -242,15 +231,11 @@ class _TankAlertPageState extends State<TankAlertPage> {
                                     fontSize: 18,
                                   ),
                                 ),
-
-
                               ],
                             ),
-
                             SizedBox(
                               width: 5,
                             ),
-
                             Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -266,20 +251,17 @@ class _TankAlertPageState extends State<TankAlertPage> {
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   child: Text(
-                                    widget.water_alert.toString()+" l",
+                                    widget.water_alert.toString() + " l",
                                     style: TextStyle(
                                         color: mNewColor,
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-
                                 SizedBox(
                                   height: 5,
                                 ),
-
                                 Container(
-
                                   alignment: Alignment.center,
                                   height: 25,
                                   width: 80,
@@ -290,20 +272,17 @@ class _TankAlertPageState extends State<TankAlertPage> {
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   child: Text(
-                                    widget.water_capacity.toString() +" l",
+                                    widget.water_capacity.toString() + " l",
                                     style: TextStyle(
                                         color: mNewColor,
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-
                                 SizedBox(
                                   height: 5,
                                 ),
-
                                 Container(
-
                                   alignment: Alignment.center,
                                   height: 25,
                                   width: 80,
@@ -330,49 +309,42 @@ class _TankAlertPageState extends State<TankAlertPage> {
                   ],
                 ),
               ],
-            )
-        ),
+            )),
       ),
     );
   }
 }
 
 //give the size as 1,2,3,4 etc
-Path _buildBoatPath(double x,double y,double size) {
-  double z=size*10;
+Path _buildBoatPath(double x, double y, double size) {
+  double z = size * 10;
   return Path()
-
-
     ..moveTo(x, y)
-    ..lineTo(x+2*z,y)
-    ..lineTo(x+2*z,y+2*z)
-    ..lineTo(x+4*z, y+4*z)
-    ..lineTo(x+4*z, y+9*z)
-    ..lineTo(x+2*z, y+9*z)
-    ..lineTo(x+2*z, y+11*z)
-    ..quadraticBezierTo(x+4*z, y+11*z,x+4*z, y+13*z)
-    ..lineTo(x+4*z, y+15*z)
-    ..quadraticBezierTo(x+5*z, y+16*z,x+5*z, y+19*z)
-    ..lineTo(x+2*z, y+19*z)
-    ..quadraticBezierTo(x+2*z, y+16*z,x+3*z, y+15*z)
-    ..lineTo(x+3*z, y+13*z)
-    ..quadraticBezierTo(x+3*z, y+12*z,x+2*z, y+12*z)
-    ..lineTo(x+0*z, y+12*z)
-    ..quadraticBezierTo(x+(-1)*z, y+12*z,x+(-1)*z, y+13*z)
-    ..lineTo(x+(-1)*z, y+15*z)
-    ..quadraticBezierTo(x+0*z, y+16*z,x+0*z, y+19*z)
-    ..lineTo(x+(-3)*z, y+19*z)
-    ..quadraticBezierTo(x+(-3)*z, y+16*z,x+(-2)*z, y+15*z)
-    ..lineTo(x+(-2)*z, y+14*z)
-    ..quadraticBezierTo(x+(-2)*z, y+11*z,x+0*z, y+11*z)
-    ..lineTo(x+0*z, y+9*z)
-    ..lineTo(x+(-2)*z, y+9*z)
-    ..lineTo(x+(-2)*z, y+4*z)
-    ..lineTo(x+0*z, y+2*z)
-    ..lineTo(x+0*z, y+0*z)
-
-
-
+    ..lineTo(x + 2 * z, y)
+    ..lineTo(x + 2 * z, y + 2 * z)
+    ..lineTo(x + 4 * z, y + 4 * z)
+    ..lineTo(x + 4 * z, y + 9 * z)
+    ..lineTo(x + 2 * z, y + 9 * z)
+    ..lineTo(x + 2 * z, y + 11 * z)
+    ..quadraticBezierTo(x + 4 * z, y + 11 * z, x + 4 * z, y + 13 * z)
+    ..lineTo(x + 4 * z, y + 15 * z)
+    ..quadraticBezierTo(x + 5 * z, y + 16 * z, x + 5 * z, y + 19 * z)
+    ..lineTo(x + 2 * z, y + 19 * z)
+    ..quadraticBezierTo(x + 2 * z, y + 16 * z, x + 3 * z, y + 15 * z)
+    ..lineTo(x + 3 * z, y + 13 * z)
+    ..quadraticBezierTo(x + 3 * z, y + 12 * z, x + 2 * z, y + 12 * z)
+    ..lineTo(x + 0 * z, y + 12 * z)
+    ..quadraticBezierTo(x + (-1) * z, y + 12 * z, x + (-1) * z, y + 13 * z)
+    ..lineTo(x + (-1) * z, y + 15 * z)
+    ..quadraticBezierTo(x + 0 * z, y + 16 * z, x + 0 * z, y + 19 * z)
+    ..lineTo(x + (-3) * z, y + 19 * z)
+    ..quadraticBezierTo(x + (-3) * z, y + 16 * z, x + (-2) * z, y + 15 * z)
+    ..lineTo(x + (-2) * z, y + 14 * z)
+    ..quadraticBezierTo(x + (-2) * z, y + 11 * z, x + 0 * z, y + 11 * z)
+    ..lineTo(x + 0 * z, y + 9 * z)
+    ..lineTo(x + (-2) * z, y + 9 * z)
+    ..lineTo(x + (-2) * z, y + 4 * z)
+    ..lineTo(x + 0 * z, y + 2 * z)
+    ..lineTo(x + 0 * z, y + 0 * z)
     ..close();
 }
-
