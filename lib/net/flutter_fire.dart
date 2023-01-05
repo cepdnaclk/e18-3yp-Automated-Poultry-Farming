@@ -283,7 +283,18 @@ Future<bool> addFlock(
           'Active': "yes",
           'Mortal': 0,
           'Egg': 0,
-          'Avg_BodyWeight': 0.0
+          'Avg_BodyWeight': 0.0,
+          //adding data
+          'Evening Feed Amount': 0.0,
+          'Evening Feed Time': "00:00:00",
+          'Night Feed Amount': 0.0,
+          'Night Feed Time': "00:00:00",
+          'Morning Feed Amount': 0.0,
+          'Morning Feed Time': "00:00:00",
+          'Feed Tank Alert': 0,
+          'Feed Tank Capacity': 0,
+          'Water Tank Alert': 0,
+          'Water Tank Capacity': 0,
         });
         return true;
       }
