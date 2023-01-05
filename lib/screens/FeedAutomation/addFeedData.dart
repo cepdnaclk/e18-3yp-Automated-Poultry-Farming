@@ -858,7 +858,7 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
                     sendPushMessage(
                         mtoken!,
                         "Morning Feed per Chick is  ${_numcontrollerMorning.text}g at ${timeinMor.text}\nEvening Feed per Chick is  ${_numcontrollerEvening.text}g at ${timeinEve.text}\nNight   Feed per Chick is  ${_numcontrollerNight.text}g   at ${timeinNit.text}\n",
-                        titleForFeed!);
+                        titleForFeed);
 
                     addData(
                         widget.id_flock,
