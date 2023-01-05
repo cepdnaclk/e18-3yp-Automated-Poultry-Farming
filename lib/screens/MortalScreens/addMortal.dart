@@ -35,10 +35,8 @@ class _AddMortalState extends State<AddMortal> with TickerProviderStateMixin {
   bool toggle = false;
   late AnimationController _animationController;
 
-
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
@@ -243,7 +241,6 @@ class _AddMortalState extends State<AddMortal> with TickerProviderStateMixin {
     num current = 0;
     num value = int.parse(amount);
     try {
-
       DocumentReference<Map<String, dynamic>> documentReference =
           FirebaseFirestore.instance
               .collection('Farmers')
@@ -259,27 +256,18 @@ class _AddMortalState extends State<AddMortal> with TickerProviderStateMixin {
 
         if (!snapshot.exists) {
           documentReference.set({'Amount': value});
-
-
         } else {
           try {
-
-            num n = snapshot.data()!['Amount'];
-            num newAmount = n + value;
-            transaction.update(documentReference, {'Amount': newAmount});
-
-
-          } catch (e) {
-
-          }
+            //num n = snapshot.data()!['Amount'];
+            //num newAmount = n + value;
+            transaction.update(documentReference, {'Amount': value});
+          } catch (e) {}
         }
       });
-
     } catch (e) {
       // return false;
     }
     try {
-
       DocumentReference<Map<String, dynamic>> documentReference2 =
           FirebaseFirestore.instance
               .collection('Farmers')
@@ -292,21 +280,14 @@ class _AddMortalState extends State<AddMortal> with TickerProviderStateMixin {
             await transaction2.get(documentReference2);
         print(documentReference2);
         if (!snapshot2.exists) {
-
           documentReference2.update({'Mortal': value});
-
-
         } else {
           try {
-
             num n = snapshot2.data()!['Mortal'];
             num newAmount = n + value;
 
             transaction2.update(documentReference2, {'Mortal': newAmount});
-
-          } catch (e) {
-
-          }
+          } catch (e) {}
         }
       });
     } catch (e) {
