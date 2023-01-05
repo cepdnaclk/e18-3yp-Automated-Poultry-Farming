@@ -19,7 +19,8 @@ class AutomationSelection extends StatefulWidget {
   State<AutomationSelection> createState() => _AutomationSelectionState();
 }
 
-class _AutomationSelectionState extends State<AutomationSelection> with TickerProviderStateMixin {
+class _AutomationSelectionState extends State<AutomationSelection>
+    with TickerProviderStateMixin {
   List weightDataCobb500 = [];
   String startDate = '';
   String strainType = '';
@@ -29,14 +30,7 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
   int feedAlert = 0;
 
   DateTime date =
-  DateTime(DateTime
-      .now()
-      .year, DateTime
-      .now()
-      .month, DateTime
-      .now()
-      .day);
-
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   double translateX = 0.0;
   double translateY = 0.0;
@@ -55,10 +49,7 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute
-        .of(context)!
-        .settings
-        .arguments as ScreenArguments;
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     return Stack(
       children: [
         DrawerMenu(args.flockID),
@@ -109,7 +100,7 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
                                 .doc(FirebaseAuth.instance.currentUser!.uid)
                                 .collection('flock')
                                 .where(FieldPath.documentId,
-                                isEqualTo: args.flockID)
+                                    isEqualTo: args.flockID)
                                 .snapshots(), // your stream url,
                             builder: (BuildContext context,
                                 AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -119,20 +110,21 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
                                 //print(snapshot.toString());
                                 startDate = snapshot.data?.docs[0]['startdays'];
                                 strainType = snapshot.data?.docs[0]['strain'];
-                                waterCap = snapshot.data?.docs[0]['Water Tank Capacity'];
-                                waterAlert = snapshot.data?.docs[0]['Water Tank Alert'];
-                                feedAlert = snapshot.data?.docs[0]['Feed Tank Alert'];
-                                feedCap = snapshot.data?.docs[0]['Feed Tank Capacity'];
+                                waterCap = snapshot.data?.docs[0]
+                                    ['Water Tank Capacity'];
+                                waterAlert =
+                                    snapshot.data?.docs[0]['Water Tank Alert'];
+                                feedAlert =
+                                    snapshot.data?.docs[0]['Feed Tank Alert'];
+                                feedCap = snapshot.data?.docs[0]
+                                    ['Feed Tank Capacity'];
                               }
 
                               return Container(); // Your grid code.
                             }),
-                      SizedBox(
-                        height: 20,
-                      ),
-
-
-
+                        SizedBox(
+                          height: 20,
+                        ),
                         Row(
                           children: [
                             Padding(
@@ -142,11 +134,11 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          DataDisplayPage(info: "No data",
-                                              id_flock: args.flockID,
-                                              startDateNavi: startDate,
-                                              strainNavi: strainType),
+                                      builder: (context) => DataDisplayPage(
+                                          info: "No data",
+                                          id_flock: args.flockID,
+                                          startDateNavi: startDate,
+                                          strainNavi: strainType),
                                     ),
                                   );
                                 },
@@ -166,9 +158,6 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
                                 child: Text("AUTOMATION DATA"),
                               ),
                             ),
-
-
-
                             Padding(
                               padding: EdgeInsets.fromLTRB(10, 10, 20, 10),
                               child: ElevatedButton(
@@ -177,12 +166,11 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          AddAutomatedFeed(
-                                            id_flock: args.flockID,
-                                            startDateNavi: startDate,
-                                            strainNavi: strainType,
-                                          ),
+                                      builder: (context) => AddAutomatedFeed(
+                                        id_flock: args.flockID,
+                                        startDateNavi: startDate,
+                                        strainNavi: strainType,
+                                      ),
                                     ),
                                   );
                                 },
@@ -209,101 +197,90 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
                                 ),
                               ),
                             ),
-
-
                           ],
-
                         ),
-
                         SizedBox(
                           height: 20,
                         ),
-
-                    Row(
-                      children: [
-
-
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              print(args.flockID);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      AddAlertData(
+                        Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  print(args.flockID);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => AddAlertData(
                                         id_flock: args.flockID,
                                         startDateNavi: startDate,
                                         strainNavi: strainType,
                                       ),
+                                    ),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  fixedSize: const Size(150, 150),
+                                  backgroundColor: mBackgroundColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                  ),
+                                  side: BorderSide(color: mPrimaryColor),
+                                  elevation: 20,
+                                  shadowColor: mSecondColor,
+                                  textStyle: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              fixedSize: const Size(150, 150),
-                              backgroundColor: mBackgroundColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              side: BorderSide(color: mPrimaryColor),
-                              elevation: 20,
-                              shadowColor: mSecondColor,
-                              textStyle: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            child: Text(
-                              "ADD ALERT DATA".tr,
-                              style: TextStyle(
-                                color: mPrimaryColor,
-                                fontSize: 17,
-                              ),
-                            ),
-                          ),
-                        ),
-
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(10, 10, 20, 10),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => TankAlertPage(feed_capacity : feedCap, feed_alert : feedAlert,water_capacity : waterCap, water_alert : waterAlert),
+                                child: Text(
+                                  "ADD ALERT DATA".tr,
+                                  style: TextStyle(
+                                    color: mPrimaryColor,
+                                    fontSize: 17,
+                                  ),
                                 ),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              fixedSize: const Size(150, 150),
-                              backgroundColor: mPrimaryColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              elevation: 20,
-                              shadowColor: mSecondColor,
-                              textStyle: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                            child: Text("ALERT DATA"),
-                          ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(10, 10, 20, 10),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => TankAlertPage(
+                                          feed_capacity: feedCap,
+                                          feed_alert: feedAlert,
+                                          water_capacity: waterCap,
+                                          water_alert: waterAlert),
+                                    ),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  fixedSize: const Size(150, 150),
+                                  backgroundColor: mPrimaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                  ),
+                                  elevation: 20,
+                                  shadowColor: mSecondColor,
+                                  textStyle: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                child: Text("ALERT DATA"),
+                              ),
+                            ),
+                          ],
                         ),
-
-
-
-                      ],
-                    ),
-
                         SizedBox(
                           height: 20,
                         ),
-
                         Row(
                           children: [
-
                             Padding(
                               padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
                               child: ElevatedButton(
@@ -332,22 +309,14 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                child: Text(
-                                  "Auto Feed Add".tr),
+                                child: Text("Auto Feed Add".tr),
                               ),
                             ),
-
-
                           ],
                         ),
-
                         SizedBox(
                           height: 20,
                         )
-
-
-
-
                       ],
                     ),
                   ),
@@ -360,17 +329,15 @@ class _AutomationSelectionState extends State<AutomationSelection> with TickerPr
     );
   }
 
-
-  TextFormField reusableTextField3(String text,
+  TextFormField reusableTextField3(
+      String text,
       IconData icon,
       bool isPasswordType,
       TextEditingController controller,
       validator,
       bool val) {
     return TextFormField(
-      onTap: () {
-
-      },
+      onTap: () {},
       enabled: val,
       controller: controller,
       validator: validator,
