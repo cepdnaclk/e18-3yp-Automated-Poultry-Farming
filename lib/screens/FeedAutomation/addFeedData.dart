@@ -1063,6 +1063,29 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
         DocumentSnapshot<Map<String, dynamic>> snapshot2 =
             await transaction2.get(documentReference2);
         print(documentReference2);
+        if (!snapshot2.exists) {
+          documentReference2.update({'Morning Feed Time': MorTime});
+          documentReference2
+              .update({'Morning Feed Amount': int.parse(MorFeedAmnt)});
+          documentReference2.update({'Evening Feed Time': EveTime});
+          documentReference2
+              .update({'Evening Feed Amount': int.parse(EveFeedAmnt)});
+          documentReference2.update({'Night Feed Time': NitTime});
+          documentReference2
+              .update({'Night Feed Amount': int.parse(NitFeedAmnt)});
+        } else {
+          try {
+            documentReference2.update({'Morning Feed Time': MorTime});
+            documentReference2
+                .update({'Morning Feed Amount': int.parse(MorFeedAmnt)});
+            documentReference2.update({'Evening Feed Time': EveTime});
+            documentReference2
+                .update({'Evening Feed Amount': int.parse(EveFeedAmnt)});
+            documentReference2.update({'Night Feed Time': NitTime});
+            documentReference2
+                .update({'Night Feed Amount': int.parse(NitFeedAmnt)});
+          } catch (e) {}
+        }
       });
     } catch (e) {
       //
