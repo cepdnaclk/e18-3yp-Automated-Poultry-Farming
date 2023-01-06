@@ -227,15 +227,23 @@ class _DeleteAutomatedFeedState extends State<DeleteAutomatedFeed> {
                                 builder: (BuildContext context,
                                     AsyncSnapshot<QuerySnapshot> snapshot) {
                                   num amount = -1;
+                                  String recmorning = "";
+                                  String recevening = "";
+                                  String recnight = "";
                                   try {
-                                    amount = snapshot.data?.docs[0]
-                                        ['Average_Weight'];
+                                    recmorning =
+                                        snapshot.data?.docs[0]['Morning'];
+                                    recevening =
+                                        snapshot.data?.docs[0]['Evening'];
+                                    recnight = snapshot.data?.docs[0]['Night'];
                                     recordedWeight = amount;
                                     //print(amount);
                                   } catch (e) {
                                     amount = -1;
                                   }
-                                  if (amount == -1 || amount == 0) {
+                                  if (recmorning == "" ||
+                                      recevening == "" ||
+                                      recnight == "") {
                                     return Center(
                                         // child: Text(
                                         //   "You haven't recorded average weight for " +
@@ -258,7 +266,8 @@ class _DeleteAutomatedFeedState extends State<DeleteAutomatedFeed> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "     " + "recordedweight".tr,
+                                                "     " +
+                                                    "Recorded Morning Feed Time",
                                                 style: TextStyle(
                                                     fontSize: 16,
                                                     color: mPrimaryColor),
@@ -276,24 +285,189 @@ class _DeleteAutomatedFeedState extends State<DeleteAutomatedFeed> {
                                                           10.0),
                                                 ),
                                                 child: Text(
-                                                  "${recordedWeight}" + " g",
+                                                  recmorning
+                                                      .toString()
+                                                      .substring(0, 8),
                                                   style: TextStyle(
                                                       fontSize: 16,
                                                       color: mPrimaryColor),
                                                 ),
                                               ),
-
-                                              /*TextField(
-                                 decoration: InputDecoration(
-                                   enabledBorder: OutlineInputBorder(
-                                     borderSide: BorderSide(width: 1, color: mPrimaryColor), //<-- SEE HERE
-                                   ),
-                                   hintText: "$selectedDate" ,
-                                 ),
-                               )
-                                */
                                             ],
-                                          )
+                                          ),
+                                          SizedBox(height: 1.h),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "     " + "Morning Feed Amount",
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: mPrimaryColor),
+                                              ),
+                                              Container(
+                                                alignment: Alignment.center,
+                                                height: 25,
+                                                width: 30.w,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: mPrimaryColor,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                child: Text(
+                                                  recmorning
+                                                      .toString()
+                                                      .substring(9),
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: mPrimaryColor),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 1.h),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "     " +
+                                                    "Recorded Evening Feed Time",
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: mPrimaryColor),
+                                              ),
+                                              Container(
+                                                alignment: Alignment.center,
+                                                height: 25,
+                                                width: 30.w,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: mPrimaryColor,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                child: Text(
+                                                  recevening
+                                                      .toString()
+                                                      .substring(0, 8),
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: mPrimaryColor),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 1.h),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "     " + "Evening Feed Amount",
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: mPrimaryColor),
+                                              ),
+                                              Container(
+                                                alignment: Alignment.center,
+                                                height: 25,
+                                                width: 30.w,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: mPrimaryColor,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                child: Text(
+                                                  recevening
+                                                      .toString()
+                                                      .substring(9),
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: mPrimaryColor),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 1.h),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "     " +
+                                                    "Recorded Night Feed Time",
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: mPrimaryColor),
+                                              ),
+                                              Container(
+                                                alignment: Alignment.center,
+                                                height: 25,
+                                                width: 30.w,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: mPrimaryColor,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                child: Text(
+                                                  recnight
+                                                      .toString()
+                                                      .substring(0, 8),
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: mPrimaryColor),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 1.h),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "     " + "Night Feed Amount",
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: mPrimaryColor),
+                                              ),
+                                              Container(
+                                                alignment: Alignment.center,
+                                                height: 25,
+                                                width: 30.w,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: mPrimaryColor,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                child: Text(
+                                                  recnight
+                                                      .toString()
+                                                      .substring(9),
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: mPrimaryColor),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 1.h),
                                         ],
                                       ),
 
