@@ -196,7 +196,7 @@ class _UpdateAutomatedFeedState extends State<UpdateAutomatedFeed> {
                                     .doc(FirebaseAuth.instance.currentUser!.uid)
                                     .collection('flock')
                                     .doc(widget.id_flock)
-                                    .collection('BodyWeight')
+                                    .collection('Data')
                                     .where(FieldPath.documentId,
                                         isEqualTo: selectedDate
                                             .toString()
@@ -205,46 +205,36 @@ class _UpdateAutomatedFeedState extends State<UpdateAutomatedFeed> {
                                 builder: (BuildContext context,
                                     AsyncSnapshot<QuerySnapshot> snapshot) {
                                   num amount = -1;
-                                  num mFeed = -1, eFeed = -1, nFeed = -1;
+                                  String recmorning = "";
+                                  String recevening = "";
+                                  String recnight = "";
                                   try {
-                                    amount = snapshot.data?.docs[0]
-                                        ['Average_Weight'];
-                                    mFeed = snapshot.data?.docs[0]['Morning'];
-                                    eFeed = snapshot.data?.docs[0]['Evening'];
-                                    nFeed = snapshot.data?.docs[0]['Night'];
-                                    recordedWeight = amount;
-                                    recMfeed = int.parse(
-                                        mFeed.toString().substring(10));
-                                    recEfeed = int.parse(
-                                        eFeed.toString().substring(10));
-                                    recNfeed = int.parse(
-                                        nFeed.toString().substring(10));
+                                    recmorning =
+                                        snapshot.data?.docs[0]['Morning'];
+                                    recevening =
+                                        snapshot.data?.docs[0]['Evening'];
+                                    recnight = snapshot.data?.docs[0]['Night'];
+
                                     //print(amount);
                                   } catch (e) {
                                     amount = -1;
-                                    mFeed = -1;
-                                    eFeed = -1;
-                                    nFeed = -1;
                                   }
-                                  if (amount == -1 || amount == 0) {
+                                  if (recmorning == "" ||
+                                      recevening == "" ||
+                                      recnight == "") {
                                     return Center();
                                   } else {
                                     return Container(
                                       child: Column(
                                         children: [
-                                          SizedBox(height: 20),
+                                          SizedBox(height: 2.h),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              // Text(
-                                              //   "     " + "recordedweight".tr,
-                                              //   style: TextStyle(
-                                              //       fontSize: 16,
-                                              //       color: mPrimaryColor),
-                                              // ),
                                               Text(
-                                                "Morning:",
+                                                "     " +
+                                                    "Recorded Morning Feed Time",
                                                 style: TextStyle(
                                                     fontSize: 16,
                                                     color: mPrimaryColor),
@@ -262,71 +252,189 @@ class _UpdateAutomatedFeedState extends State<UpdateAutomatedFeed> {
                                                           10.0),
                                                 ),
                                                 child: Text(
-                                                  "${recMfeed}" + " g",
+                                                  recmorning
+                                                      .toString()
+                                                      .substring(0, 8),
                                                   style: TextStyle(
                                                       fontSize: 16,
                                                       color: mPrimaryColor),
                                                 ),
                                               ),
-
-                                              /*TextField(
-                                 decoration: InputDecoration(
-                                   enabledBorder: OutlineInputBorder(
-                                     borderSide: BorderSide(width: 1, color: mPrimaryColor), //<-- SEE HERE
-                                   ),
-                                   hintText: "$selectedDate" ,
-                                 ),
-                               )
-                                */
                                             ],
                                           ),
-                                          //             Row(
-                                          //               mainAxisAlignment:
-                                          //                   MainAxisAlignment.spaceBetween,
-                                          //               children: [
-                                          //                 // Text(
-                                          //                 //   "     " + "recordedweight".tr,
-                                          //                 //   style: TextStyle(
-                                          //                 //       fontSize: 16,
-                                          //                 //       color: mPrimaryColor),
-                                          //                 // ),
-                                          //                 Text(
-                                          //                   "Evening:",
-                                          //                   style: TextStyle(
-                                          //                       fontSize: 16,
-                                          //                       color: mPrimaryColor),
-                                          //                 ),
-                                          //                 Container(
-                                          //                   alignment: Alignment.center,
-                                          //                   height: 25,
-                                          //                   width: 30.w,
-                                          //                   decoration: BoxDecoration(
-                                          //                     border: Border.all(
-                                          //                       color: mPrimaryColor,
-                                          //                     ),
-                                          //                     borderRadius:
-                                          //                         BorderRadius.circular(
-                                          //                             10.0),
-                                          //                   ),
-                                          //                   child: Text(
-                                          //                     "${recEfeed}" + " g",
-                                          //                     style: TextStyle(
-                                          //                         fontSize: 16,
-                                          //                         color: mPrimaryColor),
-                                          //                   ),
-                                          //                 ),
-
-                                          //                 /*TextField(
-                                          //    decoration: InputDecoration(
-                                          //      enabledBorder: OutlineInputBorder(
-                                          //        borderSide: BorderSide(width: 1, color: mPrimaryColor), //<-- SEE HERE
-                                          //      ),
-                                          //      hintText: "$selectedDate" ,
-                                          //    ),
-                                          //  )
-                                          //   */
-                                          //               ],
-                                          //             )
+                                          SizedBox(height: 1.h),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "     " + "Morning Feed Amount",
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: mPrimaryColor),
+                                              ),
+                                              Container(
+                                                alignment: Alignment.center,
+                                                height: 25,
+                                                width: 30.w,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: mPrimaryColor,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                child: Text(
+                                                  recmorning
+                                                      .toString()
+                                                      .substring(9),
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: mPrimaryColor),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 1.h),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "     " +
+                                                    "Recorded Evening Feed Time",
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: mPrimaryColor),
+                                              ),
+                                              Container(
+                                                alignment: Alignment.center,
+                                                height: 25,
+                                                width: 30.w,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: mPrimaryColor,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                child: Text(
+                                                  recevening
+                                                      .toString()
+                                                      .substring(0, 8),
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: mPrimaryColor),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 1.h),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "     " + "Evening Feed Amount",
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: mPrimaryColor),
+                                              ),
+                                              Container(
+                                                alignment: Alignment.center,
+                                                height: 25,
+                                                width: 30.w,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: mPrimaryColor,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                child: Text(
+                                                  recevening
+                                                      .toString()
+                                                      .substring(9),
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: mPrimaryColor),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 1.h),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "     " +
+                                                    "Recorded Night Feed Time",
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: mPrimaryColor),
+                                              ),
+                                              Container(
+                                                alignment: Alignment.center,
+                                                height: 25,
+                                                width: 30.w,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: mPrimaryColor,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                child: Text(
+                                                  recnight
+                                                      .toString()
+                                                      .substring(0, 8),
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: mPrimaryColor),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 1.h),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "     " + "Night Feed Amount",
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: mPrimaryColor),
+                                              ),
+                                              Container(
+                                                alignment: Alignment.center,
+                                                height: 25,
+                                                width: 30.w,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: mPrimaryColor,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                child: Text(
+                                                  recnight
+                                                      .toString()
+                                                      .substring(9),
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: mPrimaryColor),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 1.h),
                                         ],
                                       ),
 
