@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:home_login/constants.dart';
+import 'package:home_login/screens/FeedAutomation/updateFeedData.dart';
 import 'package:home_login/screens/griddashboard.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -11,6 +12,7 @@ import 'addFeedData.dart';
 import '../drawerMenu.dart';
 import 'dataDisplay.dart';
 import 'alertDataDisplay.dart';
+import 'deleteFeedData.dart';
 
 class AutomationSelection extends StatefulWidget {
   const AutomationSelection({Key? key}) : super(key: key);
@@ -330,20 +332,20 @@ class _AutomationSelectionState extends State<AutomationSelection>
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
+                              padding: EdgeInsets.fromLTRB(10, 10, 20, 10),
                               child: ElevatedButton(
                                 onPressed: () {
-                                  // print(args.flockID);
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //     builder: (context) => AddAlertData(
-                                  //       id_flock: args.flockID,
-                                  //       startDateNavi: startDate,
-                                  //       strainNavi: strainType,
-                                  //     ),
-                                  //   ),
-                                  // );
+                                  print(args.flockID);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => UpdateAutomatedFeed(
+                                        id_flock: args.flockID,
+                                        startDateNavi: startDate,
+                                        strainNavi: strainType,
+                                      ),
+                                    ),
+                                  );
                                 },
                                 style: ElevatedButton.styleFrom(
                                   fixedSize: const Size(150, 150),
@@ -355,12 +357,12 @@ class _AutomationSelectionState extends State<AutomationSelection>
                                   elevation: 20,
                                   shadowColor: mSecondColor,
                                   textStyle: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 15,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                                 child: Text(
-                                  "UPDATE ALERT DATA",
+                                  "UPDATE FEED DATA",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: mPrimaryColor,
@@ -379,20 +381,20 @@ class _AutomationSelectionState extends State<AutomationSelection>
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Padding(
-                              padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
+                              padding: EdgeInsets.fromLTRB(10, 10, 20, 10),
                               child: ElevatedButton(
                                 onPressed: () {
-                                  // print(args.flockID);
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //     builder: (context) => AddAlertData(
-                                  //       id_flock: args.flockID,
-                                  //       startDateNavi: startDate,
-                                  //       strainNavi: strainType,
-                                  //     ),
-                                  //   ),
-                                  // );
+                                  print(args.flockID);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => DeleteAutomatedFeed(
+                                        id_flock: args.flockID,
+                                        startDateNavi: startDate,
+                                        strainNavi: strainType,
+                                      ),
+                                    ),
+                                  );
                                 },
                                 style: ElevatedButton.styleFrom(
                                   fixedSize: const Size(150, 150),
@@ -404,12 +406,12 @@ class _AutomationSelectionState extends State<AutomationSelection>
                                   elevation: 20,
                                   shadowColor: mSecondColor,
                                   textStyle: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 15,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                                 child: Text(
-                                  "DELETE ALERT DATA",
+                                  "DELETE FEED DATA",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: mPrimaryColor,
