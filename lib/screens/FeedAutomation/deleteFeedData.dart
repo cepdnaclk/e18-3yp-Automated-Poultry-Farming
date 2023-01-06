@@ -236,7 +236,7 @@ class _DeleteAutomatedFeedState extends State<DeleteAutomatedFeed> {
                                     recevening =
                                         snapshot.data?.docs[0]['Evening'];
                                     recnight = snapshot.data?.docs[0]['Night'];
-                                    recordedWeight = amount;
+                                    //recordedWeight = amount;
                                     //print(amount);
                                   } catch (e) {
                                     amount = -1;
@@ -260,7 +260,7 @@ class _DeleteAutomatedFeedState extends State<DeleteAutomatedFeed> {
                                     return Container(
                                       child: Column(
                                         children: [
-                                          SizedBox(height: 20),
+                                          SizedBox(height: 2.h),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
