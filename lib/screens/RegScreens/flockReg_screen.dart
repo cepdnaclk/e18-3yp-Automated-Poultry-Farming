@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:home_login/constants.dart';
 import 'package:home_login/net/flutter_fire.dart';
@@ -19,6 +20,8 @@ class FlockRegScreen extends StatefulWidget {
 }
 
 class _BranchRegScreenState extends State<FlockRegScreen> {
+  // ignore: deprecated_member_use
+  final databaseRef = FirebaseDatabase.instance.reference();
   List<String> items = [
     'Cobb 500 - Broiler',
     'Ross 308 - Broiler',
@@ -301,6 +304,7 @@ class _BranchRegScreenState extends State<FlockRegScreen> {
                         BoxDecoration(borderRadius: BorderRadius.circular(90)),
                     child: ElevatedButton(
                       onPressed: () async {
+                        insertData();
                         await addFlock(
                             _branchNameController.text,
                             shedID,
@@ -310,6 +314,7 @@ class _BranchRegScreenState extends State<FlockRegScreen> {
                             selectedItem.toString(),
                             _numberController.text,
                             bdate.toString().substring(0, 10));
+                        // insertData();
                         Navigator.of(context).pop();
                       },
                       child: Text(
@@ -347,5 +352,15 @@ class _BranchRegScreenState extends State<FlockRegScreen> {
         ),
       ),
     );
+  }
+
+  void insertData() {
+    databaseRef.child("Flock").set({
+      //'id': keyID,
+      'Feed Tank Alert': 0,
+      'Feed Tank Capacity': 0,
+      'Water Tank Alert': 0,
+      'Water Tank Capacity': 0,
+    });
   }
 }
