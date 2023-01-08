@@ -49,6 +49,7 @@ dependencies:
   http: ^0.13.5
   intl: ^0.17.0
   liquid_progress_indicator: ^0.4.0
+  firebase_database: ^9.1.7
 
 dev_dependencies:
   flutter_test:
