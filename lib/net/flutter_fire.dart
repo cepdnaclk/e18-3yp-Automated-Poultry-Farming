@@ -253,14 +253,14 @@ Future<bool> addFlock(
     String bDay) async {
   try {
     String uid = FirebaseAuth.instance.currentUser!.uid;
-    // String flockID;
-    // FirebaseFirestore.instance
-    //     .collection('Farmers')
-    //     .doc(uid)
-    //     .collection('flock')
-    //     .doc()
-    //     .get()
-    //     .then((DocumentSnapshot snapshot) => flockID = snapshot.id);
+    String flockID;
+    FirebaseFirestore.instance
+        .collection('Farmers')
+        .doc(uid)
+        .collection('flock')
+        .doc()
+        .get()
+        .then((DocumentSnapshot snapshot) => flockID = snapshot.id);
 
     DocumentReference<Map<String, dynamic>> documentReference =
         FirebaseFirestore.instance
@@ -329,9 +329,9 @@ void insertData(DatabaseReference databaseRef, String uid) {
     'Morning Feed Time': "00:00:00",
     'Evening Feed Time': "00:00:00",
     'Night Feed Time': "00:00:00",
-    'Morning Feed Amount': 0,
-    'Evening Feed Amount': 0,
-    'Night Feed Amount': 0,
+    'Morning Feed Amount': 0.0,
+    'Evening Feed Amount': 0.0,
+    'Night Feed Amount': 0.0,
   });
 }
 
