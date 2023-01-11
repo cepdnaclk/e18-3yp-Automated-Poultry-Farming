@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:home_login/constants.dart';
@@ -37,6 +38,8 @@ class AddAutomatedFeed extends StatefulWidget {
 }
 
 class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
+  // ignore: deprecated_member_use
+  final databaseRef = FirebaseDatabase.instance.reference();
   List<strainList.PoultryData> weightDataStrain = [];
   List<strainList.PoultryData> feedtDataStrain = [];
 
@@ -1020,6 +1023,15 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
 
         if (!snapshot.exists) {
           //print("done 1 befre");
+          //print("Flock1: " + id);
+          updatefeeddataRealtimeData(
+              id,
+              MorTime,
+              EveTime,
+              NitTime,
+              int.parse(MorFeedAmnt),
+              int.parse(EveFeedAmnt),
+              int.parse(NitFeedAmnt));
 
           documentReference.set({
             'Morning': "${MorTime}-${MorFeedAmnt}",
@@ -1031,6 +1043,15 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
           //return true;
         } else {
           try {
+            updatefeeddataRealtimeData(
+                id,
+                MorTime,
+                EveTime,
+                NitTime,
+                int.parse(MorFeedAmnt),
+                int.parse(EveFeedAmnt),
+                int.parse(NitFeedAmnt));
+            //print("Flock2: " + id);
             //num newAmount = snapshot.data()!['Amount'] + value;
             //current = snapshot.data()!['Average_Weight'];
             transaction.update(documentReference, {
@@ -1090,6 +1111,26 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
     } catch (e) {
       //
     }
+  }
+
+//function to update feed time & data in realtime database when data added
+  void updatefeeddataRealtimeData(
+    String id,
+    String mTime,
+    String eTime,
+    String nTime,
+    int mAmt,
+    int eAmt,
+    int nAmt,
+  ) {
+    databaseRef.child("Flock").child(id).update({
+      'Morning Feed Time': mTime,
+      'Evening Feed Time': eTime,
+      'Night Feed Time': nTime,
+      'Morning Feed Amount': mAmt,
+      'Evening Feed Amount': eAmt,
+      'Night Feed Amount': nAmt,
+    });
   }
 }
 

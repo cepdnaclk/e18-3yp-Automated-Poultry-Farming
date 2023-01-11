@@ -198,13 +198,13 @@ class _BranchRegScreenState extends State<FlockRegScreen> {
                             },
                             style: ElevatedButton.styleFrom(
                               fixedSize: const Size(180, 50),
+                              backgroundColor: mBackgroundColor,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30.0),
                                   side: BorderSide(
                                     width: 2.0,
                                     color: mPrimaryColor,
                                   )),
-                              primary: mBackgroundColor,
                               elevation: 20,
                               shadowColor: Colors.transparent,
                               textStyle: TextStyle(
@@ -273,13 +273,13 @@ class _BranchRegScreenState extends State<FlockRegScreen> {
                             },
                             style: ElevatedButton.styleFrom(
                               fixedSize: const Size(180, 50),
+                              backgroundColor: mBackgroundColor,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30.0),
                                   side: BorderSide(
                                     width: 2.0,
                                     color: mPrimaryColor,
                                   )),
-                              primary: mBackgroundColor,
                               elevation: 20,
                               shadowColor: Colors.transparent,
                               textStyle: TextStyle(
@@ -304,8 +304,9 @@ class _BranchRegScreenState extends State<FlockRegScreen> {
                         BoxDecoration(borderRadius: BorderRadius.circular(90)),
                     child: ElevatedButton(
                       onPressed: () async {
-                        insertData();
+                        //insertData();
                         await addFlock(
+                            databaseRef,
                             _branchNameController.text,
                             shedID,
                             branchID,
@@ -354,13 +355,13 @@ class _BranchRegScreenState extends State<FlockRegScreen> {
     );
   }
 
-  void insertData() {
-    databaseRef.child("Flock").set({
-      //'id': keyID,
-      'Feed Tank Alert': 0,
-      'Feed Tank Capacity': 0,
-      'Water Tank Alert': 0,
-      'Water Tank Capacity': 0,
-    });
-  }
+  // void insertData() {
+  //   databaseRef.child("Flock").set({
+  //     //'id': keyID,
+  //     'Feed Tank Alert': 0,
+  //     'Feed Tank Capacity': 0,
+  //     'Water Tank Alert': 0,
+  //     'Water Tank Capacity': 0,
+  //   });
+  // }
 }

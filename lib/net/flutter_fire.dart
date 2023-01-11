@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 //database functions for farms registration
@@ -236,8 +237,11 @@ Future<bool> removeShed(String id) async {
   }
 }
 
+// ignore: deprecated_member_use
+//final databaseRef = FirebaseDatabase.instance.reference();
 //database functions for sheds
 Future<bool> addFlock(
+    DatabaseReference databaseRef,
     String flockName,
     String shedID,
     String branchID,
@@ -249,6 +253,14 @@ Future<bool> addFlock(
     String bDay) async {
   try {
     String uid = FirebaseAuth.instance.currentUser!.uid;
+    // String flockID;
+    // FirebaseFirestore.instance
+    //     .collection('Farmers')
+    //     .doc(uid)
+    //     .collection('flock')
+    //     .doc()
+    //     .get()
+    //     .then((DocumentSnapshot snapshot) => flockID = snapshot.id);
 
     DocumentReference<Map<String, dynamic>> documentReference =
         FirebaseFirestore.instance
@@ -295,7 +307,9 @@ Future<bool> addFlock(
           'Feed Tank Capacity': 0,
           'Water Tank Alert': 0,
           'Water Tank Capacity': 0,
+          //'flockID': snapshot.id,
         });
+        insertData(databaseRef, snapshot.id);
         return true;
       }
     });
@@ -303,6 +317,22 @@ Future<bool> addFlock(
   } catch (e) {
     return false;
   }
+}
+
+void insertData(DatabaseReference databaseRef, String uid) {
+  databaseRef.child("Flock").child(uid).set({
+    //'id': keyID,
+    'Feed Tank Alert': 100,
+    'Feed Tank Capacity': 0,
+    'Water Tank Alert': 0,
+    'Water Tank Capacity': 0,
+    'Morning Feed Time': "00:00:00",
+    'Evening Feed Time': "00:00:00",
+    'Night Feed Time': "00:00:00",
+    'Morning Feed Amount': 0.0,
+    'Evening Feed Amount': 0.0,
+    'Night Feed Amount': 0.0,
+  });
 }
 
 Future<bool> updateFlockName(
