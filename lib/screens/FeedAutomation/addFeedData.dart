@@ -1025,6 +1025,7 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
           //print("done 1 befre");
           //print("Flock1: " + id);
           updatefeeddataRealtimeData(
+              date,
               id,
               MorTime,
               EveTime,
@@ -1044,6 +1045,7 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
         } else {
           try {
             updatefeeddataRealtimeData(
+                date,
                 id,
                 MorTime,
                 EveTime,
@@ -1115,6 +1117,7 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
 
 //function to update feed time & data in realtime database when data added
   void updatefeeddataRealtimeData(
+    String date,
     String id,
     String mTime,
     String eTime,
@@ -1130,6 +1133,7 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
       'Morning Feed Amount': mAmt,
       'Evening Feed Amount': eAmt,
       'Night Feed Amount': nAmt,
+      'Last Modified Date': date,
     });
   }
 }
