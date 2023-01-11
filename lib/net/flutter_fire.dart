@@ -253,14 +253,14 @@ Future<bool> addFlock(
     String bDay) async {
   try {
     String uid = FirebaseAuth.instance.currentUser!.uid;
-    String flockID;
-    FirebaseFirestore.instance
-        .collection('Farmers')
-        .doc(uid)
-        .collection('flock')
-        .doc()
-        .get()
-        .then((DocumentSnapshot snapshot) => flockID = snapshot.id);
+    // String flockID;
+    // FirebaseFirestore.instance
+    //     .collection('Farmers')
+    //     .doc(uid)
+    //     .collection('flock')
+    //     .doc()
+    //     .get()
+    //     .then((DocumentSnapshot snapshot) => flockID = snapshot.id);
 
     DocumentReference<Map<String, dynamic>> documentReference =
         FirebaseFirestore.instance
