@@ -1130,9 +1130,15 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
     int nAmt,
   ) {
     databaseRef.child(uid).child(id).update({
-      'Morning Feed Time': mTime,
-      'Evening Feed Time': eTime,
-      'Night Feed Time': nTime,
+      // 'Morning Feed Time': mTime,
+      // 'Evening Feed Time': eTime,
+      // 'Night Feed Time': nTime,
+      'Morning Feed Time HH': int.parse(mTime.toString().substring(0, 2)),
+      'Morning Feed Time MM': int.parse(mTime.toString().substring(3, 5)),
+      'Evening Feed Time HH': int.parse(eTime.toString().substring(0, 2)),
+      'Evening Feed Time MM': int.parse(eTime.toString().substring(3, 5)),
+      'Night Feed Time HH': int.parse(nTime.toString().substring(0, 2)),
+      'Night Feed Time MM': int.parse(nTime.toString().substring(3, 5)),
       'Morning Feed Amount': mAmt,
       'Evening Feed Amount': eAmt,
       'Night Feed Amount': nAmt,

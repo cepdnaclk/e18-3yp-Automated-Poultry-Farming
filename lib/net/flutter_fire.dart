@@ -307,6 +307,8 @@ Future<bool> addFlock(
           'Feed Tank Capacity': 0,
           'Water Tank Alert': 0,
           'Water Tank Capacity': 0,
+          'Current Water Level': 0.0,
+          'Current Feed Level': 0.0,
           //'flockID': snapshot.id,
         });
         insertData(databaseRef, snapshot.id, uid);
@@ -326,12 +328,17 @@ void insertData(DatabaseReference databaseRef, String id, String uid) {
     'Feed Tank Capacity': 0,
     'Water Tank Alert': 0,
     'Water Tank Capacity': 0,
-    'Morning Feed Time': "00:00:00",
-    'Evening Feed Time': "00:00:00",
-    'Night Feed Time': "00:00:00",
+    'Morning Feed Time HH': 00,
+    'Morning Feed Time MM': 00,
+    'Evening Feed Time HH': 00,
+    'Evening Feed Time MM': 00,
+    'Night Feed Time HH': 00,
+    'Night Feed Time MM': 00,
     'Morning Feed Amount': 0.0,
     'Evening Feed Amount': 0.0,
     'Night Feed Amount': 0.0,
+    'Current Water Level': 0.0,
+    'Current Feed Level': 0.0,
   });
 }
 
