@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:home_login/constants.dart';
@@ -39,6 +40,8 @@ class AddAlertData extends StatefulWidget {
 class _AddAlertDataState extends State<AddAlertData> {
   List<strainList.PoultryData> weightDataStrain = [];
   List<strainList.PoultryData> feedtDataStrain = [];
+  // ignore: deprecated_member_use
+  final databaseRef = FirebaseDatabase.instance.reference();
 
   //To get the device token
   String? mtoken = "";
@@ -656,18 +659,44 @@ class _AddAlertDataState extends State<AddAlertData> {
           documentReference2.update({'Feed Tank Alert': valueFeedAlert});
           documentReference2.update({'Water Tank Capacity': valueWaterCap});
           documentReference2.update({'Water Tank Alert': valueWaterAlert});
+          updateAlertdataRealtime(
+              databaseRef,
+              FirebaseAuth.instance.currentUser!.uid,
+              snapshot2.id,
+              valueFeedCap,
+              valueFeedAlert,
+              valueWaterCap,
+              valueWaterAlert);
         } else {
           try {
             documentReference2.update({'Feed Tank Capacity': valueFeedCap});
             documentReference2.update({'Feed Tank Alert': valueFeedAlert});
             documentReference2.update({'Water Tank Capacity': valueWaterCap});
             documentReference2.update({'Water Tank Alert': valueWaterAlert});
+            updateAlertdataRealtime(
+                databaseRef,
+                FirebaseAuth.instance.currentUser!.uid,
+                snapshot2.id,
+                valueFeedCap,
+                valueFeedAlert,
+                valueWaterCap,
+                valueWaterAlert);
           } catch (e) {}
         }
       });
     } catch (e) {
       //
     }
+  }
+
+  void updateAlertdataRealtime(DatabaseReference databaseRef, String uid,
+      String id, num feedCap, num feedAlert, num waterCap, num waterAlert) {
+    databaseRef.child(uid).child(id).update({
+      'Feed Tank Capacity': feedCap,
+      'Feed Tank Alert': feedAlert,
+      'Water Tank Capacity': waterCap,
+      'Water Tank Alert': waterAlert,
+    });
   }
 }
 
