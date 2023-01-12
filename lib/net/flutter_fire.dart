@@ -309,7 +309,7 @@ Future<bool> addFlock(
           'Water Tank Capacity': 0,
           //'flockID': snapshot.id,
         });
-        insertData(databaseRef, snapshot.id);
+        insertData(databaseRef, snapshot.id, uid);
         return true;
       }
     });
@@ -319,8 +319,8 @@ Future<bool> addFlock(
   }
 }
 
-void insertData(DatabaseReference databaseRef, String uid) {
-  databaseRef.child("Flock").child(uid).set({
+void insertData(DatabaseReference databaseRef, String id, String uid) {
+  databaseRef.child(uid).child(id).set({
     //'id': keyID,
     'Feed Tank Alert': 100,
     'Feed Tank Capacity': 0,
