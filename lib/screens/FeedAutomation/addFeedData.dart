@@ -1025,6 +1025,7 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
           //print("done 1 befre");
           //print("Flock1: " + id);
           updatefeeddataRealtimeData(
+              FirebaseAuth.instance.currentUser!.uid,
               date,
               id,
               MorTime,
@@ -1045,6 +1046,7 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
         } else {
           try {
             updatefeeddataRealtimeData(
+                FirebaseAuth.instance.currentUser!.uid,
                 date,
                 id,
                 MorTime,
@@ -1117,6 +1119,7 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
 
 //function to update feed time & data in realtime database when data added
   void updatefeeddataRealtimeData(
+    String uid,
     String date,
     String id,
     String mTime,
@@ -1126,7 +1129,7 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
     int eAmt,
     int nAmt,
   ) {
-    databaseRef.child("Flock").child(id).update({
+    databaseRef.child(uid).child(id).update({
       'Morning Feed Time': mTime,
       'Evening Feed Time': eTime,
       'Night Feed Time': nTime,
