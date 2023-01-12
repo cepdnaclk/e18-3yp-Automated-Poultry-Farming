@@ -881,6 +881,7 @@ class _UpdateAutomatedFeedState extends State<UpdateAutomatedFeed> {
         if (!snapshot.exists) {
           //print("done 1 befre");
           updatefeeddataRealtimeData(
+              FirebaseAuth.instance.currentUser!.uid,
               id,
               MorTime,
               EveTime,
@@ -900,6 +901,7 @@ class _UpdateAutomatedFeedState extends State<UpdateAutomatedFeed> {
         } else {
           try {
             updatefeeddataRealtimeData(
+                FirebaseAuth.instance.currentUser!.uid,
                 id,
                 MorTime,
                 EveTime,
@@ -946,6 +948,7 @@ class _UpdateAutomatedFeedState extends State<UpdateAutomatedFeed> {
   }
 
   void updatefeeddataRealtimeData(
+    String uid,
     String id,
     String mTime,
     String eTime,
@@ -954,7 +957,7 @@ class _UpdateAutomatedFeedState extends State<UpdateAutomatedFeed> {
     int eAmt,
     int nAmt,
   ) {
-    databaseRef.child("Flock").child(id).update({
+    databaseRef.child(uid).child(id).update({
       'Morning Feed Time': mTime,
       'Evening Feed Time': eTime,
       'Night Feed Time': nTime,
