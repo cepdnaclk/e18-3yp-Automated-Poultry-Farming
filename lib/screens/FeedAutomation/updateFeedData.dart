@@ -881,6 +881,7 @@ class _UpdateAutomatedFeedState extends State<UpdateAutomatedFeed> {
         if (!snapshot.exists) {
           //print("done 1 befre");
           updatefeeddataRealtimeData(
+              FirebaseAuth.instance.currentUser!.uid,
               id,
               MorTime,
               EveTime,
@@ -900,6 +901,7 @@ class _UpdateAutomatedFeedState extends State<UpdateAutomatedFeed> {
         } else {
           try {
             updatefeeddataRealtimeData(
+                FirebaseAuth.instance.currentUser!.uid,
                 id,
                 MorTime,
                 EveTime,
@@ -946,6 +948,7 @@ class _UpdateAutomatedFeedState extends State<UpdateAutomatedFeed> {
   }
 
   void updatefeeddataRealtimeData(
+    String uid,
     String id,
     String mTime,
     String eTime,
@@ -954,10 +957,16 @@ class _UpdateAutomatedFeedState extends State<UpdateAutomatedFeed> {
     int eAmt,
     int nAmt,
   ) {
-    databaseRef.child("Flock").child(id).update({
-      'Morning Feed Time': mTime,
-      'Evening Feed Time': eTime,
-      'Night Feed Time': nTime,
+    databaseRef.child(uid).child(id).update({
+      // 'Morning Feed Time': mTime,
+      // 'Evening Feed Time': eTime,
+      // 'Night Feed Time': nTime,
+      'Morning Feed Time HH': int.parse(mTime.toString().substring(0, 2)),
+      'Morning Feed Time MM': int.parse(mTime.toString().substring(3, 5)),
+      'Evening Feed Time HH': int.parse(eTime.toString().substring(0, 2)),
+      'Evening Feed Time MM': int.parse(eTime.toString().substring(3, 5)),
+      'Night Feed Time HH': int.parse(nTime.toString().substring(0, 2)),
+      'Night Feed Time MM': int.parse(nTime.toString().substring(3, 5)),
       'Morning Feed Amount': mAmt,
       'Evening Feed Amount': eAmt,
       'Night Feed Amount': nAmt,
