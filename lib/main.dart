@@ -28,8 +28,18 @@ Future<void> _firebaseMessagingBackgroundhandler(RemoteMessage message) async {
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  FirebaseMessaging.instance.getToken().then((value) {
+    print("getToken: $value");
+  });
+
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
+    print("onMessageopenedApp: $message");
+  });
+
   await FirebaseMessaging.instance.getInitialMessage();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundhandler);
+
   runApp(const MyApp());
 }
 
@@ -54,7 +64,8 @@ class MyApp extends StatelessWidget {
             GridDashboard.routeMortal: (context) => const MortalityScreen(),
             GridDashboard.routeWeight: (context) => const BodyWeight(),
             GridDashboard.routeView: (context) => ViewScreen(),
-            GridDashboard.routeAddData: (context) => const AutomationSelection(),
+            GridDashboard.routeAddData: (context) =>
+                const AutomationSelection(),
             //'/view': (context) => const ViewScreen(),
             '/eggs': (context) => const EggScreen(),
           },
