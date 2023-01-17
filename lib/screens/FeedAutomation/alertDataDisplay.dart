@@ -114,7 +114,8 @@ class _TankAlertPageState extends State<TankAlertPage> {
                       children: [
                         Container(
                           child: LiquidCustomProgressIndicator(
-                            value: feed / widget.feed_capacity,
+                            value: int.parse(CurrentFeedLevel) /
+                                widget.feed_capacity,
                             valueColor:
                                 AlwaysStoppedAnimation(mPrimaryTextColor),
                             backgroundColor: Colors.grey,
@@ -174,7 +175,7 @@ class _TankAlertPageState extends State<TankAlertPage> {
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               child: Text(
-                                widget.feed_alert.toString() + " kg",
+                                widget.feed_alert.toString() + " cm",
                                 style: TextStyle(
                                     color: mNewColor,
                                     fontSize: 18,
@@ -195,7 +196,7 @@ class _TankAlertPageState extends State<TankAlertPage> {
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               child: Text(
-                                widget.feed_capacity.toString() + " kg",
+                                widget.feed_capacity.toString() + " cm",
                                 style: TextStyle(
                                     color: mNewColor,
                                     fontSize: 18,
@@ -216,7 +217,7 @@ class _TankAlertPageState extends State<TankAlertPage> {
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               child: Text(
-                                CurrentFeedLevel + " kg",
+                                CurrentFeedLevel + " cm",
                                 style: TextStyle(
                                     color: mNewColor,
                                     fontSize: 18,
@@ -246,7 +247,8 @@ class _TankAlertPageState extends State<TankAlertPage> {
                           children: [
                             Container(
                               child: LiquidCustomProgressIndicator(
-                                value: current_water / widget.water_capacity,
+                                value: int.parse(CurrentWaterLevel) /
+                                    widget.water_capacity,
                                 valueColor:
                                     AlwaysStoppedAnimation(Colors.cyan[100]!),
                                 backgroundColor: Colors.grey,
@@ -306,7 +308,7 @@ class _TankAlertPageState extends State<TankAlertPage> {
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   child: Text(
-                                    widget.water_alert.toString() + " l",
+                                    widget.water_alert.toString() + " cm",
                                     style: TextStyle(
                                         color: mNewColor,
                                         fontSize: 18,
@@ -327,7 +329,7 @@ class _TankAlertPageState extends State<TankAlertPage> {
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   child: Text(
-                                    widget.water_capacity.toString() + " l",
+                                    widget.water_capacity.toString() + " cm",
                                     style: TextStyle(
                                         color: mNewColor,
                                         fontSize: 18,
@@ -348,7 +350,7 @@ class _TankAlertPageState extends State<TankAlertPage> {
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   child: Text(
-                                    CurrentWaterLevel + " l",
+                                    CurrentWaterLevel + " cm",
                                     style: TextStyle(
                                         color: mNewColor,
                                         fontSize: 18,
