@@ -114,7 +114,8 @@ class _TankAlertPageState extends State<TankAlertPage> {
                       children: [
                         Container(
                           child: LiquidCustomProgressIndicator(
-                            value: int.parse(CurrentFeedLevel) /
+                            value: (widget.feed_capacity -
+                                    int.parse(CurrentFeedLevel)) /
                                 widget.feed_capacity,
                             valueColor:
                                 AlwaysStoppedAnimation(mPrimaryTextColor),
@@ -247,7 +248,8 @@ class _TankAlertPageState extends State<TankAlertPage> {
                           children: [
                             Container(
                               child: LiquidCustomProgressIndicator(
-                                value: int.parse(CurrentWaterLevel) /
+                                value: (widget.water_capacity -
+                                        int.parse(CurrentWaterLevel)) /
                                     widget.water_capacity,
                                 valueColor:
                                     AlwaysStoppedAnimation(Colors.cyan[100]!),
