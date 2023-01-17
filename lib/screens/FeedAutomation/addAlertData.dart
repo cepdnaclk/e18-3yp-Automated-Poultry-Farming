@@ -530,8 +530,8 @@ class _AddAlertDataState extends State<AddAlertData> {
                     const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
                 //child: reuseTextField1("Number of chicks"),
 
-                child: reusableTextField2("Feed Tank Capacity (kg)",
-                    Icons.numbers, false, _controllerFeedCap, null, "kg"),
+                child: reusableTextField2("Feed Tank Capacity (cm)",
+                    Icons.numbers, false, _controllerFeedCap, null, "cm"),
               ),
 
               Padding(
@@ -539,8 +539,8 @@ class _AddAlertDataState extends State<AddAlertData> {
                     const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
                 //child: reuseTextField1("Number of chicks"),
 
-                child: reusableTextField2("Alert Volume (kg)", Icons.numbers,
-                    false, _controllerFeedAlertVol, null, "kg"),
+                child: reusableTextField2("Alert Volume (cm)", Icons.numbers,
+                    false, _controllerFeedAlertVol, null, "cm"),
               ),
 
               SizedBox(
@@ -561,8 +561,8 @@ class _AddAlertDataState extends State<AddAlertData> {
                     const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
                 //child: reuseTextField1("Number of chicks"),
 
-                child: reusableTextField2("Water Tank Capacity (l)",
-                    Icons.numbers, false, _controllerWaterCap, null, "l"),
+                child: reusableTextField2("Water Tank Capacity (cm)",
+                    Icons.numbers, false, _controllerWaterCap, null, "cm"),
               ),
 
               Padding(
@@ -570,8 +570,8 @@ class _AddAlertDataState extends State<AddAlertData> {
                     const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
                 //child: reuseTextField1("Number of chicks"),
 
-                child: reusableTextField2("Alert Volume (l)", Icons.numbers,
-                    false, _controllerWaterAlertVol, null, "l"),
+                child: reusableTextField2("Alert Volume (cm)", Icons.numbers,
+                    false, _controllerWaterAlertVol, null, "cm"),
               ),
 
               SizedBox(
