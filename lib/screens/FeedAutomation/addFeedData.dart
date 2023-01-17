@@ -864,6 +864,8 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
                         titleForFeed);
 
                     addData(
+                        mortal,
+                        startCount,
                         widget.id_flock,
                         date.toString().substring(0, 10),
                         timeinMor.text,
@@ -996,6 +998,8 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
   }
 
   Future<void> addData(
+      int mortal,
+      int startcount,
       String id,
       String date,
       String MorTime,
@@ -1025,6 +1029,8 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
           //print("done 1 befre");
           //print("Flock1: " + id);
           updatefeeddataRealtimeData(
+              mortal,
+              startcount,
               FirebaseAuth.instance.currentUser!.uid,
               date,
               id,
@@ -1046,6 +1052,8 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
         } else {
           try {
             updatefeeddataRealtimeData(
+                mortal,
+                startcount,
                 FirebaseAuth.instance.currentUser!.uid,
                 date,
                 id,
@@ -1119,6 +1127,8 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
 
 //function to update feed time & data in realtime database when data added
   void updatefeeddataRealtimeData(
+    int mortal,
+    int startcount,
     String uid,
     String date,
     String id,
@@ -1139,9 +1149,9 @@ class _AddAutomatedFeedState extends State<AddAutomatedFeed> {
       'Evening Feed Time MM': int.parse(eTime.toString().substring(3, 5)),
       'Night Time': int.parse(nTime.toString().substring(0, 2)),
       'Night Feed Time MM': int.parse(nTime.toString().substring(3, 5)),
-      'Morning Feed Amount': mAmt,
-      'Evening Feed Amount': eAmt,
-      'Night Feed Amount': nAmt,
+      'Morning Feed Amount': (mAmt * (startcount - mortal) / 2),
+      'Evening Feed Amount': (eAmt * (startcount - mortal) / 2),
+      'Night Feed Amount': (nAmt * (startcount - mortal) / 2),
       'Last Modified Date': date,
     });
   }
