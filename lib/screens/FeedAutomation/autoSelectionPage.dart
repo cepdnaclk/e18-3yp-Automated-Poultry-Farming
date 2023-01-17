@@ -262,6 +262,7 @@ class _AutomationSelectionState extends State<AutomationSelection>
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => TankAlertPage(
+                                          flockID: args.flockID,
                                           feed_capacity: feedCap,
                                           feed_alert: feedAlert,
                                           water_capacity: waterCap,
