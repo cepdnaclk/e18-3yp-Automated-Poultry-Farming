@@ -29,14 +29,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  FirebaseMessaging.instance.getToken().then((value) {
-    print("getToken: $value");
-  });
-
-  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
-    print("onMessageopenedApp: $message");
-  });
-
   await FirebaseMessaging.instance.getInitialMessage();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundhandler);
 
