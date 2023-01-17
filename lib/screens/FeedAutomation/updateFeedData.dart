@@ -34,6 +34,8 @@ class _UpdateAutomatedFeedState extends State<UpdateAutomatedFeed> {
   String selectedDate = "";
   num recordedWeight = 0;
   num recMfeed = 0, recEfeed = 0, recNfeed = 0;
+  int mortal = 0, startCount = 0;
+  String totalChick = '';
 
   //DateTime date =
   //DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
@@ -113,6 +115,25 @@ class _UpdateAutomatedFeedState extends State<UpdateAutomatedFeed> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _widget,
+              StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('Farmers')
+                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                      .collection('flock')
+                      .where(FieldPath.documentId, isEqualTo: widget.id_flock)
+                      .snapshots(), // your stream url,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      //return CircularProgressIndicator();
+                    } else {
+                      //print(snapshot.toString());
+                      mortal = snapshot.data?.docs[0]['Mortal'];
+                      totalChick = snapshot.data?.docs[0]['count'];
+                      startCount = int.parse(totalChick);
+                    }
+                    return Container();
+                  }),
               StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection("Farmers")
@@ -808,6 +829,8 @@ class _UpdateAutomatedFeedState extends State<UpdateAutomatedFeed> {
                     // print(_numcontroller.text);
                     // print(date);
                     await updateData(
+                        mortal,
+                        startCount,
                         widget.id_flock,
                         selectedDate.toString().substring(0, 10),
                         timeinMor.text,
@@ -853,6 +876,8 @@ class _UpdateAutomatedFeedState extends State<UpdateAutomatedFeed> {
   }
 
   Future<void> updateData(
+      int mortal,
+      int startcount,
       String id,
       String date,
       String MorTime,
@@ -881,8 +906,11 @@ class _UpdateAutomatedFeedState extends State<UpdateAutomatedFeed> {
         if (!snapshot.exists) {
           //print("done 1 befre");
           updatefeeddataRealtimeData(
+              mortal,
+              startcount,
               FirebaseAuth.instance.currentUser!.uid,
               id,
+              date,
               MorTime,
               EveTime,
               NitTime,
@@ -901,8 +929,11 @@ class _UpdateAutomatedFeedState extends State<UpdateAutomatedFeed> {
         } else {
           try {
             updatefeeddataRealtimeData(
+                mortal,
+                startcount,
                 FirebaseAuth.instance.currentUser!.uid,
                 id,
+                date,
                 MorTime,
                 EveTime,
                 NitTime,
@@ -948,8 +979,11 @@ class _UpdateAutomatedFeedState extends State<UpdateAutomatedFeed> {
   }
 
   void updatefeeddataRealtimeData(
+    int mortal,
+    int startcount,
     String uid,
     String id,
+    String date,
     String mTime,
     String eTime,
     String nTime,
@@ -961,15 +995,16 @@ class _UpdateAutomatedFeedState extends State<UpdateAutomatedFeed> {
       // 'Morning Feed Time': mTime,
       // 'Evening Feed Time': eTime,
       // 'Night Feed Time': nTime,
-      'Morning Feed Time HH': int.parse(mTime.toString().substring(0, 2)),
+      'Morning Time': int.parse(mTime.toString().substring(0, 2)),
       'Morning Feed Time MM': int.parse(mTime.toString().substring(3, 5)),
-      'Evening Feed Time HH': int.parse(eTime.toString().substring(0, 2)),
+      'Evening Time': int.parse(eTime.toString().substring(0, 2)),
       'Evening Feed Time MM': int.parse(eTime.toString().substring(3, 5)),
-      'Night Feed Time HH': int.parse(nTime.toString().substring(0, 2)),
+      'Night Time': int.parse(nTime.toString().substring(0, 2)),
       'Night Feed Time MM': int.parse(nTime.toString().substring(3, 5)),
-      'Morning Feed Amount': mAmt,
-      'Evening Feed Amount': eAmt,
-      'Night Feed Amount': nAmt,
+      'Morning Feed Amount': (mAmt * (startcount - mortal) / 2),
+      'Evening Feed Amount': (eAmt * (startcount - mortal) / 2),
+      'Night Feed Amount': (nAmt * (startcount - mortal) / 2),
+      'Last Modified Date': date,
     });
   }
 }
