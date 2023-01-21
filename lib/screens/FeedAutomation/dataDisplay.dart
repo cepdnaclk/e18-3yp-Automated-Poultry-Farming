@@ -432,7 +432,7 @@ class _DataDisplayPageState extends State<DataDisplayPage> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             child: Text(
-                              "1000 kg",
+                              "5 kg",
                               style:
                                   TextStyle(fontSize: 16, color: mPrimaryColor),
                             ),
@@ -459,7 +459,7 @@ class _DataDisplayPageState extends State<DataDisplayPage> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             child: Text(
-                              "300 l",
+                              "5 l",
                               style:
                                   TextStyle(fontSize: 16, color: mPrimaryColor),
                             ),
