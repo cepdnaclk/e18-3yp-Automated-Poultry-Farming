@@ -19,16 +19,16 @@ int distance;
 /* 1. Define the WiFi credentials */
 #define echoPin 5 // attach pin D2 Arduino to pin Echo of HC-SR04
 #define trigPin 18 //attach pin D3 Arduino to pin Trig of HC-SR04
-#define WIFI_SSID "Dialog 4G 070"
-#define WIFI_PASSWORD "Ba8257e1"
+#define WIFI_SSID "*********"
+#define WIFI_PASSWORD "*********"
 
 //For the following credentials, see examples/Authentications/SignInAsUser/EmailPassword/EmailPassword.ino
 
 /* 2. Define the API Key */
-#define API_KEY "p0RUKS4zejKec5IrN8JiQhkal9S3FsMkDHZ4lDjY"
+#define API_KEY "*********************************"
 
 /* 3. Define the RTDB URL */
-#define DATABASE_URL "https://esp32fb-30519-default-rtdb.firebaseio.com/" //<databaseName>.firebaseio.com or <databaseName>.<region>.firebasedatabase.app
+#define DATABASE_URL "**********************************" //<databaseName>.firebaseio.com or <databaseName>.<region>.firebasedatabase.app
 
 
 //Define Firebase Data object
