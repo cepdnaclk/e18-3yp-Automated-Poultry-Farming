@@ -15,17 +15,16 @@
 #include <addons/RTDBHelper.h>
 
 
-#define WIFI_SSID "Eng-Student"
-#define WIFI_PASSWORD "3nG5tuDt"
-
-//#define WIFI_SSID "OPPO A5s"
-//#define WIFI_PASSWORD "aaaaaaaa"
+#define WIFI_SSID "*********"
+#define WIFI_PASSWORD "*********"
 
 
 
-#define API_KEY "AIzaSyDBNvWvJlpisHpQh5cP4nabQrQPB-U8K38"
+
+
+#define API_KEY "***************"
 /* 3. Define the RTDB URL */
-#define DATABASE_URL "https://poultry-feed-3yp-default-rtdb.firebaseio.com/" //<databaseName>.firebaseio.com or <databaseName>.<region>.firebasedatabase.app
+#define DATABASE_URL "*************************" //<databaseName>.firebaseio.com or <databaseName>.<region>.firebasedatabase.app
 
 
 //Define Firebase Data object
