@@ -7,8 +7,8 @@
 #include <NTPClient.h>
 #include <WiFiUdp.h>
 
-const char* ssid = "Galaxy A20s8733";
-const char* password = "aarah1112";
+const char* ssid = "***********";
+const char* password = "************";
 
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP);
